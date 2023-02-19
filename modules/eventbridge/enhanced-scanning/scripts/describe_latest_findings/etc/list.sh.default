@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+echo api-${1}-ecr-web
+echo api-${1}-ecr-api

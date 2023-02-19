@@ -1,0 +1,4 @@
+etc/env.sh
+
+log/*
+!log/.keep
