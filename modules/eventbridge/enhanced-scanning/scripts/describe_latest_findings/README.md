@@ -2,7 +2,7 @@
 
 ## 概要
 
-ECR の 脆弱性検知結果を出力するスクリプトとか
+ECR リポジトリに格納された最新イメージの脆弱性検知結果を出力するスクリプト等々
 
 ## Usage
 
@@ -27,10 +27,12 @@ export AWS_SECRET_ACCESS_KEY= ← シークレットキー
 ```
 vi ./etc/list.sh
 ```
-※ 追加あれば ECR の名称を 1 行ずつ記述
+※ ECR リポジトリの名称を 1 行ずつ記述 ( スクリプト実行時の引数で一部置換可能 )
 
 ・実行
 
 ```
-./bin/main.sh {ENV}
+./bin/enhanced_findings.sh {ENV}
+./bin/finding_severity_counts.sh {ENV}
+./bin/inspector_severity_counts.sh {ENV}
 ```
