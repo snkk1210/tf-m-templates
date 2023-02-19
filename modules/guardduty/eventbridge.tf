@@ -8,9 +8,8 @@ resource "aws_cloudwatch_event_rule" "guardduty_finding_event_rule" {
   description = "${var.common.project}-${var.common.environment}-guardduty-finding-event-rule"
 
   /** 
-  # TODO: 記述方法については要検討
   # https://docs.aws.amazon.com/ja_jp/guardduty/latest/ug/guardduty_findings_cloudwatch.html
-  # https://dev.classmethod.jp/articles/guardduty-event-filter/ ← 一旦採用
+  # https://dev.classmethod.jp/articles/guardduty-event-filter/
   */
   event_pattern = <<EOF
 {
