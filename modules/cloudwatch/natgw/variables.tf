@@ -19,7 +19,7 @@ variable "natgw_instance_alarm" {
     natgw_instance_name = string
     natgw_instance_id   = string
 
-    // NATGW CPUUtilization 
+    // NATGW ErrorPortAllocation
     natgw_errorportallocation_evaluation_periods = string
     natgw_errorportallocation_period             = string
     natgw_errorportallocation_statistic          = string
