@@ -18,3 +18,4 @@
 
 # Lambda binary
 **/lambda/bin/*
+!**/lambda/bin/.gitkeep
