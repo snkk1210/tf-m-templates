@@ -5,7 +5,7 @@
 // SES Reputation.BounceRate
 resource "aws_cloudwatch_metric_alarm" "ses_reputation_bouncerate" {
 
-  alarm_name          = "${var.common.project}-${var.common.environment}-ses-Reputation-BounceRate-alert"
+  alarm_name          = "${var.project}-${var.environment}-ses-Reputation-BounceRate-alert"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "Reputation.BounceRate"
@@ -13,7 +13,7 @@ resource "aws_cloudwatch_metric_alarm" "ses_reputation_bouncerate" {
   period              = "300"
   statistic           = "Average"
   threshold           = "0.05"
-  alarm_description   = "${var.common.project}-${var.common.environment}-ses-Reputation-BounceRate-alert"
+  alarm_description   = "${var.project}-${var.environment}-ses-Reputation-BounceRate-alert"
   treat_missing_data  = "notBreaching"
 
   alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
@@ -32,7 +32,7 @@ resource "aws_cloudwatch_metric_alarm" "ses_reputation_bouncerate" {
 // SES Reputation.ComplaintRate
 resource "aws_cloudwatch_metric_alarm" "ses_reputation_complaintrate" {
 
-  alarm_name          = "${var.common.project}-${var.common.environment}-ses-Reputation-ComplaintRate-alert"
+  alarm_name          = "${var.project}-${var.environment}-ses-Reputation-ComplaintRate-alert"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "Reputation.ComplaintRate"
@@ -40,7 +40,7 @@ resource "aws_cloudwatch_metric_alarm" "ses_reputation_complaintrate" {
   period              = "300"
   statistic           = "Average"
   threshold           = "0.001"
-  alarm_description   = "${var.common.project}-${var.common.environment}-ses-Reputation-ComplaintRate-alert"
+  alarm_description   = "${var.project}-${var.environment}-ses-Reputation-ComplaintRate-alert"
   treat_missing_data  = "notBreaching"
 
   alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
