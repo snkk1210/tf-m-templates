@@ -1,13 +1,9 @@
-variable "common" {
-  type = object({
-    project     = string
-    environment = string
-  })
+variable "project" {
+  type = string
+}
 
-  default = {
-    environment = ""
-    project     = ""
-  }
+variable "environment" {
+  type = string
 }
 
 variable "cloudwatch_alarm_notify_sns_topic_arn" {
