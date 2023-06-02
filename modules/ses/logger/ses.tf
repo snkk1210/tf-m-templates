@@ -7,12 +7,14 @@ resource "aws_ses_event_destination" "logger" {
   configuration_set_name = aws_ses_configuration_set.logger.name
   enabled                = true
   matching_types = [
-    "bounce",
     "send",
     "reject",
+    "bounce",
     "complaint",
     "delivery",
-    "open"
+    "open",
+    "click",
+    "renderingFailure"
   ]
 
   kinesis_destination {
