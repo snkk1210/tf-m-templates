@@ -1,5 +1,9 @@
 # access_key_checker
 
+## Abstract
+
+作成日から N 日経過している AWS アクセスキーを検知して Slack に通知するスクリプト
+
 ## Installation
 
 ```
