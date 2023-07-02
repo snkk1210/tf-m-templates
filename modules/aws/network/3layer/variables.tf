@@ -25,3 +25,8 @@ variable "vpc" {
 variable "cidr_prefix" {
   default = ""
 }
+
+variable "enable_private" {
+  type    = bool
+  default = false
+}
