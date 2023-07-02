@@ -54,7 +54,7 @@ resource "aws_nat_gateway" "nat_gateway_1d" {
 
 resource "aws_subnet" "private_1a" {
   vpc_id                  = aws_vpc.common.id
-  cidr_block              = "${var.subnet_cidr_prefix}.12.0/22"
+  cidr_block              = "${var.cidr_prefix}.12.0/22"
   availability_zone       = "ap-northeast-1a"
   map_public_ip_on_launch = false
   tags = {
@@ -64,7 +64,7 @@ resource "aws_subnet" "private_1a" {
 
 resource "aws_subnet" "private_1c" {
   vpc_id                  = aws_vpc.common.id
-  cidr_block              = "${var.subnet_cidr_prefix}.16.0/22"
+  cidr_block              = "${var.cidr_prefix}.16.0/22"
   availability_zone       = "ap-northeast-1c"
   map_public_ip_on_launch = false
   tags = {
@@ -74,7 +74,7 @@ resource "aws_subnet" "private_1c" {
 
 resource "aws_subnet" "private_1d" {
   vpc_id                  = aws_vpc.common.id
-  cidr_block              = "${var.subnet_cidr_prefix}.20.0/22"
+  cidr_block              = "${var.cidr_prefix}.20.0/22"
   availability_zone       = "ap-northeast-1d"
   map_public_ip_on_launch = false
   tags = {

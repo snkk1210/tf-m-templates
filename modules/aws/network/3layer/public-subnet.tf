@@ -3,7 +3,7 @@
 */
 resource "aws_subnet" "public_1a" {
   vpc_id                  = aws_vpc.common.id
-  cidr_block              = "${var.subnet_cidr_prefix}.0.0/22"
+  cidr_block              = "${var.cidr_prefix}.0.0/22"
   map_public_ip_on_launch = true
   availability_zone       = "ap-northeast-1a"
   tags = {
@@ -13,7 +13,7 @@ resource "aws_subnet" "public_1a" {
 
 resource "aws_subnet" "public_1c" {
   vpc_id                  = aws_vpc.common.id
-  cidr_block              = "${var.subnet_cidr_prefix}.4.0/22"
+  cidr_block              = "${var.cidr_prefix}.4.0/22"
   map_public_ip_on_launch = true
   availability_zone       = "ap-northeast-1c"
   tags = {
@@ -23,7 +23,7 @@ resource "aws_subnet" "public_1c" {
 
 resource "aws_subnet" "public_1d" {
   vpc_id                  = aws_vpc.common.id
-  cidr_block              = "${var.subnet_cidr_prefix}.8.0/22"
+  cidr_block              = "${var.cidr_prefix}.8.0/22"
   map_public_ip_on_launch = true
   availability_zone       = "ap-northeast-1d"
   tags = {
