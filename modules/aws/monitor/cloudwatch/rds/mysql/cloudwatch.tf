@@ -11,7 +11,7 @@ resource "aws_cloudwatch_metric_alarm" "rds_cpuutilization" {
   evaluation_periods  = each.value.rds_cpuutilization_evaluation_periods
   metric_name         = "CPUUtilization"
   namespace           = "AWS/RDS"
-  period              = each.value.rds_cpuutilization_period 
+  period              = each.value.rds_cpuutilization_period
   statistic           = each.value.rds_cpuutilization_statistic
   threshold           = each.value.rds_cpuutilization_threshold
   alarm_description   = "${each.value.rds_name}-CPUUtilization"
