@@ -7,7 +7,7 @@ output "public_subnet_ids" {
 }
 
 output "private_subnet_ids" {
-  value = tolist([aws_subnet.private_1a.id, aws_subnet.private_1c.id, aws_subnet.private_1d.id])
+  value = tolist([aws_subnet.private_1a[*].id, aws_subnet.private_1c[*].id, aws_subnet.private_1d[*].id])
 }
 
 output "isolated_subnet_ids" {
