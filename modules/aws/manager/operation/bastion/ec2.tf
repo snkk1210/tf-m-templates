@@ -40,9 +40,7 @@ resource "aws_instance" "bastion" {
   }
 
   lifecycle {
-    ignore_changes = [
-      root_block_device,
-    ]
+    ignore_changes = all
   }
 
 }
