@@ -1,7 +1,7 @@
 /**
 # CloudWatch LogGroup For APIGateway
 */
-resource "aws_cloudwatch_log_group" "apigateway_api01" {
+resource "aws_cloudwatch_log_group" "apigateway_api" {
   name              = "/apigateway/${var.common.project}-${var.common.environment}-hello-agw"
   retention_in_days = 14
 
