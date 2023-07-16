@@ -2,7 +2,7 @@
 # IAM Role For Lambda
 */
 resource "aws_iam_role" "lambda_role" {
-  name        = "${var.common.project}-${var.common.environment}-helloworld-lambda-role"
+  name        = "${var.common.project}-${var.common.environment}-hello-lambda-role"
   description = "Created by Terraform"
 
   assume_role_policy = <<EOF

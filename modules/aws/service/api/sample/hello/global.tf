@@ -2,7 +2,7 @@
 # IAM Role For APIGateway Global
 */
 resource "aws_iam_role" "api_gateway_role" {
-  name               = "${var.common.project}-${var.common.environment}-helloworld-agw-role"
+  name               = "${var.common.project}-${var.common.environment}-hello-agw-role"
   description        = "Created by Terraform"
   assume_role_policy = data.aws_iam_policy_document.api_gateway_assume_role.json
 }

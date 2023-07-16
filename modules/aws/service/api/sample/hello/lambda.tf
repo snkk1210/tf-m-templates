@@ -9,7 +9,7 @@ data "archive_file" "api" {
 
 resource "aws_lambda_function" "api" {
   filename                       = data.archive_file.api.output_path
-  function_name                  = "${var.common.project}-${var.common.environment}-helloworld-function"
+  function_name                  = "${var.common.project}-${var.common.environment}-hello-function"
   description                    = "Created by Terraform"
   role                           = aws_iam_role.lambda_role.arn
   handler                        = "lambda-api.lambda_handler"
@@ -37,7 +37,7 @@ resource "aws_lambda_function" "api" {
   }
 
   tags = {
-    Name      = "${var.common.project}-${var.common.environment}-helloworld-function"
+    Name      = "${var.common.project}-${var.common.environment}-hello-function"
     Createdby = "Terraform"
   }
 

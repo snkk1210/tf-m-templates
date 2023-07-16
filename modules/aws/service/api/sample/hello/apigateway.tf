@@ -2,14 +2,14 @@
 # APIGateway
 */
 resource "aws_api_gateway_rest_api" "api" {
-  name        = "${var.common.project}-${var.common.environment}-helloworld-agw"
+  name        = "${var.common.project}-${var.common.environment}-hello-agw"
   description = "Created by Terraform"
 
   endpoint_configuration {
     types = ["REGIONAL"]
   }
   tags = {
-    Name      = "${var.common.project}-${var.common.environment}-helloworld-agw"
+    Name      = "${var.common.project}-${var.common.environment}-hello-agw"
     Createdby = "Terraform"
   }
 }
