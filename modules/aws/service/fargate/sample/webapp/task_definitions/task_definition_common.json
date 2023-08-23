@@ -1,0 +1,48 @@
+[
+    {
+      "name": "${project}-${service_name}-${environment}-web-container",
+      "image": "${web_repository_url}:latest",
+      "readonlyRootFilesystem": true,
+      "essential": true,
+      "environmentFiles": [
+
+      ],
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "networkMode": "awsvpc",
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/${environment}/${service_name}",
+          "awslogs-region": "${region}",
+          "awslogs-stream-prefix": "web"
+        }
+      }
+    },
+    {
+      "name": "${project}-${service_name}-${environment}-app-container",
+      "image": "${app_repository_url}:latest",
+      "readonlyRootFilesystem": false,
+      "secrets": [
+
+      ],
+      "essential": true,
+      "environmentFiles": [
+
+      ],
+      "networkMode": "awsvpc",
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/${environment}/${service_name}",
+          "awslogs-region": "${region}",
+          "awslogs-stream-prefix": "app"
+        }
+      }
+    }
+  ]
