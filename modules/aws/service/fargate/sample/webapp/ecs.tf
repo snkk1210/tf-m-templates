@@ -18,7 +18,6 @@ data "template_file" "task" {
 
     // web コンテナリポジトリ
     web_repository_url = aws_ecr_repository.web.repository_url
-    web_container_port = var.ecs_task_web.container_port
 
     // app コンテナリポジトリ
     app_repository_url = aws_ecr_repository.app.repository_url
