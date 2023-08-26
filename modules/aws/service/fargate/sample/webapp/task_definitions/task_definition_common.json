@@ -2,7 +2,7 @@
     {
       "name": "${project}-${service_name}-${environment}-web-container",
       "image": "${web_repository_url}:latest",
-      "readonlyRootFilesystem": true,
+      "readonlyRootFilesystem": false,
       "essential": true,
       "environmentFiles": [
 
