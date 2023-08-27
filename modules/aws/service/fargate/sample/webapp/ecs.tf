@@ -64,7 +64,7 @@ resource "aws_ecs_service" "main" {
 
   network_configuration {
     assign_public_ip = false
-    subnets          = var.subnet_ids
+    subnets          = var.ecs_subnet_ids
     security_groups  = ["${aws_security_group.ecs.id}"]
   }
 
@@ -75,7 +75,7 @@ resource "aws_ecs_service" "main" {
   load_balancer {
     target_group_arn = aws_lb_target_group.blue.arn
     container_name   = "${var.common.project}-${var.common.service_name}-${var.common.environment}-web-container"
-    container_port   = var.ecs_task_web.container_port
+    container_port   = 80
   }
 
   lifecycle {
