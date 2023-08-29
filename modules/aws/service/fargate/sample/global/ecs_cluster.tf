@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "cluster" {
-  name = "${var.common.project}-${var.common.service_name}-${var.common.environment}-cluster"
+  name = "${var.common.project}-${var.common.environment}-cluster"
 
   setting {
     name  = var.ecs_cluster.setting_name
@@ -7,7 +7,7 @@ resource "aws_ecs_cluster" "cluster" {
   }
 
   tags = {
-    Name      = "${var.common.project}-${var.common.service_name}-${var.common.environment}-cluster"
+    Name      = "${var.common.project}-${var.common.environment}-cluster"
     Createdby = "Terraform"
   }
 }

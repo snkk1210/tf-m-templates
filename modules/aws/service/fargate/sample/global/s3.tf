@@ -14,7 +14,7 @@ data "aws_iam_policy_document" "alblog" {
     ]
 
     resources = [
-      "arn:aws:s3:::${var.common.project}-${var.common.service_name}-${var.common.environment}-alblog-bucket/*",
+      "arn:aws:s3:::${var.common.project}-${var.common.environment}-alblog-bucket/*",
     ]
 
     principals {
@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "alblog" {
       "s3:PutObject",
     ]
     resources = [
-      "arn:aws:s3:::${var.common.project}-${var.common.service_name}-${var.common.environment}-alblog-bucket/*"
+      "arn:aws:s3:::${var.common.project}-${var.common.environment}-alblog-bucket/*"
     ]
     principals {
       type = "Service"
@@ -59,11 +59,11 @@ data "aws_iam_policy_document" "alblog" {
 }
 
 resource "aws_s3_bucket" "alblog" {
-  bucket        = "${var.common.project}-${var.common.service_name}-${var.common.environment}-alblog-bucket"
+  bucket        = "${var.common.project}-${var.common.environment}-alblog-bucket"
   force_destroy = true
 
   tags = {
-    Name      = "${var.common.project}-${var.common.service_name}-${var.common.environment}-alblog-bucket"
+    Name      = "${var.common.project}-${var.common.environment}-alblog-bucket"
     Createdby = "Terraform"
   }
 }
