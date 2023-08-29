@@ -159,11 +159,6 @@ variable "ecr_repository_app" {
   }
 }
 
-variable "ecr_lifecycle_policy_countNumber_app" {
-  type    = number
-  default = 15
-}
-
 variable "ecs_task" {
   type = object({
     cpu          = number
