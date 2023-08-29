@@ -133,30 +133,29 @@ variable "lb_listener_https" {
 
 variable "ecr_repository_web" {
   type = object({
-    image_tag_mutability = string
-    scan_on_push         = bool
+    image_tag_mutability          = string
+    scan_on_push                  = bool
+    lifecycle_policy_count_number = number
   })
 
   default = {
-    image_tag_mutability = ""
-    scan_on_push         = false
+    image_tag_mutability          = ""
+    scan_on_push                  = false
+    lifecycle_policy_count_number = 15
   }
-}
-
-variable "ecr_lifecycle_policy_countNumber_web" {
-  type    = number
-  default = 15
 }
 
 variable "ecr_repository_app" {
   type = object({
-    image_tag_mutability = string
-    scan_on_push         = bool
+    image_tag_mutability          = string
+    scan_on_push                  = bool
+    lifecycle_policy_count_number = number
   })
 
   default = {
-    image_tag_mutability = ""
-    scan_on_push         = false
+    image_tag_mutability          = ""
+    scan_on_push                  = false
+    lifecycle_policy_count_number = 15
   }
 }
 

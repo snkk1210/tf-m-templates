@@ -24,10 +24,10 @@ resource "aws_ecr_lifecycle_policy" "web_policy" {
           action = {
             type = "expire"
           }
-          description  = "最新の ${var.ecr_lifecycle_policy_countNumber_web} つを残してイメージを削除する"
+          description  = "最新の ${var.ecr_repository_web.lifecycle_policy_count_number} つを残してイメージを削除する"
           rulePriority = 1
           selection = {
-            countNumber = "${var.ecr_lifecycle_policy_countNumber_web}"
+            countNumber = "${var.ecr_repository_web.lifecycle_policy_count_number}"
             countType   = "imageCountMoreThan"
             tagStatus   = "any"
           }
@@ -60,10 +60,10 @@ resource "aws_ecr_lifecycle_policy" "app_policy" {
           action = {
             type = "expire"
           }
-          description  = "最新の ${var.ecr_lifecycle_policy_countNumber_app} つを残してイメージを削除する"
+          description  = "最新の ${var.ecr_repository_web.lifecycle_policy_count_number} つを残してイメージを削除する"
           rulePriority = 1
           selection = {
-            countNumber = "${var.ecr_lifecycle_policy_countNumber_app}"
+            countNumber = "${var.ecr_repository_web.lifecycle_policy_count_number}"
             countType   = "imageCountMoreThan"
             tagStatus   = "any"
           }
