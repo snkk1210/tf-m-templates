@@ -9,7 +9,7 @@ resource "aws_security_group" "alb" {
   vpc_id      = var.vpc_id
 
   tags = {
-    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-alb-sg"
+    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-alb-sg"
     Createdby = "Terraform"
   }
 }
@@ -21,7 +21,7 @@ resource "aws_security_group" "ecs" {
   vpc_id      = var.vpc_id
 
   tags = {
-    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-sg"
+    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-sg"
     Createdby = "Terraform"
   }
 }

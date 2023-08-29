@@ -10,7 +10,7 @@ resource "aws_ecr_repository" "web" {
   }
 
   tags = {
-    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecr-web"
+    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecr-web"
     Createdby = "Terraform"
   }
 }
@@ -46,7 +46,7 @@ resource "aws_ecr_repository" "app" {
   }
 
   tags = {
-    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecr-app"
+    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecr-app"
     Createdby = "Terraform"
   }
 }

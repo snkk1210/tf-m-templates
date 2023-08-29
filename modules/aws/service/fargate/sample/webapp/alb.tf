@@ -19,7 +19,7 @@ resource "aws_lb" "alb" {
   }
 
   tags = {
-    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-alb"
+    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-alb"
     Createdby = "Terraform"
   }
 }
@@ -43,7 +43,7 @@ resource "aws_lb_target_group" "blue" {
   }
 
   tags = {
-    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-tg-1"
+    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-tg-1"
     Createdby = "Terraform"
   }
 }
@@ -67,7 +67,7 @@ resource "aws_lb_target_group" "green" {
   }
 
   tags = {
-    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-tg-2"
+    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-tg-2"
     Createdby = "Terraform"
   }
 }
