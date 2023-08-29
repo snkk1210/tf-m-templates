@@ -107,7 +107,7 @@ variable "lb_listener_http" {
   })
 
   default = {
-    port           = 0
+    port           = 80
     protocol       = ""
     default_action = {}
   }
@@ -123,7 +123,7 @@ variable "lb_listener_https" {
   })
 
   default = {
-    port            = 0
+    port            = 443
     protocol        = ""
     certificate_arn = ""
     ssl_policy      = ""
