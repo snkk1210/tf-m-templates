@@ -54,16 +54,6 @@ variable "load_balancer" {
   }
 }
 
-variable "logging" {
-  type = object({
-    log_destination_configs = string
-  })
-
-  default = {
-    log_destination_configs = ""
-  }
-}
-
 variable "lb_target_group" {
   type = object({
     port        = number

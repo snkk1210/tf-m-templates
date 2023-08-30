@@ -27,7 +27,7 @@ data "template_file" "task" {
 
 // タスク定義
 resource "aws_ecs_task_definition" "main" {
-  family = "${var.common.project}-${var.common.service_name}-${var.common.environment}-task"
+  family = "${var.common.project}-${var.common.environment}-${var.common.service_name}-task"
 
   requires_compatibilities = ["FARGATE"]
 
@@ -50,7 +50,7 @@ resource "aws_ecs_task_definition" "main" {
 
 // ECS サービス
 resource "aws_ecs_service" "main" {
-  name = "${var.common.project}-${var.common.service_name}-${var.common.environment}"
+  name = "${var.common.project}-${var.common.environment}-${var.common.service_name}"
 
   cluster          = var.ecs_cluster_id
   platform_version = var.ecs_service.platform_version
@@ -74,7 +74,7 @@ resource "aws_ecs_service" "main" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.blue.arn
-    container_name   = "${var.common.project}-${var.common.service_name}-${var.common.environment}-web-container"
+    container_name   = "${var.common.project}-${var.common.environment}-${var.common.service_name}-web-container"
     container_port   = 80
   }
 
