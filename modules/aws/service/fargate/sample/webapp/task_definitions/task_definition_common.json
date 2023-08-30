@@ -18,7 +18,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/${environment}/${service_name}",
+          "awslogs-group": "/ecs/${project}-${environment}-${service_name}",
           "awslogs-region": "${region}",
           "awslogs-stream-prefix": "web"
         }
@@ -39,7 +39,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/${environment}/${service_name}",
+          "awslogs-group": "/ecs/${project}-${environment}-${service_name}",
           "awslogs-region": "${region}",
           "awslogs-stream-prefix": "app"
         }
