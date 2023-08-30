@@ -78,7 +78,7 @@ resource "aws_security_group_rule" "alb_egress" {
   security_group_id = aws_security_group.alb.id
 }
 
-// ecs アウトバウンドルール
+// ECS アウトバウンドルール
 resource "aws_security_group_rule" "ecs_egress" {
   type              = "egress"
   from_port         = 0
