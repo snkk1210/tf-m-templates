@@ -34,7 +34,7 @@ variable "ecs_subnet_ids" {
 
 variable "security_group_rules_alb" {
   type    = list(string)
-  default = []
+  default = ["0.0.0.0/0"]
 }
 
 variable "load_balancer" {
@@ -47,7 +47,7 @@ variable "load_balancer" {
 
   default = {
     internal           = false
-    load_balancer_type = ""
+    load_balancer_type = "application"
     access_logs_bucket = ""
     access_logs_prefix = ""
 
@@ -62,9 +62,9 @@ variable "lb_target_group" {
   })
 
   default = {
-    port        = 0
-    protocol    = ""
-    target_type = ""
+    port        = 80
+    protocol    = "HTTP"
+    target_type = "ip"
   }
 }
 
@@ -79,13 +79,13 @@ variable "lb_health_check" {
     matcher             = string
   })
   default = {
-    interval            = 0
-    path                = ""
-    port                = 0
-    protocol            = ""
-    timeout             = 0
-    unhealthy_threshold = 0
-    matcher             = ""
+    interval            = 30
+    path                = "/"
+    port                = 80
+    protocol            = "HTTP"
+    timeout             = 6
+    unhealthy_threshold = 3
+    matcher             = "200"
   }
 }
 
@@ -98,8 +98,10 @@ variable "lb_listener_http" {
 
   default = {
     port           = 80
-    protocol       = ""
-    default_action = {}
+    protocol       = "HTTP"
+    default_action = {
+      type = "redirect"
+    }
   }
 }
 
@@ -114,10 +116,12 @@ variable "lb_listener_https" {
 
   default = {
     port            = 443
-    protocol        = ""
+    protocol        = "HTTPS"
     certificate_arn = ""
-    ssl_policy      = ""
-    default_action  = {}
+    ssl_policy      = "ELBSecurityPolicy-TLS-1-2-2017-01"
+    default_action  = {
+      type = "forward"
+    }
   }
 }
 
@@ -129,7 +133,7 @@ variable "ecr_repository_web" {
   })
 
   default = {
-    image_tag_mutability          = ""
+    image_tag_mutability          = "MUTABLE"
     scan_on_push                  = false
     lifecycle_policy_count_number = 15
   }
@@ -143,7 +147,7 @@ variable "ecr_repository_app" {
   })
 
   default = {
-    image_tag_mutability          = ""
+    image_tag_mutability          = "MUTABLE"
     scan_on_push                  = false
     lifecycle_policy_count_number = 15
   }
@@ -180,10 +184,10 @@ variable "ecs_service" {
     deployment_controller_type = string
   })
   default = {
-    launch_type                = ""
-    platform_version           = ""
-    desired_count              = 0
-    deployment_controller_type = ""
+    launch_type                = "FARGATE"
+    platform_version           = "1.4.0"
+    desired_count              = 1
+    deployment_controller_type = "ECS"
   }
 }
 
@@ -196,10 +200,10 @@ variable "appautoscaling_target" {
     service_namespace  = string
   })
   default = {
-    max_capacity       = 0
-    min_capacity       = 0
-    scalable_dimension = ""
-    service_namespace  = ""
+    max_capacity       = 1
+    min_capacity       = 1
+    scalable_dimension = "ecs:service:DesiredCount"
+    service_namespace  = "ecs"
   }
 }
 
@@ -214,13 +218,13 @@ variable "appautoscaling_policy" {
     scale_out_cooldown     = number
   })
   default = {
-    policy_type            = ""
-    predefined_metric_type = ""
-    statistic              = ""
-    target_value           = 0
+    policy_type            = "TargetTrackingScaling"
+    predefined_metric_type = "ECSServiceAverageCPUUtilization"
+    statistic              = "Maximum"
+    target_value           = 40
     disable_scale_in       = false
-    scale_in_cooldown      = 0
-    scale_out_cooldown     = 0
+    scale_in_cooldown      = 300
+    scale_out_cooldown     = 300
   }
 }
 
