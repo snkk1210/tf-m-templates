@@ -36,7 +36,7 @@ resource "aws_codebuild_project" "codebuild_project" {
   vpc_config {
     vpc_id = var.vpc_id
 
-    subnets = var.dmz_subnet_ids
+    subnets = var.codebuild_subnet_ids
 
     security_group_ids = ["${aws_security_group.codebuild.id}"]
   }
