@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "gitlab_to_codecommit" {
     ]
 
     resources = [
-      "arn:aws:codecommit:*:${data.aws_caller_identity.self.account_id}:*"
+      "arn:aws:codecommit:${var.common.region}:${data.aws_caller_identity.self.account_id}:*"
     ]
   }
 }
