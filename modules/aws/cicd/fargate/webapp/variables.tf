@@ -74,7 +74,7 @@ variable "green_target_group" {
 
 variable "termination_wait_time_in_minutes" {
   type    = number
-  default = 60
+  default = 5
 }
 
 /**
