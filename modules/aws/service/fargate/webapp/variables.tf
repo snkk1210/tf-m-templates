@@ -97,8 +97,8 @@ variable "lb_listener_http" {
   })
 
   default = {
-    port           = 80
-    protocol       = "HTTP"
+    port     = 80
+    protocol = "HTTP"
     default_action = {
       type = "redirect"
     }
@@ -119,7 +119,7 @@ variable "lb_listener_https" {
     protocol        = "HTTPS"
     certificate_arn = ""
     ssl_policy      = "ELBSecurityPolicy-TLS-1-2-2017-01"
-    default_action  = {
+    default_action = {
       type = "forward"
     }
   }

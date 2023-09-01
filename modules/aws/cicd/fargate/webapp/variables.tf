@@ -22,7 +22,7 @@ variable "common" {
 */
 variable "environment" {
   type = object({
-    privileged_mode             = bool
+    privileged_mode = bool
     variables = list(object({
       name  = string
       value = string
