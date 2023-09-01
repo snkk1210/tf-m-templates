@@ -22,10 +22,6 @@ variable "common" {
 */
 variable "environment" {
   type = object({
-    compute_type                = string
-    image                       = string
-    type                        = string
-    image_pull_credentials_type = string
     privileged_mode             = bool
     variables = list(object({
       name  = string
