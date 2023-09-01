@@ -10,11 +10,6 @@ resource "aws_s3_bucket" "artifact" {
   }
 }
 
-resource "aws_s3_bucket_acl" "artifact" {
-  bucket = aws_s3_bucket.artifact.id
-  acl    = "private"
-}
-
 resource "aws_s3_bucket_public_access_block" "artifact" {
   bucket = aws_s3_bucket.artifact.id
 
