@@ -29,12 +29,14 @@ variable "batch_subnet_ids" {
 
 variable "batch_definition" {
   type = object({
-    vcpu   = number
-    memory = number
+    vcpu    = number
+    memory  = number
+    command = string
   })
   default = {
-    vcpu   = 256
-    memory = 512
+    vcpu    = 256
+    memory  = 512
+    command = "ls"
   }
 }
 
@@ -70,9 +72,4 @@ variable "max_vcpus" {
 variable "timeout_sec" {
   type    = number
   default = 3600
-}
-
-variable "command" {
-  type    = string
-  default = ""
 }

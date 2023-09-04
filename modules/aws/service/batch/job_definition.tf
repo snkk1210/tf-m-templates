@@ -118,7 +118,7 @@ data "template_file" "batch_definition" {
     memory = var.batch_definition.memory
 
     // command
-    command = var.command
+    command = var.batch_definition.command
 
     // ジョブロール
     aws_iam_role_ecs_job_role_arn = aws_iam_role.ecs_batch_job_role.arn
