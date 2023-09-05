@@ -127,7 +127,7 @@ data "template_file" "batch_definition" {
     aws_iam_role_ecs_job_execution_role_arn = aws_iam_role.ecs_batch_job_role.arn
 
     // ECR リポジトリ
-    batch_repository_url = aws_ecr_repository.batch
+    batch_repository_url = aws_ecr_repository.batch.repository_url
 
     // リージョン
     region = var.common.region
