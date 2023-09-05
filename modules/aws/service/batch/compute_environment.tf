@@ -7,7 +7,7 @@ resource "aws_batch_compute_environment" "batch_environment" {
   compute_resources {
     max_vcpus = var.max_vcpus
 
-    security_group_ids = [aws_security_group.fargate.id, ]
+    security_group_ids = [aws_security_group.ecs.id, ]
 
     subnets = var.batch_subnet_ids
 
