@@ -34,7 +34,7 @@ variable "batch_definition" {
     command = string
   })
   default = {
-    vcpu    = 256
+    vcpu    = 0.25
     memory  = 512
     command = "ls"
   }
@@ -66,7 +66,7 @@ variable "log_retention_in_days" {
 
 variable "max_vcpus" {
   type    = number
-  default = 512
+  default = 2
 }
 
 variable "timeout_sec" {
