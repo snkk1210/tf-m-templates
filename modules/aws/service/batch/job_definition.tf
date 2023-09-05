@@ -129,13 +129,17 @@ data "template_file" "batch_definition" {
     // ECR リポジトリ
     batch_repository_url = aws_ecr_repository.batch.repository_url
 
-    // リージョン
-    region = var.common.region
+    // プロジェクト
+    project = var.common.project
 
     // 環境
     environment = var.common.environment
 
-    // Batch 名
+    // サービス名
     service_name = var.common.service_name
+
+    // リージョン
+    region = var.common.region
+
   }
 }
