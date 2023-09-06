@@ -42,7 +42,7 @@ variable "batch_definition" {
 
 variable "batch_cron" {
   type    = string
-  default = ""
+  default = "cron(00 20 * * ? *)"
 }
 
 variable "ecr_repository_batch" {
