@@ -24,7 +24,7 @@ resource "aws_ecr_lifecycle_policy" "batch_policy" {
           action = {
             type = "expire"
           }
-          description  = "最新の ${var.ecr_repository_batch.lifecycle_policy_count_number} つを残してイメージを削除する"
+          description  = "Delete images, leaving only the ${var.ecr_repository_batch.lifecycle_policy_count_number} most recent."
           rulePriority = 1
           selection = {
             countNumber = "${var.ecr_repository_batch.lifecycle_policy_count_number}"
