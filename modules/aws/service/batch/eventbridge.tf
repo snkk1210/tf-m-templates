@@ -2,8 +2,8 @@
 # CloudWatch Event For Batch
 */
 resource "aws_cloudwatch_event_rule" "batch_event_rule" {
-  name                = "${var.common.project}-${var.common.environment}-${var.common.service_name}-event-rule"
-  description         = "${var.common.service_name} Batch Event Rule"
+  name                = "${var.common.project}-${var.common.environment}-${var.common.service_name}-cron-event-rule"
+  description         = "${var.common.service_name} Schedule Batch Event Rule"
   schedule_expression = var.batch_cron
 }
 
