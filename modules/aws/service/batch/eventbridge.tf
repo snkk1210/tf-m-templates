@@ -27,7 +27,7 @@ resource "aws_cloudwatch_event_target" "batch_event_target" {
 // EventBridge role
 resource "aws_iam_role" "eventbridge_role" {
 
-  name = "${var.common.project}-${var.common.environment}-${var.common.service_name}-eventbridge-role"
+  name = "${var.common.project}-${var.common.environment}-${var.common.service_name}-cron-eventbridge-role"
 
   assume_role_policy = <<DOC
 {
