@@ -24,7 +24,7 @@ resource "aws_ecr_lifecycle_policy" "web_policy" {
           action = {
             type = "expire"
           }
-          description  = "Delete images, leaving only the ${var.ecr_repository_batch.lifecycle_policy_count_number} most recent."
+          description  = "Delete images, leaving only the ${var.ecr_repository_web.lifecycle_policy_count_number} most recent."
           rulePriority = 1
           selection = {
             countNumber = "${var.ecr_repository_web.lifecycle_policy_count_number}"
@@ -60,10 +60,10 @@ resource "aws_ecr_lifecycle_policy" "app_policy" {
           action = {
             type = "expire"
           }
-          description  = "Delete images, leaving only the ${var.ecr_repository_batch.lifecycle_policy_count_number} most recent."
+          description  = "Delete images, leaving only the ${var.ecr_repository_app.lifecycle_policy_count_number} most recent."
           rulePriority = 1
           selection = {
-            countNumber = "${var.ecr_repository_web.lifecycle_policy_count_number}"
+            countNumber = "${var.ecr_repository_app.lifecycle_policy_count_number}"
             countType   = "imageCountMoreThan"
             tagStatus   = "any"
           }
