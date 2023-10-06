@@ -63,3 +63,39 @@ No modules.
 ## Outputs
 
 No outputs.
+
+## Example
+
+```
+module "service_batch" {
+  source = "../example/tf-m-templates/modules/aws/service/batch"
+
+  common = {
+    project      = "example"
+    environment  = "dev"
+    service_name = "batch"
+    region       = "ap-northeast-1"
+  }
+
+  vpc_id           = module.network.vpc_id
+  batch_subnet_ids = module.network.private_subnet_ids[0]
+
+  batch_definition = {
+    vcpu    = 0.25
+    memory  = 512
+    command = "ls"
+  }
+
+  batch_cron = "cron(00 19 * * ? *)"
+
+  ecr_repository_batch = {
+    image_tag_mutability          = "MUTABLE"
+    scan_on_push                  = false
+    lifecycle_policy_count_number = 15
+  }
+
+  log_retention_in_days = 30
+  max_vcpus             = 2
+  timeout_sec           = 300
+}
+```
