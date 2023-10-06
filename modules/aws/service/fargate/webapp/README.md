@@ -95,3 +95,113 @@ No modules.
 | <a name="output_lb_listener_https"></a> [lb\_listener\_https](#output\_lb\_listener\_https) | n/a |
 | <a name="output_lb_target_group_blue"></a> [lb\_target\_group\_blue](#output\_lb\_target\_group\_blue) | n/a |
 | <a name="output_lb_target_group_green"></a> [lb\_target\_group\_green](#output\_lb\_target\_group\_green) | n/a |
+
+## Example
+
+```
+module "service_webapp" {
+  source = "../example/tf-m-templates/modules/aws/service/fargate/webapp"
+
+  common = {
+    project      = "example"
+    environment  = "dev"
+    service_name = "webapp"
+    region       = "ap-northeast-1"
+  }
+
+  vpc_id         = module.network.vpc_id
+  alb_subnet_ids = module.network.public_subnet_ids
+  ecs_subnet_ids = module.network.private_subnet_ids[0]
+
+  security_group_rules_alb = ["0.0.0.0/0"]
+
+  load_balancer = {
+    internal           = false
+    load_balancer_type = "application"
+    access_logs_bucket = module.cluster.alblog_bucket.id
+    access_logs_prefix = "WEBAPP-ALB"
+  }
+
+  lb_target_group = {
+    protocol    = "HTTP"
+    port        = 80
+    target_type = "ip"
+  }
+
+  lb_health_check = {
+    interval            = 30
+    path                = "/"
+    port                = 80
+    protocol            = "HTTP"
+    timeout             = 6
+    unhealthy_threshold = 3
+    matcher             = "200"
+  }
+
+  lb_listener_http = {
+    port     = 80
+    protocol = "HTTP"
+    default_action = {
+      type = "redirect"
+    }
+  }
+
+  lb_listener_https = {
+    port            = 443
+    protocol        = "HTTPS"
+    ssl_policy      = "ELBSecurityPolicy-TLS-1-2-2017-01"
+    certificate_arn = "arn:aws:acm:ap-northeast-1:xxxxxxxxxxxx:certificate/xxxxxx"
+    default_action = {
+      type = "forward"
+    }
+  }
+
+  ecr_repository_web = {
+    image_tag_mutability          = "MUTABLE"
+    scan_on_push                  = true
+    lifecycle_policy_count_number = 15
+  }
+
+  ecr_repository_app = {
+    image_tag_mutability          = "MUTABLE"
+    scan_on_push                  = true
+    lifecycle_policy_count_number = 15
+  }
+
+  ecs_task = {
+    cpu          = 256
+    memory       = 512
+    network_mode = "awsvpc"
+  }
+
+  ecs_cluster_id   = module.cluster.ecs_cluster.id
+  ecs_cluster_name = module.cluster.ecs_cluster.name
+
+  ecs_service = {
+    launch_type                = "FARGATE"
+    platform_version           = "1.4.0"
+    desired_count              = 1
+    deployment_controller_type = "CODE_DEPLOY"
+    //deployment_controller_type = "ECS"
+  }
+
+  appautoscaling_target = {
+    max_capacity       = 1
+    min_capacity       = 1
+    scalable_dimension = "ecs:service:DesiredCount"
+    service_namespace  = "ecs"
+  }
+
+  appautoscaling_policy = {
+    policy_type            = "TargetTrackingScaling"
+    predefined_metric_type = "ECSServiceAverageCPUUtilization"
+    statistic              = "Maximum"
+    target_value           = 40
+    disable_scale_in       = false
+    scale_in_cooldown      = 300
+    scale_out_cooldown     = 300
+  }
+
+  ecs_log_retention_in_days = 14
+}
+```
