@@ -1,4 +1,4 @@
-# service/fargate/webapp
+# cicd/fargate/global
 
 ## Requirements
 
@@ -39,3 +39,17 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_artifact_bucket_id"></a> [artifact\_bucket\_id](#output\_artifact\_bucket\_id) | n/a |
+
+## Example
+
+```
+module "cicd_fargate_global" {
+  source = "../example/tf-m-templates/modules/aws/cicd/fargate/global"
+
+  common = {
+    project     = "example"
+    environment = "dev"
+    region      = "ap-northeast-1"
+  }
+}
+```
