@@ -118,7 +118,7 @@ module "service_webapp" {
   load_balancer = {
     internal           = false
     load_balancer_type = "application"
-    access_logs_bucket = module.cluster.alblog_bucket.id
+    access_logs_bucket = module.global.alblog_bucket.id
     access_logs_prefix = "WEBAPP-ALB"
   }
 
@@ -174,8 +174,8 @@ module "service_webapp" {
     network_mode = "awsvpc"
   }
 
-  ecs_cluster_id   = module.cluster.ecs_cluster.id
-  ecs_cluster_name = module.cluster.ecs_cluster.name
+  ecs_cluster_id   = module.global.ecs_cluster.id
+  ecs_cluster_name = module.global.ecs_cluster.name
 
   ecs_service = {
     launch_type                = "FARGATE"
