@@ -41,3 +41,21 @@ No modules.
 |------|-------------|
 | <a name="output_alblog_bucket"></a> [alblog\_bucket](#output\_alblog\_bucket) | n/a |
 | <a name="output_ecs_cluster"></a> [ecs\_cluster](#output\_ecs\_cluster) | n/a |
+
+## Example
+
+```
+module "service_global" {
+  source = "../example/tf-m-templates/modules/aws/service/fargate/global"
+
+  common = {
+    project     = "example"
+    environment = "dev"
+  }
+
+  ecs_cluster = {
+    setting_name  = "containerInsights"
+    setting_value = "enabled"
+  }
+}
+```

@@ -174,8 +174,8 @@ module "service_webapp" {
     network_mode = "awsvpc"
   }
 
-  ecs_cluster_id   = module.global.ecs_cluster.id
-  ecs_cluster_name = module.global.ecs_cluster.name
+  ecs_cluster_id   = module.service_global.ecs_cluster.id
+  ecs_cluster_name = module.service_global.ecs_cluster.name
 
   ecs_service = {
     launch_type                = "FARGATE"
