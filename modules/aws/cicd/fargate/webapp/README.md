@@ -74,3 +74,47 @@ No modules.
 ## Outputs
 
 No outputs.
+
+## Example
+
+```
+module "cicd_fargate_webapp" {
+  source = "../example/tf-m-templates/modules/aws/cicd/fargate/webapp"
+
+  common = {
+    project      = "example"
+    environment  = "dev"
+    service_name = "webapp"
+    region       = "ap-northeast-1"
+  }
+
+  environment = {
+    privileged_mode = true
+    variables = []
+  }
+
+  vpc_id               = module.network.vpc_id
+  codebuild_subnet_ids = module.network.private_subnet_ids[0]
+
+
+  ecs_service = {
+    cluster_name = module.service_global.ecs_cluster.name
+    service_name = module.service_webapp.ecs_service.name
+  }
+
+  prod_traffic_route_listener_arns = [module.service_webapp.lb_listener_https.arn]
+
+  blue_target_group  = module.service_webapp.lb_target_group_blue.name
+  green_target_group = module.service_webapp.lb_target_group_green.name
+
+  termination_wait_time_in_minutes = 5
+
+  artifact_bucket = module.cicd_fargate_global.artifact_bucket_id
+  reference_name  = "develop"
+
+  task_definition_template_path = "task_definitions/dev/taskdefinition.json"
+  app_spec_template_path        = "deploy_scripts/appspec.yml"
+
+  enable_auto_deploy = true
+}
+```
