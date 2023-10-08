@@ -45,7 +45,7 @@ No modules.
 ## Example
 
 ```
-module "service_global" {
+module "service_fargate_global" {
   source = "../example/tf-m-templates/modules/aws/service/fargate/global"
 
   common = {

@@ -98,14 +98,14 @@ module "cicd_fargate_webapp" {
 
 
   ecs_service = {
-    cluster_name = module.service_global.ecs_cluster.name
-    service_name = module.service_webapp.ecs_service.name
+    cluster_name = module.service_fargate_global.ecs_cluster.name
+    service_name = module.service_fargate_webapp.ecs_service.name
   }
 
-  prod_traffic_route_listener_arns = [module.service_webapp.lb_listener_https.arn]
+  prod_traffic_route_listener_arns = [module.service_fargate_webapp.lb_listener_https.arn]
 
-  blue_target_group  = module.service_webapp.lb_target_group_blue.name
-  green_target_group = module.service_webapp.lb_target_group_green.name
+  blue_target_group  = module.service_fargate_webapp.lb_target_group_blue.name
+  green_target_group = module.service_fargate_webapp.lb_target_group_green.name
 
   termination_wait_time_in_minutes = 5
 

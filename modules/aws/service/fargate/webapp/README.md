@@ -99,7 +99,7 @@ No modules.
 ## Example
 
 ```
-module "service_webapp" {
+module "service_fargate_webapp" {
   source = "../example/tf-m-templates/modules/aws/service/fargate/webapp"
 
   common = {
@@ -174,8 +174,8 @@ module "service_webapp" {
     network_mode = "awsvpc"
   }
 
-  ecs_cluster_id   = module.service_global.ecs_cluster.id
-  ecs_cluster_name = module.service_global.ecs_cluster.name
+  ecs_cluster_id   = module.service_fargate_global.ecs_cluster.id
+  ecs_cluster_name = module.service_fargate_global.ecs_cluster.name
 
   ecs_service = {
     launch_type                = "FARGATE"
