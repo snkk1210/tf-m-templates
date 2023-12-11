@@ -7,7 +7,7 @@ data "aws_iam_policy_document" "cloud9_assume_role" {
 
     principals {
       type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
+      identifiers = ["ec2.amazonaws.com","cloud9.amazonaws.com"]
     }
 
     actions = ["sts:AssumeRole"]
