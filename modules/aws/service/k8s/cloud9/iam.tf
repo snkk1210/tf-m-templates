@@ -19,6 +19,11 @@ resource "aws_iam_role" "cloud9_role" {
   assume_role_policy = data.aws_iam_policy_document.cloud9_assume_role.json
 }
 
+resource "aws_iam_role_policy_attachment" "aws_cloud9_ssm_instance_profile" {
+  policy_arn = "arn:aws:iam::aws:policy/AWSCloud9SSMInstanceProfile"
+  role       = aws_iam_role.cloud9_role.name
+}
+
 resource "aws_iam_role_policy_attachment" "amazon_eks_cluster_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = aws_iam_role.cloud9_role.name
