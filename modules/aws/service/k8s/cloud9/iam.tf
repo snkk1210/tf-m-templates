@@ -19,6 +19,11 @@ resource "aws_iam_role" "cloud9_role" {
   assume_role_policy = data.aws_iam_policy_document.cloud9_assume_role.json
 }
 
+resource "aws_iam_role_policy_attachment" "amazon_eks_cluster_policy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  role       = aws_iam_role.cloud9_role.name
+}
+
 resource "aws_iam_instance_profile" "cloud9_profile" {
   name = "${var.common.project}-${var.common.environment}-eks-cloud9-role"
   role = aws_iam_role.cloud9_role.name
