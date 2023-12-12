@@ -63,8 +63,10 @@ sudo chmod +x /usr/local/bin/kubectl
 aws eks --region ap-northeast-1 update-kubeconfig --name ${eks-cluster-name}
 ```
 
-- Modify ConfigMap ( ap-northeast-1 )
+- Modify ConfigMap in AWS CloudShell ( ap-northeast-1 ) 
 ```
+curl -L "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
 eksctl create iamidentitymapping --cluster {eks-cluster-name} --region=ap-northeast-1 \
     --arn arn:aws:iam::${aws-account-id}:role/${role-name} --username admin --group system:masters \
     --no-duplicate-arns
