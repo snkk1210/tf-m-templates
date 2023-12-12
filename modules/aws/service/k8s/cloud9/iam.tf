@@ -24,9 +24,24 @@ resource "aws_iam_role_policy_attachment" "aws_cloud9_ssm_instance_profile" {
   role       = aws_iam_role.cloud9_role.name
 }
 
-resource "aws_iam_role_policy_attachment" "amazon_eks_cluster_policy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+data "aws_iam_policy_document" "cloud9_to_eks" {
+  statement {
+    actions = [
+      "eks:*"
+    ]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_policy" "cloud9_to_eks" {
+  name   = "${var.common.project}-${var.common.environment}-cloud9-to-eks-policy"
+  path   = "/"
+  policy = data.aws_iam_policy_document.cloud9_to_eks.json
+}
+
+resource "aws_iam_role_policy_attachment" "cloud9_to_eks" {
   role       = aws_iam_role.cloud9_role.name
+  policy_arn = aws_iam_policy.cloud9_to_eks.arn
 }
 
 resource "aws_iam_instance_profile" "cloud9_profile" {
