@@ -4,6 +4,7 @@
 resource "aws_eks_cluster" "this" {
   name     = "${var.common.project}-${var.common.environment}-${var.common.service_name}-eks-cluster"
   role_arn = aws_iam_role.cluster_role.arn
+  version  = var.aws_eks_cluster_version
 
   vpc_config {
     subnet_ids = var.eks_subnet_ids

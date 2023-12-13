@@ -12,6 +12,11 @@ variable "common" {
   }
 }
 
+variable "aws_eks_cluster_version" {
+  type = string
+  default = ""
+}
+
 variable "eks_subnet_ids" {
   type    = list(string)
   default = []
