@@ -41,3 +41,8 @@ variable "min_size" {
   type    = number
   default = 1
 }
+
+variable "enable_tracking_cpuutilization" {
+  type    = bool
+  default = true
+}
