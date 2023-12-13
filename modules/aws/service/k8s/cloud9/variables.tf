@@ -1,23 +1,23 @@
 variable "common" {
   type = object({
-    project      = string
-    environment  = string
-    region = string
+    project     = string
+    environment = string
+    region      = string
   })
 
   default = {
     project     = ""
     environment = ""
-    region  = ""
+    region      = ""
   }
 }
 
 variable "instance_type" {
-  type = string
+  type    = string
   default = "t3.micro"
 }
 
 variable "image_id" {
-  type = string
+  type    = string
   default = "amazonlinux-2-x86_64"
 }

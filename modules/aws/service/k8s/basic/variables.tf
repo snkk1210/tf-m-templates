@@ -13,7 +13,7 @@ variable "common" {
 }
 
 variable "aws_eks_cluster_version" {
-  type = string
+  type    = string
   default = ""
 }
 

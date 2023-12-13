@@ -2,9 +2,9 @@
 # Cloud9
 */
 resource "aws_cloud9_environment_ec2" "this" {
-  name = "${var.common.project}-${var.common.environment}-eks-env"
-  instance_type = var.instance_type
-  image_id      = var.image_id
+  name            = "${var.common.project}-${var.common.environment}-eks-env"
+  instance_type   = var.instance_type
+  image_id        = var.image_id
   connection_type = "CONNECT_SSM"
 }
 
@@ -21,5 +21,5 @@ output "cloud9_url" {
 }
 
 output "cloud9_instance_id" {
-  value = "${data.aws_instance.this.id}"
+  value = data.aws_instance.this.id
 }
