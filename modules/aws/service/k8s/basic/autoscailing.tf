@@ -10,6 +10,6 @@ resource "aws_autoscaling_policy" "target_tracking_cpuutilization" {
       predefined_metric_type = "ASGAverageCPUUtilization"
     }
 
-    target_value = 50.0
+    target_value = var.target_value
   }
 }
