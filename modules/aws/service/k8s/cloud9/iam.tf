@@ -27,7 +27,8 @@ resource "aws_iam_role_policy_attachment" "aws_cloud9_ssm_instance_profile" {
 data "aws_iam_policy_document" "cloud9_to_eks" {
   statement {
     actions = [
-      "eks:*"
+      "eks:*",
+      "ecr:*"
     ]
     resources = ["*"]
   }
