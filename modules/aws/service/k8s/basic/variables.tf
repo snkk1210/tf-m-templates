@@ -46,3 +46,8 @@ variable "enable_tracking_cpuutilization" {
   type    = bool
   default = true
 }
+
+variable "target_value" {
+  type = string
+  default = "50.0"
+}
