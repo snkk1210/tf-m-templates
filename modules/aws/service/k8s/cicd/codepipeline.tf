@@ -6,7 +6,7 @@ resource "aws_codepipeline" "this" {
   role_arn = aws_iam_role.codepipeline_role.arn
 
   artifact_store {
-    location = aws_s3_bucket.artifact.name
+    location = aws_s3_bucket.artifact.id
     type     = "S3"
   }
 
@@ -23,7 +23,7 @@ resource "aws_codepipeline" "this" {
 
       configuration = {
         OutputArtifactFormat = "CODEBUILD_CLONE_REF"
-        RepositoryName       = aws_codecommit_repository.repository.tags_all["Name"]
+        RepositoryName       = aws_codecommit_repository.this.tags_all["Name"]
         BranchName           = "${var.reference_name}"
         PollForSourceChanges = false
       }

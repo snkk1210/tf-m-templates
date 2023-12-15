@@ -38,6 +38,11 @@ variable "codebuild_subnet_ids" {
   default = []
 }
 
+variable "buildspec" {
+  type = string
+  default = "./deploy_scripts/buildspec.yml"
+}
+
 /**
 # CodePipeline
 */

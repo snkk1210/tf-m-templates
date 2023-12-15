@@ -12,7 +12,7 @@ resource "aws_codebuild_project" "this" {
 
   source {
     type      = "CODEPIPELINE"
-    buildspec = "./deploy_scripts/buildspec.yml"
+    buildspec = var.buildspec
   }
 
   environment {
