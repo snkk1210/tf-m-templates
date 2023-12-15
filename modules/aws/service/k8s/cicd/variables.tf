@@ -41,11 +41,6 @@ variable "codebuild_subnet_ids" {
 /**
 # CodePipeline
 */
-variable "artifact_bucket" {
-  type    = string
-  default = ""
-}
-
 variable "reference_name" {
   type    = string
   default = ""

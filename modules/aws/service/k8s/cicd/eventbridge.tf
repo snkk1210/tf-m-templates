@@ -14,7 +14,7 @@ resource "aws_cloudwatch_event_target" "this" {
 
   rule      = aws_cloudwatch_event_rule.this[count.index].name
   target_id = "${var.common.project}-${var.common.environment}-${var.common.service_name}-event-target"
-  arn       = aws_codepipeline.codepipeline.arn
+  arn       = aws_codepipeline.this.arn
   role_arn  = aws_iam_role.eventbridge_role[count.index].arn
 }
 
@@ -22,7 +22,7 @@ data "template_file" "event_pattern_build" {
   template = file("${path.module}/event_pattern/codecommit_detection.json")
 
   vars = {
-    codecommit_repository_arn = aws_codecommit_repository.repository.arn
+    codecommit_repository_arn = aws_codecommit_repository.this.arn
     reference_name            = var.reference_name
   }
 }
@@ -62,7 +62,7 @@ data "aws_iam_policy_document" "eventbridge_to_codepipeline" {
     actions = ["codepipeline:StartPipelineExecution"]
 
     resources = [
-      "${aws_codepipeline.codepipeline.arn}",
+      "${aws_codepipeline.this.arn}",
     ]
 
   }
