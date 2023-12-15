@@ -39,7 +39,7 @@ variable "codebuild_subnet_ids" {
 }
 
 variable "buildspec" {
-  type = string
+  type    = string
   default = "./deploy_scripts/buildspec.yml"
 }
 

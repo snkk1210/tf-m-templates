@@ -48,6 +48,6 @@ variable "enable_tracking_cpuutilization" {
 }
 
 variable "target_value" {
-  type = string
+  type    = string
   default = "50.0"
 }
