@@ -3,6 +3,7 @@
 */
 resource "aws_s3_bucket" "artifact" {
   bucket = "${var.common.project}-${var.common.environment}-${var.common.service_name}-artifact-bucket"
+  force_destroy = true
 
   tags = {
     Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-artifact-bucket"
