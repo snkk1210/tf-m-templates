@@ -1,9 +1,9 @@
 /**
 # CodeBuild
 */
-resource "aws_codebuild_project" "codebuild_project" {
-  name         = "${var.common.project}-${var.common.environment}-${var.common.service_name}-codebuild-project"
-  description  = "${var.common.service_name} CodeBuild Project"
+resource "aws_codebuild_project" "stage1" {
+  name         = "${var.common.project}-${var.common.environment}-${var.common.service_name}-stage1-codebuild-project"
+  description  = "${var.common.service_name} stage1 CodeBuild Project"
   service_role = aws_iam_role.codebuild_role.arn
 
   artifacts {
@@ -12,7 +12,60 @@ resource "aws_codebuild_project" "codebuild_project" {
 
   source {
     type      = "CODEPIPELINE"
-    buildspec = var.buildspec
+    buildspec = var.buildspec_stage1
+  }
+
+  environment {
+    compute_type                = "BUILD_GENERAL1_SMALL"
+    image                       = "aws/codebuild/standard:4.0"
+    type                        = "LINUX_CONTAINER"
+    image_pull_credentials_type = "CODEBUILD"
+    privileged_mode             = var.environment.privileged_mode
+
+    dynamic "environment_variable" {
+      for_each = var.environment.variables
+
+      content {
+        name  = environment_variable.value.name
+        value = environment_variable.value.value
+        type  = environment_variable.value.type
+      }
+    }
+  }
+
+  vpc_config {
+    vpc_id = var.vpc_id
+
+    subnets = var.codebuild_subnet_ids
+
+    security_group_ids = ["${aws_security_group.codebuild.id}"]
+  }
+
+  logs_config {
+    cloudwatch_logs {
+      group_name = aws_cloudwatch_log_group.codebuild.name
+    }
+  }
+
+  lifecycle {
+    ignore_changes = [
+      //environment["environment_variable"],
+    ]
+  }
+}
+
+resource "aws_codebuild_project" "stage2" {
+  name         = "${var.common.project}-${var.common.environment}-${var.common.service_name}-stage2-codebuild-project"
+  description  = "${var.common.service_name} stage2 CodeBuild Project"
+  service_role = aws_iam_role.codebuild_role.arn
+
+  artifacts {
+    type = "CODEPIPELINE"
+  }
+
+  source {
+    type      = "CODEPIPELINE"
+    buildspec = var.buildspec_stage2
   }
 
   environment {
