@@ -53,12 +53,12 @@ variable "stage2_buildspec" {
 }
 
 variable "stage1_image" {
-  type = string
+  type    = string
   default = "aws/codebuild/standard:7.0"
 }
 
 variable "stage2_image" {
-  type = string
+  type    = string
   default = "aws/codebuild/standard:7.0"
 }
 

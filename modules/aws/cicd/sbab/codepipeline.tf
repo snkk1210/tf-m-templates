@@ -52,11 +52,11 @@ resource "aws_codepipeline" "codepipeline" {
     name = "approve"
 
     action {
-      name             = "approve"
-      category         = "Approval"
-      owner            = "AWS"
-      provider         = "Manual"
-      version          = "1"
+      name     = "approve"
+      category = "Approval"
+      owner    = "AWS"
+      provider = "Manual"
+      version  = "1"
     }
   }
 
