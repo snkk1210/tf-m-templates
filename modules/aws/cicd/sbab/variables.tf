@@ -41,16 +41,25 @@ variable "codebuild_subnet_ids" {
   default = []
 }
 
-variable "buildspec_stage1" {
+variable "stage1_buildspec" {
+  type    = string
+  default = "./deploy_scripts/buildspec.yml"
+}
+
+variable "stage2_buildspec" {
   type    = string
   default = "./deploy_scripts/buildspec.yml"
 
 }
 
-variable "buildspec_stage2" {
-  type    = string
-  default = "./deploy_scripts/buildspec.yml"
+variable "stage1_image" {
+  type = string
+  default = "aws/codebuild/standard:7.0"
+}
 
+variable "stage2_image" {
+  type = string
+  default = "aws/codebuild/standard:7.0"
 }
 
 /**

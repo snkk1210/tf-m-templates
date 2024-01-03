@@ -12,12 +12,12 @@ resource "aws_codebuild_project" "stage1" {
 
   source {
     type      = "CODEPIPELINE"
-    buildspec = var.buildspec_stage1
+    buildspec = var.stage1_buildspec
   }
 
   environment {
     compute_type                = "BUILD_GENERAL1_SMALL"
-    image                       = "aws/codebuild/standard:4.0"
+    image                       = var.stage1_image
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode             = var.environment.privileged_mode
@@ -65,12 +65,12 @@ resource "aws_codebuild_project" "stage2" {
 
   source {
     type      = "CODEPIPELINE"
-    buildspec = var.buildspec_stage2
+    buildspec = var.stage2_buildspec
   }
 
   environment {
     compute_type                = "BUILD_GENERAL1_SMALL"
-    image                       = "aws/codebuild/standard:4.0"
+    image                       = var.stage2_image
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode             = var.environment.privileged_mode
