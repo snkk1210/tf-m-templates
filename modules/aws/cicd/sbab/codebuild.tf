@@ -20,10 +20,10 @@ resource "aws_codebuild_project" "stage1" {
     image                       = var.stage1_image
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
-    privileged_mode             = var.environment.privileged_mode
+    privileged_mode             = var.stage1_privileged_mode
 
     dynamic "environment_variable" {
-      for_each = var.environment.variables
+      for_each = var.stage1_environment.variables
 
       content {
         name  = environment_variable.value.name
@@ -73,10 +73,10 @@ resource "aws_codebuild_project" "stage2" {
     image                       = var.stage2_image
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
-    privileged_mode             = var.environment.privileged_mode
+    privileged_mode             = var.stage2_privileged_mode
 
     dynamic "environment_variable" {
-      for_each = var.environment.variables
+      for_each = var.stage2_environment.variables
 
       content {
         name  = environment_variable.value.name

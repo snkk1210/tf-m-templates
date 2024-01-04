@@ -20,9 +20,13 @@ variable "common" {
 /**
 # CodeBuild
 */
-variable "environment" {
+variable "vpc_id" {
+  type    = string
+  default = ""
+}
+
+variable "stage1_environment" {
   type = object({
-    privileged_mode = bool
     variables = list(object({
       name  = string
       value = string
@@ -31,14 +35,29 @@ variable "environment" {
   })
 }
 
-variable "vpc_id" {
-  type    = string
-  default = ""
+variable "stage2_environment" {
+  type = object({
+    variables = list(object({
+      name  = string
+      value = string
+      type  = string
+    }))
+  })
 }
 
 variable "codebuild_subnet_ids" {
   type    = list(string)
   default = []
+}
+
+variable "stage1_privileged_mode" {
+  type = bool
+  default = true
+}
+
+variable "stage2_privileged_mode" {
+  type = bool
+  default = true
 }
 
 variable "stage1_buildspec" {
