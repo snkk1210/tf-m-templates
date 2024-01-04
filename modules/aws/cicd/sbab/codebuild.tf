@@ -221,8 +221,8 @@ resource "aws_iam_role_policy_attachment" "codebuild_execution" {
   policy_arn = aws_iam_policy.codebuild_execution.arn
 }
 
-// ECR 操作 ポリシー アタッチ
-resource "aws_iam_role_policy_attachment" "codebuild_to_ecr" {
+// AdministratorAccess ポリシー アタッチ
+resource "aws_iam_role_policy_attachment" "administrator_access" {
   role       = aws_iam_role.codebuild_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
