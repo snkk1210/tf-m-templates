@@ -69,3 +69,11 @@ variable "fetch_submodules" {
   type = bool
   default = false
 }
+
+/** 
+# CloudWatch Logs
+*/
+variable "retention_in_days" {
+  type = number
+  default = 400
+}
