@@ -64,3 +64,8 @@ variable "git_clone_depth" {
   type = number
   default = 1
 }
+
+variable "fetch_submodules" {
+  type = bool
+  default = false
+}
