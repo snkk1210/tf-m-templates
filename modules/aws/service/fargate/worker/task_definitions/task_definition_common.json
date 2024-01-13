@@ -1,7 +1,7 @@
 [
     {
       "name": "${project}-${environment}-${service_name}-worker-container",
-      "image": "${web_repository_url}:latest",
+      "image": "${worker_repository_url}:latest",
       "readonlyRootFilesystem": false,
       "essential": true,
       "environmentFiles": [],
