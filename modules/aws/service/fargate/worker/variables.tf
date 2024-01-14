@@ -27,11 +27,6 @@ variable "ecs_subnet_ids" {
   default = []
 }
 
-variable "security_group_rules_alb" {
-  type    = list(string)
-  default = ["0.0.0.0/0"]
-}
-
 variable "lb_target_group" {
   type = object({
     port        = number
@@ -117,6 +112,11 @@ variable "ecs_service" {
     desired_count              = 1
     deployment_controller_type = "ECS"
   }
+}
+
+variable "ecs_ingress_cidr_blocks" {
+  type    = list(string)
+  default = ["0.0.0.0/0"]
 }
 
 

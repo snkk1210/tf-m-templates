@@ -23,3 +23,13 @@ resource "aws_security_group_rule" "ecs_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.ecs.id
 }
+
+// ECS インバウンドルール
+resource "aws_security_group_rule" "ecs_ingress" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = var.ecs_ingress_cidr_blocks
+  security_group_id = aws_security_group.ecs.id
+}
