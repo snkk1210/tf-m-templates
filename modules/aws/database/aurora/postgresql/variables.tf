@@ -1,3 +1,19 @@
+variable "common" {
+  type = object({
+    project      = string
+    environment  = string
+    service_name = string
+    region       = string
+  })
+
+  default = {
+    project      = ""
+    environment  = ""
+    service_name = ""
+    region       = ""
+  }
+}
+
 variable "vpc_id" {
   type = string
 }
