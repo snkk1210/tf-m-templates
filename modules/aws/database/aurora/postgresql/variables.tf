@@ -94,6 +94,6 @@ variable "performance_insights_enabled" {
 }
 
 variable "aurora_ingress" {
-  type    = list()
+  type    = list(string)
   default = ["0.0.0.0/0"]
 }
