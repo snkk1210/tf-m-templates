@@ -37,7 +37,6 @@ variable "aurora_cluster" {
     engine_version               = string
     preferred_backup_window      = string
     preferred_maintenance_window = string
-    port                         = number
     apply_immediately            = bool
     storage_encrypted            = bool
     deletion_protection          = bool
