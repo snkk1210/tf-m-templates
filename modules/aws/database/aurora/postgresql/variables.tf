@@ -3,14 +3,12 @@ variable "common" {
     project      = string
     environment  = string
     service_name = string
-    region       = string
   })
 
   default = {
     project      = ""
     environment  = ""
     service_name = ""
-    region       = ""
   }
 }
 
@@ -19,7 +17,7 @@ variable "vpc_id" {
 }
 
 variable "subnet_ids" {
-  type = string
+  type = list(string)
 }
 
 variable "aurora_cluster_parameter_group" {

@@ -33,7 +33,7 @@ resource "aws_rds_cluster_instance" "this" {
   monitoring_role_arn                   = aws_iam_role.aurora_expansion_monitoring.arn
   monitoring_interval                   = 60
   performance_insights_enabled          = var.performance_insights_enabled
-  performance_insights_retention_period = 14
+  performance_insights_retention_period = 7
   performance_insights_kms_key_id       = aws_kms_key.aurora_performance_insights.arn
   promotion_tier                        = 1
 
