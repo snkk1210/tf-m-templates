@@ -1,7 +1,7 @@
 /**
 # AutoScaling
 */
-resource "aws_appautoscaling_target" "target" {
+resource "aws_appautoscaling_target" "this" {
   max_capacity       = var.appautoscaling_target.max_capacity
   min_capacity       = var.appautoscaling_target.min_capacity
   resource_id        = "service/${var.ecs_cluster_name}/${aws_ecs_service.main.name}"
@@ -19,9 +19,9 @@ resource "aws_appautoscaling_target" "target" {
 resource "aws_appautoscaling_policy" "policy" {
   name               = "${var.common.project}-${var.common.environment}-${var.common.service_name}-scaling-policy"
   policy_type        = var.appautoscaling_policy.policy_type
-  resource_id        = aws_appautoscaling_target.target.resource_id
-  scalable_dimension = aws_appautoscaling_target.target.scalable_dimension
-  service_namespace  = aws_appautoscaling_target.target.service_namespace
+  resource_id        = aws_appautoscaling_target.this.resource_id
+  scalable_dimension = aws_appautoscaling_target.this.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.this.service_namespace
 
   target_tracking_scaling_policy_configuration {
 

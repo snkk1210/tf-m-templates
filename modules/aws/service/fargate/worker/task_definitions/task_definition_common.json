@@ -1,7 +1,7 @@
 [
     {
-      "name": "${project}-${environment}-${service_name}-worker-container",
-      "image": "${worker_repository_url}:latest",
+      "name": "${project}-${environment}-${service_name}-container",
+      "image": "${repository_url}:latest",
       "readonlyRootFilesystem": false,
       "essential": true,
       "environmentFiles": [],
@@ -11,7 +11,7 @@
         "options": {
           "awslogs-group": "/ecs/${project}-${environment}-${service_name}",
           "awslogs-region": "${region}",
-          "awslogs-stream-prefix": "worker"
+          "awslogs-stream-prefix": "${service_name}"
         }
       }
     }

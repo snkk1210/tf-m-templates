@@ -1,5 +1,5 @@
 /**
-# Variables For WEBAPP
+# Variables
 */
 variable "common" {
   type = object({
@@ -27,42 +27,7 @@ variable "ecs_subnet_ids" {
   default = []
 }
 
-variable "lb_target_group" {
-  type = object({
-    port        = number
-    protocol    = string
-    target_type = string
-  })
-
-  default = {
-    port        = 80
-    protocol    = "HTTP"
-    target_type = "ip"
-  }
-}
-
-variable "lb_health_check" {
-  type = object({
-    interval            = number
-    path                = string
-    port                = number
-    protocol            = string
-    timeout             = number
-    unhealthy_threshold = number
-    matcher             = string
-  })
-  default = {
-    interval            = 30
-    path                = "/"
-    port                = 80
-    protocol            = "HTTP"
-    timeout             = 6
-    unhealthy_threshold = 3
-    matcher             = "200"
-  }
-}
-
-variable "ecr_repository_worker" {
+variable "ecr_repository" {
   type = object({
     image_tag_mutability          = string
     scan_on_push                  = bool

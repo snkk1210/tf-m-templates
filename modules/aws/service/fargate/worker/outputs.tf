@@ -9,8 +9,8 @@ output "cloudwatch_log_group_name" {
   value = aws_cloudwatch_log_group.log.name
 }
 
-output "ecr_repository_worker" {
-  value = aws_ecr_repository.worker
+output "ecr_repository" {
+  value = aws_ecr_repository.this
 }
 
 output "ecs_service" {

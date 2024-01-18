@@ -16,13 +16,13 @@ data "template_file" "task" {
     service_name = var.common.service_name
     region       = var.common.region
 
-    // worker コンテナリポジトリ
-    worker_repository_url = aws_ecr_repository.worker.repository_url
+    // コンテナリポジトリ
+    repository_url = aws_ecr_repository.this.repository_url
   }
 }
 
 // タスク定義
-resource "aws_ecs_task_definition" "main" {
+resource "aws_ecs_task_definition" "this" {
   family = "${var.common.project}-${var.common.environment}-${var.common.service_name}-task"
 
   requires_compatibilities = ["FARGATE"]
@@ -45,7 +45,7 @@ resource "aws_ecs_task_definition" "main" {
 }
 
 // ECS サービス
-resource "aws_ecs_service" "main" {
+resource "aws_ecs_service" "this" {
   name = "${var.common.project}-${var.common.environment}-${var.common.service_name}"
 
   cluster          = var.ecs_cluster_id
@@ -56,7 +56,7 @@ resource "aws_ecs_service" "main" {
 
   enable_execute_command = true
 
-  task_definition = aws_ecs_task_definition.main.arn
+  task_definition = aws_ecs_task_definition.this.arn
 
   network_configuration {
     assign_public_ip = false
