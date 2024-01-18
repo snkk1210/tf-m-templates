@@ -68,3 +68,65 @@ No modules.
 | <a name="output_ecs_sg_id"></a> [ecs\_sg\_id](#output\_ecs\_sg\_id) | n/a |
 | <a name="output_lb_target_group_blue"></a> [lb\_target\_group\_blue](#output\_lb\_target\_group\_blue) | n/a |
 | <a name="output_lb_target_group_green"></a> [lb\_target\_group\_green](#output\_lb\_target\_group\_green) | n/a |
+
+## Example
+
+```
+module "worker" {
+  source = "../../tf-m-templates/modules/aws/service/fargate/worker"
+
+  common = {
+    project      = "example"
+    environment  = "dev"
+    service_name = "worker"
+    region       = "ap-northeast-1"
+  }
+
+  vpc_id         = module.network.vpc_id
+  ecs_subnet_ids = module.network.private_subnet_ids[0]
+
+  ecs_ingress_cidr_blocks = ["0.0.0.0/0"]
+
+  ecr_repository_worker = {
+    image_tag_mutability          = "MUTABLE"
+    scan_on_push                  = true
+    lifecycle_policy_count_number = 15
+  }
+
+  ecs_task = {
+    cpu          = 256
+    memory       = 512
+    network_mode = "awsvpc"
+  }
+
+  ecs_cluster_id   = module.service_fargate_global.ecs_cluster.id
+  ecs_cluster_name = module.service_fargate_global.ecs_cluster.name
+
+  ecs_service = {
+    launch_type      = "FARGATE"
+    platform_version = "1.4.0"
+    desired_count    = 1
+    //deployment_controller_type = "CODE_DEPLOY"
+    deployment_controller_type = "ECS"
+  }
+
+  appautoscaling_target = {
+    max_capacity       = 1
+    min_capacity       = 1
+    scalable_dimension = "ecs:service:DesiredCount"
+    service_namespace  = "ecs"
+  }
+
+  appautoscaling_policy = {
+    policy_type            = "TargetTrackingScaling"
+    predefined_metric_type = "ECSServiceAverageCPUUtilization"
+    statistic              = "Maximum"
+    target_value           = 40
+    disable_scale_in       = false
+    scale_in_cooldown      = 300
+    scale_out_cooldown     = 300
+  }
+
+  ecs_log_retention_in_days = 14
+}
+```
