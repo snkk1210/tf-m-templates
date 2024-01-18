@@ -87,7 +87,7 @@ module "worker" {
 
   ecs_ingress_cidr_blocks = ["0.0.0.0/0"]
 
-  ecr_repository_worker = {
+  ecr_repository = {
     image_tag_mutability          = "MUTABLE"
     scan_on_push                  = true
     lifecycle_policy_count_number = 15
