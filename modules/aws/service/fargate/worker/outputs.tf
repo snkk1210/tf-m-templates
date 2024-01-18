@@ -6,7 +6,7 @@ output "ecs_sg_id" {
 }
 
 output "cloudwatch_log_group_name" {
-  value = aws_cloudwatch_log_group.log.name
+  value = aws_cloudwatch_log_group.this.name
 }
 
 output "ecr_repository" {
@@ -14,13 +14,5 @@ output "ecr_repository" {
 }
 
 output "ecs_service" {
-  value = aws_ecs_service.main
-}
-
-output "lb_target_group_blue" {
-  value = aws_lb_target_group.blue
-}
-
-output "lb_target_group_green" {
-  value = aws_lb_target_group.green
+  value = aws_ecs_service.this
 }
