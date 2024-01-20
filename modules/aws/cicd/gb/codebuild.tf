@@ -11,10 +11,10 @@ resource "aws_codebuild_project" "this" {
   }
 
   source {
-    type      = "GITHUB"
-    location = var.location
+    type            = "GITHUB"
+    location        = var.location
     git_clone_depth = var.git_clone_depth
-    buildspec = var.buildspec
+    buildspec       = var.buildspec
   }
 
   environment {
@@ -61,22 +61,22 @@ resource "aws_codebuild_webhook" "this" {
 
   filter_group {
     filter {
-      pattern                 = "PULL_REQUEST_CREATED"
-      type                    = "EVENT"
+      pattern = "PULL_REQUEST_CREATED"
+      type    = "EVENT"
     }
   }
 
   filter_group {
     filter {
-      pattern                 = "PULL_REQUEST_UPDATED"
-      type                    = "EVENT"
+      pattern = "PULL_REQUEST_UPDATED"
+      type    = "EVENT"
     }
   }
 
   filter_group {
     filter {
-      pattern                 = "PULL_REQUEST_REOPENED"
-      type                    = "EVENT"
+      pattern = "PULL_REQUEST_REOPENED"
+      type    = "EVENT"
     }
   }
 }

@@ -51,12 +51,12 @@ variable "codebuild_subnet_ids" {
 }
 
 variable "stage1_privileged_mode" {
-  type = bool
+  type    = bool
   default = true
 }
 
 variable "stage2_privileged_mode" {
-  type = bool
+  type    = bool
   default = true
 }
 

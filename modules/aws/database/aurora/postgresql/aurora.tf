@@ -33,18 +33,12 @@ resource "aws_rds_cluster_instance" "this" {
   monitoring_role_arn                   = aws_iam_role.aurora_expansion_monitoring.arn
   monitoring_interval                   = 60
   performance_insights_enabled          = var.performance_insights_enabled
-  performance_insights_retention_period = 7
-  performance_insights_kms_key_id       = aws_kms_key.aurora_performance_insights.arn
+  performance_insights_retention_period = local.performance_insights_retention_period
+  performance_insights_kms_key_id       = local.performance_insights_kms_key_id
   promotion_tier                        = 1
+}
 
-  // # MEMO: T 系のインスタンスだと performance_insights を有効化できない
-  /**
-  lifecycle {
-    ignore_changes = [
-      performance_insights_retention_period,
-      performance_insights_kms_key_id,
-      promotion_tier
-    ]
-  }
-  */
+locals {
+  performance_insights_retention_period = var.performance_insights_enabled == true ? 7 : null
+  performance_insights_kms_key_id       = var.performance_insights_enabled == true ? aws_kms_key.aurora_performance_insights.arn : null
 }

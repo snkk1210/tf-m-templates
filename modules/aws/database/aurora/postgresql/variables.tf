@@ -49,6 +49,8 @@ variable "aurora_cluster" {
     engine                       = string
     engine_version               = string
     port                         = number
+    preferred_backup_window      = string
+    preferred_maintenance_window = string
     apply_immediately            = bool
     storage_encrypted            = bool
     backup_retention_period      = number
@@ -66,8 +68,6 @@ variable "aurora_cluster" {
     preferred_maintenance_window = "mon:18:00-mon:19:00"
     apply_immediately            = false
     storage_encrypted            = true
-    preferred_backup_window      = string
-    preferred_maintenance_window = string
     backup_retention_period      = 14
     deletion_protection          = false
     skip_final_snapshot          = true

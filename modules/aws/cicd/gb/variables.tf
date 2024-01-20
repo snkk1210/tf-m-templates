@@ -41,7 +41,7 @@ variable "codebuild_subnet_ids" {
 }
 
 variable "privileged_mode" {
-  type = bool
+  type    = bool
   default = true
 }
 
@@ -56,17 +56,17 @@ variable "image" {
 }
 
 variable "location" {
-  type = string
+  type    = string
   default = ""
 }
 
 variable "git_clone_depth" {
-  type = number
+  type    = number
   default = 1
 }
 
 variable "fetch_submodules" {
-  type = bool
+  type    = bool
   default = false
 }
 
@@ -74,6 +74,6 @@ variable "fetch_submodules" {
 # CloudWatch Logs
 */
 variable "retention_in_days" {
-  type = number
+  type    = number
   default = 400
 }
