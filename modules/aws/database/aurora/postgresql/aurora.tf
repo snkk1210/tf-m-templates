@@ -17,7 +17,7 @@ resource "aws_rds_cluster" "this" {
   skip_final_snapshot             = var.aurora_cluster.skip_final_snapshot
   final_snapshot_identifier       = "${var.common.project}-${var.common.environment}-${var.common.service_name}-${var.common.service_name}-db-cluster-final-snapshot"
   vpc_security_group_ids          = ["${aws_security_group.this.id}"]
-  enabled_cloudwatch_logs_exports = ["postgresql"]
+  enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
 }
 
 resource "aws_rds_cluster_instance" "this" {

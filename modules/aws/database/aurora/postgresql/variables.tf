@@ -99,6 +99,12 @@ variable "aurora_cluster_instance" {
   }
 }
 
+variable "enabled_cloudwatch_logs_exports" {
+  type = list(string)
+  default = ["audit", "error", "general", "slowquery"]
+  //default = ["postgresql"]
+}
+
 variable "cloudwatch_log_retention_in_days" {
   type    = number
   default = 90

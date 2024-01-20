@@ -12,6 +12,7 @@ resource "aws_rds_cluster_parameter_group" "this" {
     }
   }
 
+  /** # MEMO: For PostgreSQL
   parameter {
     name         = "client_encoding"
     value        = "UTF8"
@@ -43,6 +44,7 @@ resource "aws_rds_cluster_parameter_group" "this" {
     value        = "pgaudit"
     apply_method = "pending-reboot"
   }
+  */
 
   lifecycle {
     ignore_changes = [
