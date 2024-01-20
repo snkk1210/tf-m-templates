@@ -1,4 +1,4 @@
-# database/aurora/postgresql
+# database/aurora
 
 ## Requirements
 
@@ -37,13 +37,14 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aurora_cluster"></a> [aurora\_cluster](#input\_aurora\_cluster) | n/a | <pre>object({<br>    master_username              = string<br>    master_password              = string<br>    backup_retention_period      = number<br>    engine                       = string<br>    engine_version               = string<br>    preferred_backup_window      = string<br>    preferred_maintenance_window = string<br>    apply_immediately            = bool<br>    storage_encrypted            = bool<br>    deletion_protection          = bool<br>    skip_final_snapshot          = bool<br>  })</pre> | <pre>{<br>  "apply_immediately": false,<br>  "backup_retention_period": 14,<br>  "deletion_protection": false,<br>  "engine": "",<br>  "engine_version": "",<br>  "master_password": "",<br>  "master_username": "",<br>  "preferred_backup_window": "",<br>  "preferred_maintenance_window": "",<br>  "skip_final_snapshot": true,<br>  "storage_encrypted": true<br>}</pre> | no |
-| <a name="input_aurora_cluster_instance"></a> [aurora\_cluster\_instance](#input\_aurora\_cluster\_instance) | n/a | <pre>object({<br>    count                      = number<br>    instance_class             = string<br>    engine                     = string<br>    engine_version             = string<br>    storage_type               = string<br>    publicly_accessible        = bool<br>    auto_minor_version_upgrade = bool<br>    apply_immediately          = bool<br>  })</pre> | <pre>{<br>  "apply_immediately": false,<br>  "auto_minor_version_upgrade": false,<br>  "count": 0,<br>  "engine": "",<br>  "engine_version": "",<br>  "instance_class": "",<br>  "publicly_accessible": false,<br>  "storage_type": ""<br>}</pre> | no |
+| <a name="input_aurora_cluster"></a> [aurora\_cluster](#input\_aurora\_cluster) | n/a | <pre>object({<br>    master_username              = string<br>    master_password              = string<br>    engine                       = string<br>    engine_version               = string<br>    port                         = number<br>    preferred_backup_window      = string<br>    preferred_maintenance_window = string<br>    apply_immediately            = bool<br>    storage_encrypted            = bool<br>    backup_retention_period      = number<br>    deletion_protection          = bool<br>    skip_final_snapshot          = bool<br>  })</pre> | <pre>{<br>  "apply_immediately": false,<br>  "backup_retention_period": 14,<br>  "deletion_protection": false,<br>  "engine": "aurora-postgresql",<br>  "engine_version": "14.9",<br>  "master_password": "hogehoge",<br>  "master_username": "root",<br>  "port": 5432,<br>  "preferred_backup_window": "17:00-18:00",<br>  "preferred_maintenance_window": "mon:18:00-mon:19:00",<br>  "skip_final_snapshot": true,<br>  "storage_encrypted": true<br>}</pre> | no |
+| <a name="input_aurora_cluster_instance"></a> [aurora\_cluster\_instance](#input\_aurora\_cluster\_instance) | n/a | <pre>object({<br>    count                      = number<br>    instance_class             = string<br>    engine                     = string<br>    engine_version             = string<br>    storage_type               = string<br>    publicly_accessible        = bool<br>    auto_minor_version_upgrade = bool<br>    apply_immediately          = bool<br>  })</pre> | <pre>{<br>  "apply_immediately": false,<br>  "auto_minor_version_upgrade": false,<br>  "count": 0,<br>  "engine": "aurora-postgresql",<br>  "engine_version": "14.9",<br>  "instance_class": "db.t3.medium",<br>  "publicly_accessible": false,<br>  "storage_type": "gp2"<br>}</pre> | no |
 | <a name="input_aurora_cluster_parameter_group"></a> [aurora\_cluster\_parameter\_group](#input\_aurora\_cluster\_parameter\_group) | n/a | <pre>object({<br>    family    = string<br>    parameter = map(string)<br>  })</pre> | <pre>{<br>  "family": "",<br>  "parameter": {}<br>}</pre> | no |
 | <a name="input_aurora_db_parameter_group"></a> [aurora\_db\_parameter\_group](#input\_aurora\_db\_parameter\_group) | n/a | <pre>object({<br>    family    = string<br>    parameter = map(string)<br>  })</pre> | <pre>{<br>  "family": "",<br>  "parameter": {}<br>}</pre> | no |
 | <a name="input_aurora_ingress"></a> [aurora\_ingress](#input\_aurora\_ingress) | n/a | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | <a name="input_cloudwatch_log_retention_in_days"></a> [cloudwatch\_log\_retention\_in\_days](#input\_cloudwatch\_log\_retention\_in\_days) | n/a | `number` | `90` | no |
 | <a name="input_common"></a> [common](#input\_common) | n/a | <pre>object({<br>    project      = string<br>    environment  = string<br>    service_name = string<br>  })</pre> | <pre>{<br>  "environment": "",<br>  "project": "",<br>  "service_name": ""<br>}</pre> | no |
+| <a name="input_enabled_cloudwatch_logs_exports"></a> [enabled\_cloudwatch\_logs\_exports](#input\_enabled\_cloudwatch\_logs\_exports) | n/a | `list(string)` | <pre>[<br>  "audit",<br>  "error",<br>  "general",<br>  "slowquery"<br>]</pre> | no |
 | <a name="input_performance_insights_enabled"></a> [performance\_insights\_enabled](#input\_performance\_insights\_enabled) | n/a | `bool` | `false` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | n/a | `list(string)` | n/a | yes |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | n/a | `string` | n/a | yes |
@@ -54,9 +55,11 @@ No outputs.
 
 ## Example
 
+### PostgreSQL
+
 ```
-module "database_aurora_postgresql" {
-  source = "../../tf-m-templates/modules/aws/database/aurora/postgresql"
+module "database_aurora" {
+  source = "../../tf-m-templates/modules/aws/database/aurora"
 
   common = {
     project      = "example"
@@ -69,20 +72,25 @@ module "database_aurora_postgresql" {
 
   aurora_cluster_parameter_group = {
     family    = "aurora-postgresql14"
+    //family    = "aurora-mysql8.0"
     parameter = {}
   }
 
   aurora_db_parameter_group = {
     family    = "aurora-postgresql14"
+    //family    = "aurora-mysql8.0"
     parameter = {}
   }
 
   aurora_cluster = {
     master_username              = "root"
-    master_password              = "vagrantvagrant"
+    master_password              = "hogehoge"
     backup_retention_period      = 30
     engine                       = "aurora-postgresql"
+    //engine                       = "aurora-mysql"
     engine_version               = "14.9"
+    //engine_version               = "8.0.mysql_aurora.3.02.0"
+    port                         = 5432
     preferred_backup_window      = "17:00-18:00"
     preferred_maintenance_window = "mon:18:00-mon:19:00"
     apply_immediately            = true
@@ -95,11 +103,82 @@ module "database_aurora_postgresql" {
     count                      = 1
     instance_class             = "db.t3.medium"
     engine                     = "aurora-postgresql"
+    //engine                     = "aurora-mysql"
     engine_version             = "14.9"
+    //engine_version             = "8.0.mysql_aurora.3.02.0"
     apply_immediately          = true
     auto_minor_version_upgrade = false
     publicly_accessible        = false
     storage_type               = "gp2"
   }
+
+  performance_insights_enabled = false
+
+  enabled_cloudwatch_logs_exports = ["postgresql"]
+  //enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
+}
+```
+
+### MySQL
+
+```
+module "database_aurora" {
+  source = "../../tf-m-templates/modules/aws/database/aurora"
+
+  common = {
+    project      = "example"
+    environment  = "dev"
+    service_name = "mysql"
+  }
+
+  vpc_id     = module.network.vpc_id
+  subnet_ids = module.network.isolated_subnet_ids
+
+  aurora_cluster_parameter_group = {
+    //family    = "aurora-postgresql14"
+    family    = "aurora-mysql8.0"
+    parameter = {}
+  }
+
+  aurora_db_parameter_group = {
+    //family    = "aurora-postgresql14"
+    family    = "aurora-mysql8.0"
+    parameter = {}
+  }
+
+  aurora_cluster = {
+    master_username              = "root"
+    master_password              = "hogehoge"
+    backup_retention_period      = 30
+    //engine                       = "aurora-postgresql"
+    engine                       = "aurora-mysql"
+    //engine_version               = "14.9"
+    engine_version               = "8.0.mysql_aurora.3.02.0"
+    port                         = 5432
+    preferred_backup_window      = "17:00-18:00"
+    preferred_maintenance_window = "mon:18:00-mon:19:00"
+    apply_immediately            = true
+    deletion_protection          = false
+    skip_final_snapshot          = false
+    storage_encrypted            = true
+  }
+
+  aurora_cluster_instance = {
+    count                      = 1
+    instance_class             = "db.t3.medium"
+    //engine                     = "aurora-postgresql"
+    engine                     = "aurora-mysql"
+    //engine_version             = "14.9"
+    engine_version             = "8.0.mysql_aurora.3.02.0"
+    apply_immediately          = true
+    auto_minor_version_upgrade = false
+    publicly_accessible        = false
+    storage_type               = "gp2"
+  }
+
+  performance_insights_enabled = false
+
+  //enabled_cloudwatch_logs_exports = ["postgresql"]
+  enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
 }
 ```
