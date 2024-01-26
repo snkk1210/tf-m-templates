@@ -46,6 +46,6 @@ resource "aws_rds_cluster_instance" "this" {
 
 locals {
   performance_insights_retention_period = var.performance_insights_enabled == true ? 7 : null
-  performance_insights_kms_key_id       = var.performance_insights_enabled == true ? aws_kms_key.rds.arn : null
-  kms_key_id = var.aurora_cluster.storage_encrypted == true ? aws_kms_key.rds.arn : null
+  performance_insights_kms_key_id       = var.performance_insights_enabled == true ? data.aws_kms_key.rds.arn : null
+  kms_key_id = var.aurora_cluster.storage_encrypted == true ? data.aws_kms_key.rds.arn : null
 }
