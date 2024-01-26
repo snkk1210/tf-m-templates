@@ -4,7 +4,7 @@
 resource "aws_eip" "eip_nat_gateway_1a" {
   count      = var.enable_private ? 1 : 0
   domain     = "vpc"
-  depends_on = [aws_internet_gateway.internet_gateway]
+  depends_on = [aws_internet_gateway.this]
   tags = {
     Name = "${var.common.project}-${var.common.environment}-natgw-eip-1a${var.sfx}"
     Environment = var.common.environment
@@ -15,7 +15,7 @@ resource "aws_eip" "eip_nat_gateway_1a" {
 resource "aws_eip" "eip_nat_gateway_1c" {
   count      = var.enable_private ? 1 : 0
   domain     = "vpc"
-  depends_on = [aws_internet_gateway.internet_gateway]
+  depends_on = [aws_internet_gateway.this]
   tags = {
     Name = "${var.common.project}-${var.common.environment}-natgw-eip-1c${var.sfx}"
     Environment = var.common.environment
@@ -26,7 +26,7 @@ resource "aws_eip" "eip_nat_gateway_1c" {
 resource "aws_eip" "eip_nat_gateway_1d" {
   count      = var.enable_private ? 1 : 0
   domain     = "vpc"
-  depends_on = [aws_internet_gateway.internet_gateway]
+  depends_on = [aws_internet_gateway.this]
   tags = {
     Name = "${var.common.project}-${var.common.environment}-natgw-eip-1d${var.sfx}"
     Environment = var.common.environment
@@ -38,7 +38,7 @@ resource "aws_nat_gateway" "nat_gateway_1a" {
   count         = var.enable_private ? 1 : 0
   allocation_id = aws_eip.eip_nat_gateway_1a[0].id
   subnet_id     = aws_subnet.public_1a.id
-  depends_on    = [aws_internet_gateway.internet_gateway]
+  depends_on    = [aws_internet_gateway.this]
   tags = {
     Name = "${var.common.project}-${var.common.environment}-natgw-1a${var.sfx}"
     Environment = var.common.environment
@@ -50,7 +50,7 @@ resource "aws_nat_gateway" "nat_gateway_1c" {
   count         = var.enable_private ? 1 : 0
   allocation_id = aws_eip.eip_nat_gateway_1c[0].id
   subnet_id     = aws_subnet.public_1c.id
-  depends_on    = [aws_internet_gateway.internet_gateway]
+  depends_on    = [aws_internet_gateway.this]
   tags = {
     Name = "${var.common.project}-${var.common.environment}-natgw-1c${var.sfx}"
     Environment = var.common.environment
@@ -62,7 +62,7 @@ resource "aws_nat_gateway" "nat_gateway_1d" {
   count         = var.enable_private ? 1 : 0
   allocation_id = aws_eip.eip_nat_gateway_1d[0].id
   subnet_id     = aws_subnet.public_1d.id
-  depends_on    = [aws_internet_gateway.internet_gateway]
+  depends_on    = [aws_internet_gateway.this]
   tags = {
     Name = "${var.common.project}-${var.common.environment}-natgw-1d${var.sfx}"
     Environment = var.common.environment
