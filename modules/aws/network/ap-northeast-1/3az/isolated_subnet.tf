@@ -8,6 +8,8 @@ resource "aws_subnet" "isolated_1a" {
   map_public_ip_on_launch = false
   tags = {
     Name = "${var.common.project}-${var.common.environment}-isolated-subnet-1a${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
   }
 }
 
@@ -18,6 +20,8 @@ resource "aws_subnet" "isolated_1c" {
   map_public_ip_on_launch = false
   tags = {
     Name = "${var.common.project}-${var.common.environment}-isolated-subnet-1c${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
   }
 }
 
@@ -28,6 +32,8 @@ resource "aws_subnet" "isolated_1d" {
   map_public_ip_on_launch = false
   tags = {
     Name = "${var.common.project}-${var.common.environment}-isolated-subnet-1d${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
   }
 }
 
@@ -38,6 +44,8 @@ resource "aws_route_table" "isolated" {
   vpc_id = aws_vpc.common.id
   tags = {
     Name = "${var.common.project}-${var.common.environment}-isolated-rt${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
   }
 }
 
