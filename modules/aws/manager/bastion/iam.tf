@@ -4,7 +4,7 @@
 
 // Bastion role
 resource "aws_iam_role" "bastion_role" {
-  name = "${var.common.project}-${var.common.environment}-bastion-ec2-iam-role01"
+  name = "${var.common.project}-${var.common.environment}-bastion-ec2-iam-role${var.sfx}"
 
   assume_role_policy = <<POLICY
 {
@@ -21,6 +21,12 @@ resource "aws_iam_role" "bastion_role" {
   ]
 }
 POLICY
+
+  tags = {
+    Name        = "${var.common.project}-${var.common.environment}-bastion-ec2-iam-role${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
+  }
 }
 
 // Bastion SSM 操作 ロール アタッチ
@@ -67,9 +73,15 @@ data "aws_iam_policy_document" "ec2_to_ecs" {
 
 // ECS 操作 ポリシー
 resource "aws_iam_policy" "ec2_to_ecs" {
-  name   = "${var.common.project}-${var.common.environment}-ec2-to-ecs-iam-policy01"
+  name   = "${var.common.project}-${var.common.environment}-ec2-to-ecs-iam-policy${var.sfx}"
   path   = "/"
   policy = data.aws_iam_policy_document.ec2_to_ecs.json
+
+  tags = {
+    Name        = "${var.common.project}-${var.common.environment}-ec2-to-ecs-iam-policy${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
+  }
 }
 
 // ECS 操作 ポリシー アタッチ
@@ -97,7 +109,13 @@ resource "aws_iam_role_policy_attachment" "ec2_to_iam" {
 }
 
 // Bastion Profile
-resource "aws_iam_instance_profile" "bastion_profile" {
-  name = "${var.common.project}-${var.common.environment}-bastion-ec2-profile01"
+resource "aws_iam_instance_profile" "this" {
+  name = "${var.common.project}-${var.common.environment}-bastion-ec2-profile${var.sfx}"
   role = aws_iam_role.bastion_role.name
+
+  tags = {
+    Name        = "${var.common.project}-${var.common.environment}-bastion-ec2-profile${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
+  }
 }

@@ -1,3 +1,6 @@
+/** 
+# Variables for COMMON
+*/
 variable "common" {
   type = object({
     project     = string
@@ -10,6 +13,14 @@ variable "common" {
   }
 }
 
+variable "sfx" {
+  type = string
+  default = "01"
+}
+
+/** 
+# Variables for EC2
+*/
 variable "bastion_log_retention_in_days" {
   type    = string
   default = ""
@@ -58,7 +69,12 @@ variable "root_block_device" {
   }
 }
 
-variable "security_group_rules_bastion" {
+variable "bastion_ingress" {
   type    = list(string)
   default = []
+}
+
+variable "key_auth_enabled" {
+  type = bool
+  default = false
 }
