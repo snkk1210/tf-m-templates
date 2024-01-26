@@ -7,7 +7,7 @@ resource "aws_subnet" "isolated_1a" {
   availability_zone       = "ap-northeast-1a"
   map_public_ip_on_launch = false
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-isolated-subnet-1a"
+    Name = "${var.common.project}-${var.common.environment}-isolated-subnet-1a${var.sfx}"
   }
 }
 
@@ -17,7 +17,7 @@ resource "aws_subnet" "isolated_1c" {
   availability_zone       = "ap-northeast-1c"
   map_public_ip_on_launch = false
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-isolated-subnet-1c"
+    Name = "${var.common.project}-${var.common.environment}-isolated-subnet-1c${var.sfx}"
   }
 }
 
@@ -27,14 +27,17 @@ resource "aws_subnet" "isolated_1d" {
   availability_zone       = "ap-northeast-1d"
   map_public_ip_on_launch = false
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-isolated-subnet-1d"
+    Name = "${var.common.project}-${var.common.environment}-isolated-subnet-1d${var.sfx}"
   }
 }
 
+/** 
+# Route Table ( Isolated )
+*/
 resource "aws_route_table" "isolated" {
   vpc_id = aws_vpc.common.id
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-isolated-rt"
+    Name = "${var.common.project}-${var.common.environment}-isolated-rt${var.sfx}"
   }
 }
 

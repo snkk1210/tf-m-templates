@@ -1,3 +1,6 @@
+/** 
+# Variables for COMMON
+*/
 variable "common" {
   type = object({
     project     = string
@@ -5,11 +8,19 @@ variable "common" {
   })
 
   default = {
-    "project"     = ""
-    "environment" = ""
+    project     = ""
+    environment = ""
   }
 }
 
+variable "sfx" {
+  type = string
+  default = "01"
+}
+
+/** 
+# Variables for VPC
+*/
 variable "vpc" {
   type = object({
     enable_dns_support   = bool
@@ -23,7 +34,8 @@ variable "vpc" {
 }
 
 variable "cidr_prefix" {
-  default = ""
+  type = string
+  default = "10.0"
 }
 
 variable "enable_private" {

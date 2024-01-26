@@ -1,12 +1,12 @@
 /**
-# Private Sunbet
+# Nat Gateway
 */
 resource "aws_eip" "eip_nat_gateway_1a" {
   count      = var.enable_private ? 1 : 0
   domain     = "vpc"
   depends_on = [aws_internet_gateway.internet_gateway]
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-natgw-eip-1a"
+    Name = "${var.common.project}-${var.common.environment}-natgw-eip-1a${var.sfx}"
   }
 }
 
@@ -15,7 +15,7 @@ resource "aws_eip" "eip_nat_gateway_1c" {
   domain     = "vpc"
   depends_on = [aws_internet_gateway.internet_gateway]
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-natgw-eip-1c"
+    Name = "${var.common.project}-${var.common.environment}-natgw-eip-1c${var.sfx}"
   }
 }
 
@@ -24,7 +24,7 @@ resource "aws_eip" "eip_nat_gateway_1d" {
   domain     = "vpc"
   depends_on = [aws_internet_gateway.internet_gateway]
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-natgw-eip-1d"
+    Name = "${var.common.project}-${var.common.environment}-natgw-eip-1d${var.sfx}"
   }
 }
 
@@ -34,7 +34,7 @@ resource "aws_nat_gateway" "nat_gateway_1a" {
   subnet_id     = aws_subnet.public_1a.id
   depends_on    = [aws_internet_gateway.internet_gateway]
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-natgw-1a"
+    Name = "${var.common.project}-${var.common.environment}-natgw-1a${var.sfx}"
   }
 }
 
@@ -44,7 +44,7 @@ resource "aws_nat_gateway" "nat_gateway_1c" {
   subnet_id     = aws_subnet.public_1c.id
   depends_on    = [aws_internet_gateway.internet_gateway]
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-natgw-1c"
+    Name = "${var.common.project}-${var.common.environment}-natgw-1c${var.sfx}"
   }
 }
 
@@ -54,10 +54,13 @@ resource "aws_nat_gateway" "nat_gateway_1d" {
   subnet_id     = aws_subnet.public_1d.id
   depends_on    = [aws_internet_gateway.internet_gateway]
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-natgw-1d"
+    Name = "${var.common.project}-${var.common.environment}-natgw-1d${var.sfx}"
   }
 }
 
+/** 
+# Private Subnet
+*/
 resource "aws_subnet" "private_1a" {
   count                   = var.enable_private ? 1 : 0
   vpc_id                  = aws_vpc.common.id
@@ -65,7 +68,7 @@ resource "aws_subnet" "private_1a" {
   availability_zone       = "ap-northeast-1a"
   map_public_ip_on_launch = false
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-private-subnet-1a"
+    Name = "${var.common.project}-${var.common.environment}-private-subnet-1a${var.sfx}"
   }
 }
 
@@ -76,7 +79,7 @@ resource "aws_subnet" "private_1c" {
   availability_zone       = "ap-northeast-1c"
   map_public_ip_on_launch = false
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-private-subnet-1c"
+    Name = "${var.common.project}-${var.common.environment}-private-subnet-1c${var.sfx}"
   }
 }
 
@@ -87,15 +90,18 @@ resource "aws_subnet" "private_1d" {
   availability_zone       = "ap-northeast-1d"
   map_public_ip_on_launch = false
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-private-subnet-1d"
+    Name = "${var.common.project}-${var.common.environment}-private-subnet-1d${var.sfx}"
   }
 }
 
+/** 
+# Route Table ( Private )
+*/
 resource "aws_route_table" "private_1a" {
   count  = var.enable_private ? 1 : 0
   vpc_id = aws_vpc.common.id
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-private-rt-1a"
+    Name = "${var.common.project}-${var.common.environment}-private-rt-1a${var.sfx}"
   }
 }
 
@@ -103,7 +109,7 @@ resource "aws_route_table" "private_1c" {
   count  = var.enable_private ? 1 : 0
   vpc_id = aws_vpc.common.id
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-private-rt-1c"
+    Name = "${var.common.project}-${var.common.environment}-private-rt-1c${var.sfx}"
   }
 }
 
@@ -111,7 +117,7 @@ resource "aws_route_table" "private_1d" {
   count  = var.enable_private ? 1 : 0
   vpc_id = aws_vpc.common.id
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-private-rt-1d"
+    Name = "${var.common.project}-${var.common.environment}-private-rt-1d${var.sfx}"
   }
 }
 
