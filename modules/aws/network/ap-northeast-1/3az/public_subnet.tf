@@ -6,6 +6,7 @@ resource "aws_subnet" "public_1a" {
   cidr_block              = "${var.cidr_prefix}.0.0/22"
   map_public_ip_on_launch = true
   availability_zone       = "ap-northeast-1a"
+
   tags = {
     Name = "${var.common.project}-${var.common.environment}-public-subnet-1a${var.sfx}"
     Environment = var.common.environment
@@ -18,6 +19,7 @@ resource "aws_subnet" "public_1c" {
   cidr_block              = "${var.cidr_prefix}.4.0/22"
   map_public_ip_on_launch = true
   availability_zone       = "ap-northeast-1c"
+
   tags = {
     Name = "${var.common.project}-${var.common.environment}-public-subnet-1c${var.sfx}"
     Environment = var.common.environment
@@ -30,6 +32,7 @@ resource "aws_subnet" "public_1d" {
   cidr_block              = "${var.cidr_prefix}.8.0/22"
   map_public_ip_on_launch = true
   availability_zone       = "ap-northeast-1d"
+
   tags = {
     Name = "${var.common.project}-${var.common.environment}-public-subnet-1d${var.sfx}"
     Environment = var.common.environment
@@ -42,6 +45,7 @@ resource "aws_subnet" "public_1d" {
 */
 resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.common.id
+
   tags = {
     Name = "${var.common.project}-${var.common.environment}-igw${var.sfx}"
     Environment = var.common.environment
@@ -54,6 +58,7 @@ resource "aws_internet_gateway" "this" {
 */
 resource "aws_route_table" "public_route_table" {
   vpc_id = aws_vpc.common.id
+  
   tags = {
     Name = "${var.common.project}-${var.common.environment}-public-rt${var.sfx}"
     Environment = var.common.environment

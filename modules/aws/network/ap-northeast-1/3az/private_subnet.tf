@@ -79,6 +79,7 @@ resource "aws_subnet" "private_1a" {
   cidr_block              = "${var.cidr_prefix}.12.0/22"
   availability_zone       = "ap-northeast-1a"
   map_public_ip_on_launch = false
+  
   tags = {
     Name = "${var.common.project}-${var.common.environment}-private-subnet-1a${var.sfx}"
     Environment = var.common.environment
@@ -92,6 +93,7 @@ resource "aws_subnet" "private_1c" {
   cidr_block              = "${var.cidr_prefix}.16.0/22"
   availability_zone       = "ap-northeast-1c"
   map_public_ip_on_launch = false
+  
   tags = {
     Name = "${var.common.project}-${var.common.environment}-private-subnet-1c${var.sfx}"
     Environment = var.common.environment
@@ -105,6 +107,7 @@ resource "aws_subnet" "private_1d" {
   cidr_block              = "${var.cidr_prefix}.20.0/22"
   availability_zone       = "ap-northeast-1d"
   map_public_ip_on_launch = false
+
   tags = {
     Name = "${var.common.project}-${var.common.environment}-private-subnet-1d${var.sfx}"
     Environment = var.common.environment
@@ -118,6 +121,7 @@ resource "aws_subnet" "private_1d" {
 resource "aws_route_table" "private_1a" {
   count  = var.enable_private ? 1 : 0
   vpc_id = aws_vpc.common.id
+
   tags = {
     Name = "${var.common.project}-${var.common.environment}-private-rt-1a${var.sfx}"
     Environment = var.common.environment
@@ -128,6 +132,7 @@ resource "aws_route_table" "private_1a" {
 resource "aws_route_table" "private_1c" {
   count  = var.enable_private ? 1 : 0
   vpc_id = aws_vpc.common.id
+
   tags = {
     Name = "${var.common.project}-${var.common.environment}-private-rt-1c${var.sfx}"
     Environment = var.common.environment
@@ -138,6 +143,7 @@ resource "aws_route_table" "private_1c" {
 resource "aws_route_table" "private_1d" {
   count  = var.enable_private ? 1 : 0
   vpc_id = aws_vpc.common.id
+
   tags = {
     Name = "${var.common.project}-${var.common.environment}-private-rt-1d${var.sfx}"
     Environment = var.common.environment

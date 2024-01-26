@@ -1,5 +1,5 @@
 resource "aws_rds_cluster" "this" {
-  cluster_identifier              = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-cluster"
+  cluster_identifier              = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-cluster${var.sfx}"
   master_username                 = var.aurora_cluster.master_username
   master_password                 = var.aurora_cluster.master_password
   engine                          = var.aurora_cluster.engine
@@ -18,6 +18,12 @@ resource "aws_rds_cluster" "this" {
   final_snapshot_identifier       = "${var.common.project}-${var.common.environment}-${var.common.service_name}-${var.common.service_name}-db-cluster-final-snapshot"
   vpc_security_group_ids          = ["${aws_security_group.this.id}"]
   enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
+
+  tags = {
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-cluster${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
+  }
 }
 
 resource "aws_rds_cluster_instance" "this" {

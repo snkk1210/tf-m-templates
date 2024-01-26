@@ -1,3 +1,6 @@
+/** 
+# Variables for COMMON
+*/
 variable "common" {
   type = object({
     project      = string
@@ -12,6 +15,14 @@ variable "common" {
   }
 }
 
+variable "sfx" {
+  type = string
+  default = "01"
+}
+
+/** 
+# Variables for Aurora
+*/
 variable "vpc_id" {
   type = string
 }
