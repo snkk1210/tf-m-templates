@@ -21,18 +21,14 @@ variable "sfx" {
 /** 
 # Variables for EC2
 */
-variable "bastion_log_retention_in_days" {
-  type    = string
-  default = ""
-}
-
 variable "vpc_id" {
   type    = string
   default = ""
 }
 
 variable "subnet_ids" {
-  default = []
+  type = string
+  default = ""
 }
 
 variable "ami" {
@@ -69,12 +65,17 @@ variable "root_block_device" {
   }
 }
 
+variable "key_auth_enabled" {
+  type = bool
+  default = false
+}
+
 variable "bastion_ingress" {
   type    = list(string)
   default = []
 }
 
-variable "key_auth_enabled" {
+variable "global_ip_enabled" {
   type = bool
   default = false
 }

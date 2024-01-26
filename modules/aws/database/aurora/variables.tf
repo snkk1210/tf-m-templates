@@ -29,6 +29,7 @@ variable "vpc_id" {
 
 variable "subnet_ids" {
   type = list(string)
+  default = []
 }
 
 variable "aurora_cluster_parameter_group" {

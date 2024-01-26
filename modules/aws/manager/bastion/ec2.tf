@@ -5,7 +5,7 @@ resource "aws_instance" "this" {
   ami                         = var.ami
   instance_type               = var.instance_type
   vpc_security_group_ids      = [aws_security_group.this.id]
-  key_name                    = aws_key_pair.key_pair.id
+  key_name                    = var.key_auth_enabled ? aws_key_pair.key_pair[0].id : null
   subnet_id                   = var.subnet_ids
   associate_public_ip_address = var.associate_public_ip_address
   iam_instance_profile        = aws_iam_instance_profile.this.name
@@ -32,7 +32,9 @@ resource "aws_instance" "this" {
 }
 
 resource "aws_eip" "bastion" {
-  instance = aws_instance.bastion.id
+  count = var.global_ip_enabled ? 1 : 0 
+
+  instance = aws_instance.this.id
   domain   = "vpc"
 
   tags = {
