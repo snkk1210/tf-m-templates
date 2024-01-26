@@ -7,7 +7,7 @@ resource "aws_rds_cluster" "this" {
   port                            = var.aurora_cluster.port
   apply_immediately               = var.aurora_cluster.apply_immediately
   storage_encrypted               = var.aurora_cluster.storage_encrypted
-  kms_key_id                      = aws_kms_key.aurora_storage.arn
+  kms_key_id                      = local.kms_key_id
   db_subnet_group_name            = aws_db_subnet_group.this.name
   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.this.name
   preferred_backup_window         = var.aurora_cluster.preferred_backup_window
@@ -46,5 +46,6 @@ resource "aws_rds_cluster_instance" "this" {
 
 locals {
   performance_insights_retention_period = var.performance_insights_enabled == true ? 7 : null
-  performance_insights_kms_key_id       = var.performance_insights_enabled == true ? aws_kms_key.aurora_performance_insights[0].arn : null
+  performance_insights_kms_key_id       = var.performance_insights_enabled == true ? aws_kms_key.rds.arn : null
+  kms_key_id = var.aurora_cluster.storage_encrypted == true ? aws_kms_key.rds.arn : null
 }

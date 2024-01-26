@@ -1,6 +1,6 @@
 resource "aws_rds_cluster_parameter_group" "this" {
-  name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-cluster-pg"
-  description = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-cluster-pg"
+  name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-cluster-pg${var.sfx}"
+  description = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-cluster-pg${var.sfx}"
   family      = var.aurora_cluster_parameter_group.family
 
   dynamic "parameter" {
@@ -53,15 +53,16 @@ resource "aws_rds_cluster_parameter_group" "this" {
   }
 
   tags = {
-    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-cluster-pg"
+    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-cluster-pg${var.sfx}"
+    Environment = var.common.environment
     Createdby = "Terraform"
   }
 }
 
 resource "aws_db_parameter_group" "this" {
-  name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-pg"
+  name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-pg${var.sfx}"
   family      = var.aurora_db_parameter_group.family
-  description = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-pg"
+  description = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-pg${var.sfx}"
 
   dynamic "parameter" {
     for_each = var.aurora_db_parameter_group.parameter
@@ -73,7 +74,8 @@ resource "aws_db_parameter_group" "this" {
   }
 
   tags = {
-    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-pg"
+    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-pg${var.sfx}"
+    Environment = var.common.environment
     Createdby = "Terraform"
   }
 }

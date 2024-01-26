@@ -1,6 +1,6 @@
 // Aurora 拡張モニタリング role
 resource "aws_iam_role" "aurora_expansion_monitoring" {
-  name = "${var.common.project}-${var.common.environment}-${var.common.service_name}-aurora-expansion-monitoring-role"
+  name = "${var.common.project}-${var.common.environment}-${var.common.service_name}-aurora-expansion-monitoring-role${var.sfx}"
   path = "/"
 
   assume_role_policy = <<POLICY
@@ -17,6 +17,12 @@ resource "aws_iam_role" "aurora_expansion_monitoring" {
   ]
 }
 POLICY
+
+  tags = {
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-aurora-expansion-monitoring-role${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
+  }
 }
 
 // Aurora 拡張モニタリング ポリシー　アタッチ

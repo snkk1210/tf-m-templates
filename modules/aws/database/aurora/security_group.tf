@@ -1,10 +1,11 @@
 resource "aws_security_group" "this" {
-  name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-sg"
-  description = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-sg"
+  name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-sg${var.sfx}"
+  description = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-sg${var.sfx}"
   vpc_id      = var.vpc_id
 
   tags = {
-    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-sg"
+    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-sg${var.sfx}"
+    Environment = var.common.environment
     Createdby = "Terraform"
   }
 }
