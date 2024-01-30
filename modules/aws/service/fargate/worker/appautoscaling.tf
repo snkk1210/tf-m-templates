@@ -33,11 +33,11 @@ resource "aws_appautoscaling_policy" "policy" {
 
       dimensions {
         name  = "ServiceName"
-        value = "${var.common.project}-${var.common.environment}-${var.common.service_name}"
+        value = aws_ecs_service.this.name
       }
       dimensions {
         name  = "ClusterName"
-        value = "${var.common.project}-${var.common.environment}-cluster"
+        value = var.ecs_cluster_name
       }
     }
 
