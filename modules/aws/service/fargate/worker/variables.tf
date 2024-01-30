@@ -1,5 +1,5 @@
 /**
-# Variables
+# Variables for COMMON
 */
 variable "common" {
   type = object({
@@ -17,6 +17,14 @@ variable "common" {
   }
 }
 
+variable "sfx" {
+  type = string
+  default = "01"
+}
+
+/**
+# Variables for ECS
+*/
 variable "vpc_id" {
   type    = string
   default = ""
@@ -25,20 +33,6 @@ variable "vpc_id" {
 variable "ecs_subnet_ids" {
   type    = list(string)
   default = []
-}
-
-variable "ecr_repository" {
-  type = object({
-    image_tag_mutability          = string
-    scan_on_push                  = bool
-    lifecycle_policy_count_number = number
-  })
-
-  default = {
-    image_tag_mutability          = "MUTABLE"
-    scan_on_push                  = false
-    lifecycle_policy_count_number = 15
-  }
 }
 
 variable "ecs_task" {
@@ -84,7 +78,26 @@ variable "ecs_ingress_cidr_blocks" {
   default = ["0.0.0.0/0"]
 }
 
+/**
+# Variables for ECR
+*/
+variable "ecr_repository" {
+  type = object({
+    image_tag_mutability          = string
+    scan_on_push                  = bool
+    lifecycle_policy_count_number = number
+  })
 
+  default = {
+    image_tag_mutability          = "MUTABLE"
+    scan_on_push                  = false
+    lifecycle_policy_count_number = 15
+  }
+}
+
+/**
+# Variables for Autoscaling
+*/
 variable "appautoscaling_target" {
   type = object({
     max_capacity       = number
