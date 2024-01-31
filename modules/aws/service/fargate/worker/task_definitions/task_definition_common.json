@@ -1,6 +1,6 @@
 [
     {
-      "name": "${project}-${environment}-${service_name}-container",
+      "name": "${project}-${environment}-${service_name}-app-container",
       "image": "${repository_url}:latest",
       "readonlyRootFilesystem": false,
       "essential": true,
@@ -9,9 +9,9 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/${project}-${environment}-${service_name}",
+          "awslogs-group": "/ecs/${project}-${environment}-${service_name}${sfx}",
           "awslogs-region": "${region}",
-          "awslogs-stream-prefix": "${service_name}"
+          "awslogs-stream-prefix": "app"
         }
       }
     }

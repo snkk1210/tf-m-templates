@@ -3,7 +3,7 @@
 */
 
 resource "aws_ecr_repository" "this" {
-  name                 = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecr"
+  name                 = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecr${var.sfx}"
   image_tag_mutability = var.ecr_repository.image_tag_mutability
   force_delete         = true
 
@@ -12,7 +12,8 @@ resource "aws_ecr_repository" "this" {
   }
 
   tags = {
-    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecr"
+    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecr${var.sfx}"
+    Environment = var.common.environment
     Createdby = "Terraform"
   }
 }

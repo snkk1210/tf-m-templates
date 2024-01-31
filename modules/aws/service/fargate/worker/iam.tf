@@ -4,7 +4,7 @@
 
 // ECS role
 resource "aws_iam_role" "ecs_role" {
-  name = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-role"
+  name = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-role${var.sfx}"
 
   assume_role_policy = <<POLICY
 {
@@ -21,6 +21,12 @@ resource "aws_iam_role" "ecs_role" {
   ]
 }
 POLICY
+
+  tags = {
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-role${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
+  }
 }
 
 // Task 実行用 ポリシー アタッチ
@@ -37,7 +43,7 @@ resource "aws_iam_role_policy_attachment" "ecs_to_ecr" {
 
 // SSM パラメータ 読み込み ポリシー
 resource "aws_iam_policy" "ecs_to_ssm" {
-  name = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-to-ssm-policy"
+  name = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-to-ssm-policy${var.sfx}"
   path = "/"
 
   policy = <<EOF
@@ -56,6 +62,12 @@ resource "aws_iam_policy" "ecs_to_ssm" {
   ]
 }
 EOF
+
+  tags = {
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-to-ssm-policy${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
+  }
 }
 
 // SSM パラメータ 読み込み ポリシー アタッチ
@@ -85,9 +97,15 @@ data "aws_iam_policy_document" "ecs_to_s3" {
 
 // S3 接続 ポリシー
 resource "aws_iam_policy" "ecs_to_s3" {
-  name   = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-to-s3-policy"
+  name   = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-to-s3-policy${var.sfx}"
   path   = "/"
   policy = data.aws_iam_policy_document.ecs_to_s3.json
+
+  tags = {
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-to-s3-policy${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
+  }
 }
 
 // S3 接続 ポリシー アタッチ
@@ -113,9 +131,15 @@ data "aws_iam_policy_document" "ecs_to_ssmmessages" {
 
 // SSMMESSAGES 接続 ポリシー
 resource "aws_iam_policy" "ecs_to_ssmmessages" {
-  name   = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-to-ssmmessages-policy"
+  name   = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-to-ssmmessages-policy${var.sfx}"
   path   = "/"
   policy = data.aws_iam_policy_document.ecs_to_ssmmessages.json
+
+  tags = {
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-to-ssmmessages-policy${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
+  }
 }
 
 // SSMMESSAGES 接続 ポリシー アタッチ

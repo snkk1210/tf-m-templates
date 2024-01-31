@@ -2,28 +2,29 @@
 # ECS
 */
 
-// 自身の Account ID を取得
+# 自身の Account ID を取得
 data "aws_caller_identity" "self" {}
 
-// タスク定義テンプレート
+# タスク定義テンプレート
 data "template_file" "task" {
   template = file("${path.module}/task_definitions/task_definition_common.json")
 
   vars = {
-    // common
+    # common
     project      = var.common.project
     environment  = var.common.environment
     service_name = var.common.service_name
     region       = var.common.region
+    sfx          = var.sfx
 
-    // コンテナリポジトリ
+    # コンテナリポジトリ
     repository_url = aws_ecr_repository.this.repository_url
   }
 }
 
-// タスク定義
+# タスク定義
 resource "aws_ecs_task_definition" "this" {
-  family = "${var.common.project}-${var.common.environment}-${var.common.service_name}-task"
+  family = "${var.common.project}-${var.common.environment}-${var.common.service_name}-task${var.sfx}"
 
   requires_compatibilities = ["FARGATE"]
 
@@ -39,14 +40,20 @@ resource "aws_ecs_task_definition" "this" {
 
   lifecycle {
     ignore_changes = [
-      container_definitions
+      //container_definitions
     ]
+  }
+
+  tags = {
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-task${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
   }
 }
 
-// ECS サービス
+# ECS サービス
 resource "aws_ecs_service" "this" {
-  name = "${var.common.project}-${var.common.environment}-${var.common.service_name}"
+  name = "${var.common.project}-${var.common.environment}-${var.common.service_name}${var.sfx}"
 
   cluster          = var.ecs_cluster_id
   platform_version = var.ecs_service.platform_version
@@ -70,9 +77,15 @@ resource "aws_ecs_service" "this" {
 
   lifecycle {
     ignore_changes = [
-      platform_version,
-      task_definition,
+      //platform_version,
+      //task_definition,
       desired_count
     ]
+  }
+
+  tags = {
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
   }
 }

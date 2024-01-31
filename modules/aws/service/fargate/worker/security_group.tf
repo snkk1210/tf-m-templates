@@ -2,19 +2,20 @@
 # Security Group
 */
 
-// ECS セキュリティグループ
+# ECS セキュリティグループ
 resource "aws_security_group" "ecs" {
-  name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-sg"
+  name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-sg${var.sfx}"
   description = "Security group for ECS"
   vpc_id      = var.vpc_id
 
   tags = {
-    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-sg"
+    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-sg${var.sfx}"
+    Environment = var.common.environment
     Createdby = "Terraform"
   }
 }
 
-// ECS アウトバウンドルール
+# ECS アウトバウンドルール
 resource "aws_security_group_rule" "ecs_egress" {
   type              = "egress"
   from_port         = 0
@@ -24,7 +25,7 @@ resource "aws_security_group_rule" "ecs_egress" {
   security_group_id = aws_security_group.ecs.id
 }
 
-// ECS インバウンドルール
+# ECS インバウンドルール
 resource "aws_security_group_rule" "ecs_ingress" {
   type              = "ingress"
   from_port         = 0
