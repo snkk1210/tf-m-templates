@@ -33,7 +33,7 @@ variable "env_var" {
   default = {
     channel_name    = ""
     hook_url         = ""
-    notification_to = ""
+    notification_to = "!channel"
   }
 }
 
