@@ -1,5 +1,6 @@
-variable "cloudwatch_alarm_notify_sns_topic_arn" {
-  type = string
+variable "notify_sns_topic_arn" {
+  type    = list(string)
+  default = []
 }
 
 variable "rds_alarm" {

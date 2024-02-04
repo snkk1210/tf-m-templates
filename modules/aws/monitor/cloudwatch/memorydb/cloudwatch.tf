@@ -1,5 +1,5 @@
 /** 
-# NOTE: CloudWatch Alarm MemoryDB for Redis
+# CloudWatch Alarm MemoryDB for Redis
 */
 
 // MemoryDB for Redis CPUUtilization 
@@ -16,8 +16,8 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_cpuutilization" {
   threshold           = each.value.memorydb_cpuutilization_threshold
   alarm_description   = "${each.value.memorydb_cluster_name}-CPUUtilization"
 
-  alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
-  ok_actions                = [var.cloudwatch_alarm_notify_sns_topic_arn]
+  alarm_actions             = var.notify_sns_topic_arn
+  ok_actions                = var.notify_sns_topic_arn
   insufficient_data_actions = []
 
   dimensions = {
@@ -30,7 +30,6 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_cpuutilization" {
       alarm_description
     ]
   }
-
 }
 
 // MemoryDB for Redis FreeableMemory
@@ -47,8 +46,8 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_freeablememory" {
   threshold           = each.value.memorydb_freeablememory_threshold
   alarm_description   = "${each.value.memorydb_cluster_name}-FreeableMemory"
 
-  alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
-  ok_actions                = [var.cloudwatch_alarm_notify_sns_topic_arn]
+  alarm_actions             = var.notify_sns_topic_arn
+  ok_actions                = var.notify_sns_topic_arn
   insufficient_data_actions = []
 
   dimensions = {
@@ -61,7 +60,6 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_freeablememory" {
       alarm_description
     ]
   }
-
 }
 
 // MemoryDB for Redis SwapUsage
@@ -78,8 +76,8 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_swapusage" {
   threshold           = each.value.memorydb_swapusage_threshold
   alarm_description   = "${each.value.memorydb_cluster_name}-SwapUsage"
 
-  alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
-  ok_actions                = [var.cloudwatch_alarm_notify_sns_topic_arn]
+  alarm_actions             = var.notify_sns_topic_arn
+  ok_actions                = var.notify_sns_topic_arn
   insufficient_data_actions = []
 
   dimensions = {
@@ -92,7 +90,6 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_swapusage" {
       alarm_description
     ]
   }
-
 }
 
 // MemoryDB for Redis Evictions
@@ -109,8 +106,8 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_evictions" {
   threshold           = each.value.memorydb_evictions_threshold
   alarm_description   = "${each.value.memorydb_cluster_name}-Evictions"
 
-  alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
-  ok_actions                = [var.cloudwatch_alarm_notify_sns_topic_arn]
+  alarm_actions             = var.notify_sns_topic_arn
+  ok_actions                = var.notify_sns_topic_arn
   insufficient_data_actions = []
 
   dimensions = {
@@ -123,5 +120,4 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_evictions" {
       alarm_description
     ]
   }
-
 }

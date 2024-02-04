@@ -1,5 +1,5 @@
 /** 
-# NOTE: CloudWatch Alarm EC2
+# CloudWatch Alarm EC2
 */
 
 // EC2 CPUUtilization 
@@ -16,8 +16,8 @@ resource "aws_cloudwatch_metric_alarm" "ec2_cpuutilization" {
   threshold           = each.value.ec2_cpuutilization_threshold
   alarm_description   = "${each.value.ec2_instance_name}-CPUUtilization"
 
-  alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
-  ok_actions                = [var.cloudwatch_alarm_notify_sns_topic_arn]
+  alarm_actions             = var.notify_sns_topic_arn
+  ok_actions                = var.notify_sns_topic_arn
   insufficient_data_actions = []
 
   dimensions = {
@@ -30,7 +30,6 @@ resource "aws_cloudwatch_metric_alarm" "ec2_cpuutilization" {
       alarm_description
     ]
   }
-
 }
 
 // EC2 StatusCheckFailed
@@ -47,8 +46,8 @@ resource "aws_cloudwatch_metric_alarm" "ec2_statuscheckfailed" {
   threshold           = each.value.ec2_statuscheckfailed_threshold
   alarm_description   = "${each.value.ec2_instance_name}-StatusCheckFailed"
 
-  alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
-  ok_actions                = [var.cloudwatch_alarm_notify_sns_topic_arn]
+  alarm_actions             = var.notify_sns_topic_arn
+  ok_actions                = var.notify_sns_topic_arn
   insufficient_data_actions = []
 
   dimensions = {
@@ -61,5 +60,4 @@ resource "aws_cloudwatch_metric_alarm" "ec2_statuscheckfailed" {
       alarm_description
     ]
   }
-
 }
