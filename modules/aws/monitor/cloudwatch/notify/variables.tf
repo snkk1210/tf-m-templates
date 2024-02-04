@@ -1,3 +1,6 @@
+/** 
+# Variables for COMMON
+*/
 variable "common" {
   type = object({
     project     = string
@@ -17,6 +20,9 @@ variable "sfx" {
   default = "01"
 }
 
+/** 
+# Variables for Lambda
+*/
 variable "kms_encrypted_hookurl" {
   type = string
 }
@@ -28,4 +34,12 @@ variable "channel_name" {
 variable "reserved_concurrent_executions" {
   type    = number
   default = -1
+}
+
+/** 
+# Variables for KMS
+*/
+variable "enable_kms" {
+  type = bool
+  default = false
 }
