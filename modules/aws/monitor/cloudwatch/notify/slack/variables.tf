@@ -23,12 +23,18 @@ variable "sfx" {
 /** 
 # Variables for Lambda
 */
-variable "kms_encrypted_hookurl" {
-  type = string
-}
+variable "env_var" {
+  type = object({
+    channel_name    = string
+    hookUrl         = string
+    notification_to = string
+  })
 
-variable "channel_name" {
-  type = string
+  default = {
+    channel_name    = ""
+    hookUrl         = ""
+    notification_to = ""
+  }
 }
 
 variable "reserved_concurrent_executions" {

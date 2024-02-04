@@ -22,8 +22,9 @@ resource "aws_lambda_function" "this" {
   runtime                        = "python3.11"
   environment {
     variables = {
-      channelName         = var.channel_name
-      kmsEncryptedHookUrl = var.kms_encrypted_hookurl
+      channelName         = var.env_var.channel_name
+      kmsEncryptedHookUrl = var.env_var.kms_encrypted_hookurl
+      notificationTo      = var.env_var.notification_to
     }
   }
 
