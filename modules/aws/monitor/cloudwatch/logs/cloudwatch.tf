@@ -1,5 +1,5 @@
 /** 
-# NOTE: CloudWatch Alarm
+# CloudWatch Alarm
 */
 
 // CloudWatch Logs Alarm
@@ -17,8 +17,8 @@ resource "aws_cloudwatch_metric_alarm" "log_detection" {
   alarm_description   = "${var.common.project}-${each.value.log_filter_name}-${var.common.environment}-log-detection-alert"
   treat_missing_data  = "notBreaching"
 
-  alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
-  ok_actions                = [var.cloudwatch_alarm_notify_sns_topic_arn]
+  alarm_actions             = var.notify_sns_topic_arn
+  ok_actions                = var.notify_sns_topic_arn
   insufficient_data_actions = []
 
   lifecycle {
@@ -27,5 +27,4 @@ resource "aws_cloudwatch_metric_alarm" "log_detection" {
       alarm_description
     ]
   }
-
 }

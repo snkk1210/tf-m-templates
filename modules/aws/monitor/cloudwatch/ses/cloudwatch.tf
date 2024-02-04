@@ -1,5 +1,5 @@
 /** 
-# NOTE: CloudWatch Alarm SES
+# CloudWatch Alarm SES
 */
 
 // SES Reputation.BounceRate
@@ -25,7 +25,6 @@ resource "aws_cloudwatch_metric_alarm" "ses_reputation_bouncerate" {
       alarm_description
     ]
   }
-
 }
 
 // SES Reputation.ComplaintRate

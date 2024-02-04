@@ -1,5 +1,5 @@
 /** 
-# NOTE: CloudWatch Alarm RDS
+# CloudWatch Alarm RDS
 */
 
 // RDS CPUUtilization
@@ -16,8 +16,8 @@ resource "aws_cloudwatch_metric_alarm" "rds_cpuutilization" {
   threshold           = each.value.rds_cpuutilization_threshold
   alarm_description   = "${each.value.rds_name}-CPUUtilization"
 
-  alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
-  ok_actions                = [var.cloudwatch_alarm_notify_sns_topic_arn]
+  alarm_actions             = var.notify_sns_topic_arn
+  ok_actions                = var.notify_sns_topic_arn
   insufficient_data_actions = []
 
   dimensions = {
@@ -30,7 +30,6 @@ resource "aws_cloudwatch_metric_alarm" "rds_cpuutilization" {
       alarm_description
     ]
   }
-
 }
 
 // RDS FreeableMemory
@@ -47,8 +46,8 @@ resource "aws_cloudwatch_metric_alarm" "rds_freeablememory" {
   threshold           = each.value.rds_freeablememory_threshold
   alarm_description   = "${each.value.rds_name}-FreeableMemory"
 
-  alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
-  ok_actions                = [var.cloudwatch_alarm_notify_sns_topic_arn]
+  alarm_actions             = var.notify_sns_topic_arn
+  ok_actions                = var.notify_sns_topic_arn
   insufficient_data_actions = []
 
   dimensions = {
@@ -61,7 +60,6 @@ resource "aws_cloudwatch_metric_alarm" "rds_freeablememory" {
       alarm_description
     ]
   }
-
 }
 
 // RDS FreeStorageSpace
@@ -78,8 +76,8 @@ resource "aws_cloudwatch_metric_alarm" "rds_freestoragespace" {
   threshold           = each.value.rds_freestoragespace_threshold
   alarm_description   = "${each.value.rds_name}-FreeStorageSpace"
 
-  alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
-  ok_actions                = [var.cloudwatch_alarm_notify_sns_topic_arn]
+  alarm_actions             = var.notify_sns_topic_arn
+  ok_actions                = var.notify_sns_topic_arn
   insufficient_data_actions = []
 
   dimensions = {
@@ -92,5 +90,4 @@ resource "aws_cloudwatch_metric_alarm" "rds_freestoragespace" {
       alarm_description
     ]
   }
-
 }

@@ -1,19 +1,7 @@
-variable "common" {
-  type = object({
-    project     = string
-    environment = string
-  })
-
-  default = {
-    environment = ""
-    project     = ""
-  }
+variable "notify_sns_topic_arn" {
+  type    = list(string)
+  default = []
 }
-
-variable "cloudwatch_alarm_notify_sns_topic_arn" {
-  type = string
-}
-
 
 variable "fargate_service_alarm" {
   type = list(object({
@@ -22,6 +10,7 @@ variable "fargate_service_alarm" {
     # NOTE: Fargate
     */
     fargate_name = string
+    cluster_name = string
 
     // Fargate CPUUtilization
     fargate_cpuutilization_evaluation_periods = string

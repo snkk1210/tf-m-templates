@@ -1,5 +1,5 @@
 /** 
-# NOTE: CloudWatch Alarm Aurora PostgreSQL
+# loudWatch Alarm Aurora PostgreSQL
 */
 
 // Aurora Cluster Writer CPUUtilization 
@@ -16,8 +16,8 @@ resource "aws_cloudwatch_metric_alarm" "aurora_writer_cpuutilization" {
   threshold           = each.value.aurora_writer_cpuutilization_threshold
   alarm_description   = "${each.value.aurora_cluster_name}-writer-CPUUtilization"
 
-  alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
-  ok_actions                = [var.cloudwatch_alarm_notify_sns_topic_arn]
+  alarm_actions             = var.notify_sns_topic_arn
+  ok_actions                = var.notify_sns_topic_arn
   insufficient_data_actions = []
 
   dimensions = {
@@ -31,7 +31,6 @@ resource "aws_cloudwatch_metric_alarm" "aurora_writer_cpuutilization" {
       alarm_description
     ]
   }
-
 }
 
 // Aurora Cluster Reader CPUUtilization
@@ -48,8 +47,8 @@ resource "aws_cloudwatch_metric_alarm" "aurora_reader_cpuutilization" {
   threshold           = each.value.aurora_reader_cpuutilization_threshold
   alarm_description   = "${each.value.aurora_cluster_name}-reader-CPUUtilization"
 
-  alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
-  ok_actions                = [var.cloudwatch_alarm_notify_sns_topic_arn]
+  alarm_actions             = var.notify_sns_topic_arn
+  ok_actions                = var.notify_sns_topic_arn
   insufficient_data_actions = []
 
   dimensions = {
@@ -63,7 +62,6 @@ resource "aws_cloudwatch_metric_alarm" "aurora_reader_cpuutilization" {
       alarm_description
     ]
   }
-
 }
 
 // Aurora Cluster Writer FreeableMemory
@@ -80,8 +78,8 @@ resource "aws_cloudwatch_metric_alarm" "aurora_writer_freeablememory" {
   threshold           = each.value.aurora_writer_freeablememory_threshold
   alarm_description   = "${each.value.aurora_cluster_name}-writer-FreeableMemory"
 
-  alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
-  ok_actions                = [var.cloudwatch_alarm_notify_sns_topic_arn]
+  alarm_actions             = var.notify_sns_topic_arn
+  ok_actions                = var.notify_sns_topic_arn
   insufficient_data_actions = []
 
   dimensions = {
@@ -95,7 +93,6 @@ resource "aws_cloudwatch_metric_alarm" "aurora_writer_freeablememory" {
       alarm_description
     ]
   }
-
 }
 
 // Aurora Cluster Reader FreeableMemory
@@ -112,8 +109,8 @@ resource "aws_cloudwatch_metric_alarm" "aurora_reader_freeablememory" {
   threshold           = each.value.aurora_reader_freeablememory_threshold
   alarm_description   = "${each.value.aurora_cluster_name}-reader-FreeableMemory"
 
-  alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
-  ok_actions                = [var.cloudwatch_alarm_notify_sns_topic_arn]
+  alarm_actions             = var.notify_sns_topic_arn
+  ok_actions                = var.notify_sns_topic_arn
   insufficient_data_actions = []
 
   dimensions = {
@@ -127,7 +124,6 @@ resource "aws_cloudwatch_metric_alarm" "aurora_reader_freeablememory" {
       alarm_description
     ]
   }
-
 }
 
 // Aurora Instance DatabaseConnections
@@ -144,8 +140,8 @@ resource "aws_cloudwatch_metric_alarm" "aurora_databaseconnections" {
   threshold           = each.value.aurora_databaseconnections_threshold
   alarm_description   = "${each.value.aurora_instance_name}-DatabaseConnections"
 
-  alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
-  ok_actions                = [var.cloudwatch_alarm_notify_sns_topic_arn]
+  alarm_actions             = var.notify_sns_topic_arn
+  ok_actions                = var.notify_sns_topic_arn
   insufficient_data_actions = []
 
   dimensions = {
@@ -158,7 +154,6 @@ resource "aws_cloudwatch_metric_alarm" "aurora_databaseconnections" {
       alarm_description
     ]
   }
-
 }
 
 // Aurora Instance FreeLocalStorage
@@ -175,8 +170,8 @@ resource "aws_cloudwatch_metric_alarm" "aurora_freelocalstorage" {
   threshold           = each.value.aurora_freelocalstorage_threshold
   alarm_description   = "${each.value.aurora_instance_name}-FreeLocalStorage"
 
-  alarm_actions             = [var.cloudwatch_alarm_notify_sns_topic_arn]
-  ok_actions                = [var.cloudwatch_alarm_notify_sns_topic_arn]
+  alarm_actions             = var.notify_sns_topic_arn
+  ok_actions                = var.notify_sns_topic_arn
   insufficient_data_actions = []
 
   dimensions = {
@@ -189,5 +184,4 @@ resource "aws_cloudwatch_metric_alarm" "aurora_freelocalstorage" {
       alarm_description
     ]
   }
-
 }
