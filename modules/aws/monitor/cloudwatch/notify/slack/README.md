@@ -36,10 +36,9 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_channel_name"></a> [channel\_name](#input\_channel\_name) | n/a | `string` | n/a | yes |
 | <a name="input_common"></a> [common](#input\_common) | n/a | <pre>object({<br>    project     = string<br>    environment = string<br>    region      = string<br>  })</pre> | <pre>{<br>  "environment": "",<br>  "project": "",<br>  "region": ""<br>}</pre> | no |
 | <a name="input_enable_kms"></a> [enable\_kms](#input\_enable\_kms) | n/a | `bool` | `false` | no |
-| <a name="input_kms_encrypted_hookurl"></a> [kms\_encrypted\_hookurl](#input\_kms\_encrypted\_hookurl) | n/a | `string` | n/a | yes |
+| <a name="input_env_var"></a> [env\_var](#input\_env\_var) | n/a | <pre>object({<br>    channel_name    = string<br>    hook_url         = string<br>    notification_to = string<br>  })</pre> | <pre>{<br>  "channel_name": "",<br>  "hook_url": "",<br>  "notification_to": "!channel"<br>}</pre> | no |
 | <a name="input_reserved_concurrent_executions"></a> [reserved\_concurrent\_executions](#input\_reserved\_concurrent\_executions) | n/a | `number` | `-1` | no |
 | <a name="input_sfx"></a> [sfx](#input\_sfx) | n/a | `string` | `"01"` | no |
 
