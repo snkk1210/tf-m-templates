@@ -40,6 +40,6 @@ variable "reserved_concurrent_executions" {
 # Variables for KMS
 */
 variable "enable_kms" {
-  type = bool
+  type    = bool
   default = false
 }
