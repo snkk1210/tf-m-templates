@@ -26,13 +26,13 @@ variable "sfx" {
 variable "env_var" {
   type = object({
     channel_name    = string
-    hookUrl         = string
+    hook_url         = string
     notification_to = string
   })
 
   default = {
     channel_name    = ""
-    hookUrl         = ""
+    hook_url         = ""
     notification_to = ""
   }
 }

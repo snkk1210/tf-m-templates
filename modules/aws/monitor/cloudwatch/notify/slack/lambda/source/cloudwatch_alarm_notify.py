@@ -17,6 +17,7 @@ def lambda_handler(event, context):
 
     channel_name = os.environ['channelName']
     hook_url     = generate_hook_url()
+    notification_to = os.environ['notification_to']
     message = json.loads(event['Records'][0]['Sns']['Message'])
 
     post_to_slack(hook_url, os.environ['channelName'], message)
@@ -50,7 +51,7 @@ def generate_hook_url():
         )['Plaintext'].decode('utf-8')
         return hook_url
 
-def post_to_slack(hook_url, channel_name, message):
+def post_to_slack(hook_url, channel_name, notification_to, message):
     """
     Notify messages to Slack.
 
@@ -98,7 +99,7 @@ def post_to_slack(hook_url, channel_name, message):
                 "color": state_color,
                 "title": "%s: %s in %s" % (new_state_value, alarm_name, region),
                 "title_link": "https://%s.console.aws.amazon.com/cloudwatch/home?region=%s#alarm:name=%s" % (arn[3], arn[3], alarm_name),
-                "text": "<!here> \n %s \n *StateReason* \n ```%s```" % (alarm_description, new_state_reason),
+                "text": "<%s> \n %s \n *StateReason* \n ```%s```" % (notification_to, alarm_description, new_state_reason),
                 "fields": [
                     {
                         "title": "MetricName",
