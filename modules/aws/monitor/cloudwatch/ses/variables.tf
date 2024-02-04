@@ -7,6 +7,6 @@ variable "environment" {
 }
 
 variable "notify_sns_topic_arn" {
-  type = list(string)
+  type    = list(string)
   default = []
 }

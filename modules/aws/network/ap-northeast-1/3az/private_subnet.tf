@@ -6,7 +6,7 @@ resource "aws_eip" "eip_nat_gateway_1a" {
   domain     = "vpc"
   depends_on = [aws_internet_gateway.this]
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-natgw-eip-1a${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-natgw-eip-1a${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
@@ -17,7 +17,7 @@ resource "aws_eip" "eip_nat_gateway_1c" {
   domain     = "vpc"
   depends_on = [aws_internet_gateway.this]
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-natgw-eip-1c${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-natgw-eip-1c${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
@@ -28,7 +28,7 @@ resource "aws_eip" "eip_nat_gateway_1d" {
   domain     = "vpc"
   depends_on = [aws_internet_gateway.this]
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-natgw-eip-1d${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-natgw-eip-1d${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
@@ -40,7 +40,7 @@ resource "aws_nat_gateway" "nat_gateway_1a" {
   subnet_id     = aws_subnet.public_1a.id
   depends_on    = [aws_internet_gateway.this]
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-natgw-1a${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-natgw-1a${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
@@ -52,7 +52,7 @@ resource "aws_nat_gateway" "nat_gateway_1c" {
   subnet_id     = aws_subnet.public_1c.id
   depends_on    = [aws_internet_gateway.this]
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-natgw-1c${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-natgw-1c${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
@@ -64,7 +64,7 @@ resource "aws_nat_gateway" "nat_gateway_1d" {
   subnet_id     = aws_subnet.public_1d.id
   depends_on    = [aws_internet_gateway.this]
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-natgw-1d${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-natgw-1d${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
@@ -79,9 +79,9 @@ resource "aws_subnet" "private_1a" {
   cidr_block              = "${var.cidr_prefix}.12.0/22"
   availability_zone       = "ap-northeast-1a"
   map_public_ip_on_launch = false
-  
+
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-private-subnet-1a${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-private-subnet-1a${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
@@ -93,9 +93,9 @@ resource "aws_subnet" "private_1c" {
   cidr_block              = "${var.cidr_prefix}.16.0/22"
   availability_zone       = "ap-northeast-1c"
   map_public_ip_on_launch = false
-  
+
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-private-subnet-1c${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-private-subnet-1c${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
@@ -109,7 +109,7 @@ resource "aws_subnet" "private_1d" {
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-private-subnet-1d${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-private-subnet-1d${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
@@ -123,7 +123,7 @@ resource "aws_route_table" "private_1a" {
   vpc_id = aws_vpc.common.id
 
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-private-rt-1a${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-private-rt-1a${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
@@ -134,7 +134,7 @@ resource "aws_route_table" "private_1c" {
   vpc_id = aws_vpc.common.id
 
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-private-rt-1c${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-private-rt-1c${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
@@ -145,7 +145,7 @@ resource "aws_route_table" "private_1d" {
   vpc_id = aws_vpc.common.id
 
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-private-rt-1d${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-private-rt-1d${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }

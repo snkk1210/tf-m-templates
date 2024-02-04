@@ -14,7 +14,7 @@ variable "common" {
 }
 
 variable "sfx" {
-  type = string
+  type    = string
   default = "01"
 }
 
@@ -34,7 +34,7 @@ variable "vpc" {
 }
 
 variable "cidr_prefix" {
-  type = string
+  type    = string
   default = "10.0"
 }
 
