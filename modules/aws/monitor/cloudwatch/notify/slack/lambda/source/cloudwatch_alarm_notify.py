@@ -17,9 +17,10 @@ def lambda_handler(event, context):
 
     channel_name = os.environ['channelName']
     hook_url     = generate_hook_url()
+    notification_to = os.environ['notificationTo']
     message = json.loads(event['Records'][0]['Sns']['Message'])
 
-    post_to_slack(hook_url, os.environ['channelName'], message)
+    post_to_slack(hook_url, channel_name, notification_to, message)
 
 def generate_hook_url():
     """
@@ -34,23 +35,23 @@ def generate_hook_url():
     hook_url : string
     """
 
-    if  "hooks.slack.com" in os.environ['kmsEncryptedHookUrl']:
-        logger.info("kmsEncryptedHookUrl is not Encrypted")
-        logger.info("kmsEncryptedHookUrl: " + str(os.environ['kmsEncryptedHookUrl']))
-        unencrypted_hook_url = os.environ['kmsEncryptedHookUrl']
+    if  "hooks.slack.com" in os.environ['hookUrl']:
+        logger.info("hookUrl is not Encrypted")
+        logger.info("hookUrl: " + str(os.environ['hookUrl']))
+        unencrypted_hook_url = os.environ['hookUrl']
         hook_url = "https://" + quote(unencrypted_hook_url)
         return hook_url
     else:
-        logger.info("kmsEncryptedHookUrl is Encrypted")
-        logger.info("kmsEncryptedHookUrl: " + str(os.environ['kmsEncryptedHookUrl']))
-        encrypted_hook_url = os.environ['kmsEncryptedHookUrl']
+        logger.info("hookUrl is Encrypted")
+        logger.info("hookUrl: " + str(os.environ['hookUrl']))
+        encrypted_hook_url = os.environ['hookUrl']
         hook_url = "https://" + boto3.client('kms').decrypt(
             CiphertextBlob=b64decode(encrypted_hook_url),
             EncryptionContext={'LambdaFunctionName': os.environ['AWS_LAMBDA_FUNCTION_NAME']}
         )['Plaintext'].decode('utf-8')
         return hook_url
 
-def post_to_slack(hook_url, channel_name, message):
+def post_to_slack(hook_url, channel_name, notification_to, message):
     """
     Notify messages to Slack.
 
@@ -98,7 +99,7 @@ def post_to_slack(hook_url, channel_name, message):
                 "color": state_color,
                 "title": "%s: %s in %s" % (new_state_value, alarm_name, region),
                 "title_link": "https://%s.console.aws.amazon.com/cloudwatch/home?region=%s#alarm:name=%s" % (arn[3], arn[3], alarm_name),
-                "text": "<!here> \n %s \n *StateReason* \n ```%s```" % (alarm_description, new_state_reason),
+                "text": "<%s> \n %s \n *StateReason* \n ```%s```" % (notification_to, alarm_description, new_state_reason),
                 "fields": [
                     {
                         "title": "MetricName",
