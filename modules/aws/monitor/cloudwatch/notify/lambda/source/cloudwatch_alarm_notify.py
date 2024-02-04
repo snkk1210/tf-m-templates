@@ -22,6 +22,17 @@ def lambda_handler(event, context):
     post_to_slack(hook_url, os.environ['channelName'], message)
 
 def generate_hook_url():
+    """
+    Generate WebHookUrl from from Environment Variables.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    ----------
+    hook_url : string
+    """
 
     if  "hooks.slack.com" in os.environ['kmsEncryptedHookUrl']:
         logger.info("kmsEncryptedHookUrl is not Encrypted")
@@ -40,7 +51,22 @@ def generate_hook_url():
         return hook_url
 
 def post_to_slack(hook_url, channel_name, message):
+    """
+    Notify messages to Slack.
 
+    Parameters
+    ----------
+    hook_url : string
+        WEB Hook URL for Slack.
+    channel_name : string
+        Channel Name in Slack.
+    message : dictionary
+        Event messages to be notified to Slack.
+
+    Returns
+    ----------
+    None
+    """
     alarm_name = message['AlarmName']
     alarm_description = message['AlarmDescription']
     new_state_value = message['NewStateValue']
