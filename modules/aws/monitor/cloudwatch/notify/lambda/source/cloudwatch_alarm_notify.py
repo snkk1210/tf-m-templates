@@ -13,95 +13,85 @@ logger.setLevel(logging.INFO)
 
 def lambda_handler(event, context):
 
-    # CHANNEL_NAME 代入
-    CHANNEL_NAME = os.environ['channelName']
+    logger.info("Event: " + str(event))
 
-    # HOOK_URL 代入
+    channel_name = os.environ['channelName']
+    hook_url     = generate_hook_url()
+    message = json.loads(event['Records'][0]['Sns']['Message'])
+
+    post_to_slack(hook_url, os.environ['channelName'], message)
+
+def generate_hook_url():
+
     if  "hooks.slack.com" in os.environ['kmsEncryptedHookUrl']:
-        logger.info("kmsEncryptedHookUrl: " + str(os.environ['kmsEncryptedHookUrl']))
         logger.info("kmsEncryptedHookUrl is not Encrypted")
-        UNENCRYPTED_HOOK_URL = os.environ['kmsEncryptedHookUrl']
-        HOOK_URL = "https://" + quote(UNENCRYPTED_HOOK_URL)
+        logger.info("kmsEncryptedHookUrl: " + str(os.environ['kmsEncryptedHookUrl']))
+        unencrypted_hook_url = os.environ['kmsEncryptedHookUrl']
+        hook_url = "https://" + quote(unencrypted_hook_url)
+        return hook_url
     else:
         logger.info("kmsEncryptedHookUrl is Encrypted")
         logger.info("kmsEncryptedHookUrl: " + str(os.environ['kmsEncryptedHookUrl']))
-        ENCRYPTED_HOOK_URL = os.environ['kmsEncryptedHookUrl']
-        HOOK_URL = "https://" + boto3.client('kms').decrypt(
-            CiphertextBlob=b64decode(ENCRYPTED_HOOK_URL),
+        encrypted_hook_url = os.environ['kmsEncryptedHookUrl']
+        hook_url = "https://" + boto3.client('kms').decrypt(
+            CiphertextBlob=b64decode(encrypted_hook_url),
             EncryptionContext={'LambdaFunctionName': os.environ['AWS_LAMBDA_FUNCTION_NAME']}
         )['Plaintext'].decode('utf-8')
+        return hook_url
 
+def post_to_slack(hook_url, channel_name, message):
 
-    logger.info("Event: " + str(event))
-    message = json.loads(event['Records'][0]['Sns']['Message'])
-    logger.info("Message: " + str(message))
+    alarm_name = message['AlarmName']
+    alarm_description = message['AlarmDescription']
+    new_state_value = message['NewStateValue']
+    new_state_reason = message['NewStateReason']
+    region = message['Region']
+    alarm_arn = message['AlarmArn']
+    metric_name = message['Trigger']['MetricName']
+    namespace = message['Trigger']['Namespace']
+    threshold = message['Trigger']['Threshold']
+    arn = alarm_arn.split(':')
 
-    # JSON をパース
-    AlarmName = message['AlarmName']
-    AlarmDescription = message['AlarmDescription']
-    #AWSAccountId = message['AWSAccountId']
-    #AlarmConfigurationUpdatedTimestamp = message['AlarmConfigurationUpdatedTimestamp']
-    NewStateValue = message['NewStateValue']
-    NewStateReason = message['NewStateReason']
-    #StateChangeTime = message['StateChangeTime']
-    Region = message['Region']
-    AlarmArn = message['AlarmArn']
-    #OldStateValue = message['OldStateValue']
-    #OKActions = message['OKActions']
-    #AlarmActions = message['AlarmActions']
-    MetricName = message['Trigger']['MetricName']
-    Namespace = message['Trigger']['Namespace']
-    #Statistic = message['Trigger']['Statistic']
-    #Period = message['Trigger']['Period']
-    #EvaluationPeriods = message['Trigger']['EvaluationPeriods']
-    #DatapointsToAlarm = message['Trigger']['DatapointsToAlarm']
-    #ComparisonOperator = message['Trigger']['ComparisonOperator']
-    Threshold = message['Trigger']['Threshold']
-    #TreatMissingData = message['Trigger']['TreatMissingData']
-    #EvaluateLowSampleCountPercentile = message['Trigger']['EvaluateLowSampleCountPercentile']
+    match new_state_value:
+        case "ALARM":
+            state_color = "#FF0000"
+            state_icon = ":rotating_light:"
+        case "OK":
+            state_color = "#00FF00"
+            state_icon = ":white_check_mark:"
+        case _:
+            state_color = "#F5A62C"
+            state_icon = ":x:"
 
-    # アラート通知時
-    state_color = "#FF0000"
-    state_icon = ":rotating_light:"
-    state = "ALARM"
-    arn = AlarmArn.split(':')
-
-    # リカバリ通知時
-    if NewStateValue == "OK":
-        state_color = "#00FF00"
-        state_icon = ":white_check_mark:"
-        state = "OK"
-
-    # MEMO: <!channel>, <@user_id>
     slack_message = {
-        "channel": CHANNEL_NAME,
+        "channel": channel_name,
         "icon_emoji": state_icon,
         "attachments": [
             {
                 "mrkdwn_in": ["text"],
                 "color": state_color,
-                "title": "%s: %s in %s" % (state, AlarmName, Region),
-                "title_link": "https://%s.console.aws.amazon.com/cloudwatch/home?region=%s#alarm:name=%s" % (arn[3], arn[3], AlarmName),
-                "text": "<!here> \n %s \n *StateReason* \n ```%s```" % (AlarmDescription, NewStateReason),
+                "title": "%s: %s in %s" % (new_state_value, alarm_name, region),
+                "title_link": "https://%s.console.aws.amazon.com/cloudwatch/home?region=%s#alarm:name=%s" % (arn[3], arn[3], alarm_name),
+                "text": "<!here> \n %s \n *StateReason* \n ```%s```" % (alarm_description, new_state_reason),
                 "fields": [
                     {
                         "title": "MetricName",
-                        "value": MetricName,
+                        "value": metric_name,
                         "short": True
                     },
                     {
                         "title": "StateValue",
-                        "value": NewStateValue,
+                        "value": new_state_value,
                         "short": True
                     },
                     {
                         "title": "Namespace",
-                        "value": Namespace,
+                        "value": namespace,
                         "short": True
                     },
                     {
                         "title": "Threshold",
-                        "value": Threshold,
+                        "value": threshold,
                         "short": True
                     }
                 ]
@@ -109,11 +99,7 @@ def lambda_handler(event, context):
         ]
     }
 
-    logger.info("HOOK_URL: " + str(HOOK_URL))
-    logger.info("CHANNEL_NAME: " + str(CHANNEL_NAME))
-
-    # HTTP リクエスト発効
-    req = Request(HOOK_URL, json.dumps(slack_message).encode('utf-8'))
+    req = Request(hook_url, json.dumps(slack_message).encode('utf-8'))
 
     try:
         response = urlopen(req)
