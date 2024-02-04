@@ -84,12 +84,14 @@ variable "ecs_ingress_cidr_blocks" {
 variable "ecr_repository" {
   type = object({
     image_tag_mutability          = string
+    force_delete                  = bool
     scan_on_push                  = bool
     lifecycle_policy_count_number = number
   })
 
   default = {
     image_tag_mutability          = "MUTABLE"
+    force_delete                  = false
     scan_on_push                  = false
     lifecycle_policy_count_number = 15
   }

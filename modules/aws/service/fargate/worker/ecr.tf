@@ -5,7 +5,7 @@
 resource "aws_ecr_repository" "this" {
   name                 = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecr${var.sfx}"
   image_tag_mutability = var.ecr_repository.image_tag_mutability
-  force_delete         = true
+  force_delete         = var.ecr_repository.force_delete
 
   image_scanning_configuration {
     scan_on_push = var.ecr_repository.scan_on_push
