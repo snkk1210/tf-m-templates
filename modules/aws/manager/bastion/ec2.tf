@@ -32,13 +32,13 @@ resource "aws_instance" "this" {
 }
 
 resource "aws_eip" "bastion" {
-  count = var.global_ip_enabled ? 1 : 0 
+  count = var.global_ip_enabled ? 1 : 0
 
   instance = aws_instance.this.id
   domain   = "vpc"
 
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-bastion-eip${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-bastion-eip${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }

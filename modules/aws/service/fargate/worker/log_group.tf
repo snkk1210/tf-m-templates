@@ -8,8 +8,8 @@ resource "aws_cloudwatch_log_group" "this" {
   retention_in_days = var.ecs_log_retention_in_days
 
   tags = {
-    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-log-group${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-log-group${var.sfx}"
     Environment = var.common.environment
-    Createdby = "Terraform"
+    Createdby   = "Terraform"
   }
 }

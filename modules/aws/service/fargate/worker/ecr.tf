@@ -12,9 +12,9 @@ resource "aws_ecr_repository" "this" {
   }
 
   tags = {
-    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecr${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecr${var.sfx}"
     Environment = var.common.environment
-    Createdby = "Terraform"
+    Createdby   = "Terraform"
   }
 }
 

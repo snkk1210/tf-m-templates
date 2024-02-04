@@ -14,7 +14,7 @@ variable "common" {
 }
 
 variable "sfx" {
-  type = string
+  type    = string
   default = "01"
 }
 
@@ -27,7 +27,7 @@ variable "vpc_id" {
 }
 
 variable "subnet_ids" {
-  type = string
+  type    = string
   default = ""
 }
 
@@ -66,7 +66,7 @@ variable "root_block_device" {
 }
 
 variable "key_auth_enabled" {
-  type = bool
+  type    = bool
   default = false
 }
 
@@ -76,6 +76,6 @@ variable "bastion_ingress" {
 }
 
 variable "global_ip_enabled" {
-  type = bool
+  type    = bool
   default = false
 }

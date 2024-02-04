@@ -16,7 +16,7 @@ variable "common" {
 }
 
 variable "sfx" {
-  type = string
+  type    = string
   default = "01"
 }
 
@@ -28,7 +28,7 @@ variable "vpc_id" {
 }
 
 variable "subnet_ids" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
@@ -112,7 +112,7 @@ variable "aurora_cluster_instance" {
 }
 
 variable "enabled_cloudwatch_logs_exports" {
-  type = list(string)
+  type    = list(string)
   default = ["audit", "error", "general", "slowquery"]
   //default = ["postgresql"]
 }

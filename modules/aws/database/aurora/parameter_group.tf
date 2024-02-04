@@ -53,9 +53,9 @@ resource "aws_rds_cluster_parameter_group" "this" {
   }
 
   tags = {
-    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-cluster-pg${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-cluster-pg${var.sfx}"
     Environment = var.common.environment
-    Createdby = "Terraform"
+    Createdby   = "Terraform"
   }
 }
 
@@ -74,8 +74,8 @@ resource "aws_db_parameter_group" "this" {
   }
 
   tags = {
-    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-pg${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-pg${var.sfx}"
     Environment = var.common.environment
-    Createdby = "Terraform"
+    Createdby   = "Terraform"
   }
 }
