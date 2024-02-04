@@ -12,6 +12,11 @@ variable "common" {
   }
 }
 
+variable "sfx" {
+  type = string
+  default = "01"
+}
+
 variable "kms_encrypted_hookurl" {
   type = string
 }
