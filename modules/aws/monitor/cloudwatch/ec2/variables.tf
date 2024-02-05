@@ -1,6 +1,15 @@
-variable "notify_sns_topic_arn" {
-  type    = list(string)
-  default = []
+variable "action" {
+  type = object({
+    alarm        = list(string)
+    ok           = list(string)
+    insufficient = list(string)
+  })
+
+  default = {
+    alarm        = []
+    ok           = []
+    insufficient = []
+  }
 }
 
 variable "ec2_instance_alarm" {
@@ -19,6 +28,5 @@ variable "ec2_instance_alarm" {
     ec2_statuscheckfailed_period             = string
     ec2_statuscheckfailed_statistic          = string
     ec2_statuscheckfailed_threshold          = string
-
   }))
 }

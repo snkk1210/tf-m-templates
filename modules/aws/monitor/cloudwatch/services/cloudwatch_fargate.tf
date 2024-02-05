@@ -16,9 +16,9 @@ resource "aws_cloudwatch_metric_alarm" "fargate_cpuutilization" {
   threshold           = each.value.fargate_cpuutilization_threshold
   alarm_description   = "${each.value.fargate_name}-CPUUtilization"
 
-  alarm_actions             = var.notify_sns_topic_arn
-  ok_actions                = var.notify_sns_topic_arn
-  insufficient_data_actions = []
+  alarm_actions             = var.action.alarm
+  ok_actions                = var.action.ok
+  insufficient_data_actions = var.action.insufficient
 
   dimensions = {
     ClusterName = "${each.value.cluster_name}"
@@ -47,9 +47,9 @@ resource "aws_cloudwatch_metric_alarm" "fargate_memoryutilization" {
   threshold           = each.value.fargate_memoryutilization_threshold
   alarm_description   = "${each.value.fargate_name}-MemoryUtilization"
 
-  alarm_actions             = var.notify_sns_topic_arn
-  ok_actions                = var.notify_sns_topic_arn
-  insufficient_data_actions = []
+  alarm_actions             = var.action.alarm
+  ok_actions                = var.action.ok
+  insufficient_data_actions = var.action.insufficient
 
   dimensions = {
     ClusterName = "${each.value.cluster_name}"
@@ -79,9 +79,9 @@ resource "aws_cloudwatch_metric_alarm" "fargate_runningtaskcount" {
   alarm_description   = "${each.value.fargate_name}-RunningTaskCount"
   actions_enabled     = each.value.fargate_runningtaskcount_actions_enabled
 
-  alarm_actions             = var.notify_sns_topic_arn
-  ok_actions                = var.notify_sns_topic_arn
-  insufficient_data_actions = []
+  alarm_actions             = var.action.alarm
+  ok_actions                = var.action.ok
+  insufficient_data_actions = var.action.insufficient
 
   dimensions = {
     ClusterName = "${each.value.cluster_name}"

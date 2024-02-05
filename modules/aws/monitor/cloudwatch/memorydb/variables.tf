@@ -1,6 +1,15 @@
-variable "notify_sns_topic_arn" {
-  type    = list(string)
-  default = []
+variable "action" {
+  type = object({
+    alarm        = list(string)
+    ok           = list(string)
+    insufficient = list(string)
+  })
+
+  default = {
+    alarm        = []
+    ok           = []
+    insufficient = []
+  }
 }
 
 variable "memorydb_cluster_alarm" {
@@ -30,6 +39,5 @@ variable "memorydb_cluster_alarm" {
     memorydb_evictions_period             = string
     memorydb_evictions_statistic          = string
     memorydb_evictions_threshold          = string
-
   }))
 }

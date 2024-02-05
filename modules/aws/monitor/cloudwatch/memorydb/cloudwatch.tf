@@ -16,9 +16,9 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_cpuutilization" {
   threshold           = each.value.memorydb_cpuutilization_threshold
   alarm_description   = "${each.value.memorydb_cluster_name}-CPUUtilization"
 
-  alarm_actions             = var.notify_sns_topic_arn
-  ok_actions                = var.notify_sns_topic_arn
-  insufficient_data_actions = []
+  alarm_actions             = var.action.alarm
+  ok_actions                = var.action.ok
+  insufficient_data_actions = var.action.insufficient
 
   dimensions = {
     ClusterName = "${each.value.memorydb_cluster_name}"
@@ -46,9 +46,9 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_freeablememory" {
   threshold           = each.value.memorydb_freeablememory_threshold
   alarm_description   = "${each.value.memorydb_cluster_name}-FreeableMemory"
 
-  alarm_actions             = var.notify_sns_topic_arn
-  ok_actions                = var.notify_sns_topic_arn
-  insufficient_data_actions = []
+  alarm_actions             = var.action.alarm
+  ok_actions                = var.action.ok
+  insufficient_data_actions = var.action.insufficient
 
   dimensions = {
     ClusterName = "${each.value.memorydb_cluster_name}"
@@ -76,9 +76,9 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_swapusage" {
   threshold           = each.value.memorydb_swapusage_threshold
   alarm_description   = "${each.value.memorydb_cluster_name}-SwapUsage"
 
-  alarm_actions             = var.notify_sns_topic_arn
-  ok_actions                = var.notify_sns_topic_arn
-  insufficient_data_actions = []
+  alarm_actions             = var.action.alarm
+  ok_actions                = var.action.ok
+  insufficient_data_actions = var.action.insufficient
 
   dimensions = {
     ClusterName = "${each.value.memorydb_cluster_name}"
@@ -106,9 +106,9 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_evictions" {
   threshold           = each.value.memorydb_evictions_threshold
   alarm_description   = "${each.value.memorydb_cluster_name}-Evictions"
 
-  alarm_actions             = var.notify_sns_topic_arn
-  ok_actions                = var.notify_sns_topic_arn
-  insufficient_data_actions = []
+  alarm_actions             = var.action.alarm
+  ok_actions                = var.action.ok
+  insufficient_data_actions = var.action.insufficient
 
   dimensions = {
     ClusterName = "${each.value.memorydb_cluster_name}"
