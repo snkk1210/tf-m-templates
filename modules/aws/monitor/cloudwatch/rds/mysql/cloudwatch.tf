@@ -16,9 +16,9 @@ resource "aws_cloudwatch_metric_alarm" "rds_cpuutilization" {
   threshold           = each.value.rds_cpuutilization_threshold
   alarm_description   = "${each.value.rds_name}-CPUUtilization"
 
-  alarm_actions             = var.notify_sns_topic_arn
-  ok_actions                = var.notify_sns_topic_arn
-  insufficient_data_actions = []
+  alarm_actions             = var.action.alarm
+  ok_actions                = var.action.ok
+  insufficient_data_actions = var.action.insufficient
 
   dimensions = {
     DBInstanceIdentifier = "${each.value.rds_name}"
@@ -46,9 +46,9 @@ resource "aws_cloudwatch_metric_alarm" "rds_freeablememory" {
   threshold           = each.value.rds_freeablememory_threshold
   alarm_description   = "${each.value.rds_name}-FreeableMemory"
 
-  alarm_actions             = var.notify_sns_topic_arn
-  ok_actions                = var.notify_sns_topic_arn
-  insufficient_data_actions = []
+  alarm_actions             = var.action.alarm
+  ok_actions                = var.action.ok
+  insufficient_data_actions = var.action.insufficient
 
   dimensions = {
     DBInstanceIdentifier = ""
@@ -76,9 +76,9 @@ resource "aws_cloudwatch_metric_alarm" "rds_freestoragespace" {
   threshold           = each.value.rds_freestoragespace_threshold
   alarm_description   = "${each.value.rds_name}-FreeStorageSpace"
 
-  alarm_actions             = var.notify_sns_topic_arn
-  ok_actions                = var.notify_sns_topic_arn
-  insufficient_data_actions = []
+  alarm_actions             = var.action.alarm
+  ok_actions                = var.action.ok
+  insufficient_data_actions = var.action.insufficient
 
   dimensions = {
     DBInstanceIdentifier = "${each.value.rds_name}"

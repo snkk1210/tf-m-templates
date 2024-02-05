@@ -16,9 +16,9 @@ resource "aws_cloudwatch_metric_alarm" "ec2_cpuutilization" {
   threshold           = each.value.ec2_cpuutilization_threshold
   alarm_description   = "${each.value.ec2_instance_name}-CPUUtilization"
 
-  alarm_actions             = var.notify_sns_topic_arn
-  ok_actions                = var.notify_sns_topic_arn
-  insufficient_data_actions = []
+  alarm_actions             = var.action.alarm
+  ok_actions                = var.action.ok
+  insufficient_data_actions = var.action.insufficient
 
   dimensions = {
     InstanceId = "${each.value.ec2_instance_id}"
@@ -46,9 +46,9 @@ resource "aws_cloudwatch_metric_alarm" "ec2_statuscheckfailed" {
   threshold           = each.value.ec2_statuscheckfailed_threshold
   alarm_description   = "${each.value.ec2_instance_name}-StatusCheckFailed"
 
-  alarm_actions             = var.notify_sns_topic_arn
-  ok_actions                = var.notify_sns_topic_arn
-  insufficient_data_actions = []
+  alarm_actions             = var.action.alarm
+  ok_actions                = var.action.ok
+  insufficient_data_actions = var.action.insufficient
 
   dimensions = {
     InstanceId = "${each.value.ec2_instance_id}"

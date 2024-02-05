@@ -17,9 +17,9 @@ resource "aws_cloudwatch_metric_alarm" "log_detection" {
   alarm_description   = "${var.common.project}-${each.value.log_filter_name}-${var.common.environment}-log-detection-alert"
   treat_missing_data  = "notBreaching"
 
-  alarm_actions             = var.notify_sns_topic_arn
-  ok_actions                = var.notify_sns_topic_arn
-  insufficient_data_actions = []
+  alarm_actions             = var.action.alarm
+  ok_actions                = var.action.ok
+  insufficient_data_actions = var.action.insufficient
 
   lifecycle {
     ignore_changes = [

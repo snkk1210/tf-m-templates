@@ -1,6 +1,15 @@
-variable "notify_sns_topic_arn" {
-  type    = list(string)
-  default = []
+variable "action" {
+  type = object({
+    alarm        = list(string)
+    ok           = list(string)
+    insufficient = list(string)
+  })
+
+  default = {
+    alarm        = []
+    ok           = []
+    insufficient = []
+  }
 }
 
 variable "cloudfront_alarm" {
@@ -17,6 +26,5 @@ variable "cloudfront_alarm" {
     cloudfront_5xxerrorrate_period             = string
     cloudfront_5xxerrorrate_statistic          = string
     cloudfront_5xxerrorrate_threshold          = string
-
   }))
 }

@@ -17,9 +17,9 @@ resource "aws_cloudwatch_metric_alarm" "natgw_errorportallocation" {
   alarm_description   = "${each.value.natgw_instance_name}-ErrorPortAllocation"
   treat_missing_data  = "notBreaching"
 
-  alarm_actions             = var.notify_sns_topic_arn
-  ok_actions                = var.notify_sns_topic_arn
-  insufficient_data_actions = []
+  alarm_actions             = var.action.alarm
+  ok_actions                = var.action.ok
+  insufficient_data_actions = var.action.insufficient
 
   dimensions = {
     NatGatewayId = "${each.value.natgw_instance_id}"

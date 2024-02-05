@@ -1,6 +1,15 @@
-variable "notify_sns_topic_arn" {
-  type    = list(string)
-  default = []
+variable "action" {
+  type = object({
+    alarm        = list(string)
+    ok           = list(string)
+    insufficient = list(string)
+  })
+
+  default = {
+    alarm        = []
+    ok           = []
+    insufficient = []
+  }
 }
 
 variable "aurora_cluster_alarm" {
@@ -42,7 +51,6 @@ variable "aurora_cluster_alarm" {
     aurora_dmllatency_period             = string
     aurora_dmllatency_statistic          = string
     aurora_dmllatency_threshold          = string
-
   }))
 }
 
@@ -61,6 +69,5 @@ variable "aurora_instance_alarm" {
     aurora_freelocalstorage_period             = string
     aurora_freelocalstorage_statistic          = string
     aurora_freelocalstorage_threshold          = string
-
   }))
 }

@@ -1,6 +1,15 @@
-variable "notify_sns_topic_arn" {
-  type    = list(string)
-  default = []
+variable "action" {
+  type = object({
+    alarm        = list(string)
+    ok           = list(string)
+    insufficient = list(string)
+  })
+
+  default = {
+    alarm        = []
+    ok           = []
+    insufficient = []
+  }
 }
 
 variable "natgw_instance_alarm" {
@@ -13,6 +22,5 @@ variable "natgw_instance_alarm" {
     natgw_errorportallocation_period             = string
     natgw_errorportallocation_statistic          = string
     natgw_errorportallocation_threshold          = string
-
   }))
 }

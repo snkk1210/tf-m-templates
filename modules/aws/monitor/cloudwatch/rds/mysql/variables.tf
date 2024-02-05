@@ -1,6 +1,15 @@
-variable "notify_sns_topic_arn" {
-  type    = list(string)
-  default = []
+variable "action" {
+  type = object({
+    alarm        = list(string)
+    ok           = list(string)
+    insufficient = list(string)
+  })
+
+  default = {
+    alarm        = []
+    ok           = []
+    insufficient = []
+  }
 }
 
 variable "rds_alarm" {
@@ -24,6 +33,5 @@ variable "rds_alarm" {
     rds_freestoragespace_period             = string
     rds_freestoragespace_statistic          = string
     rds_freestoragespace_threshold          = string
-
   }))
 }

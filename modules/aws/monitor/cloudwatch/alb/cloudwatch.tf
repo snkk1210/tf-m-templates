@@ -17,9 +17,9 @@ resource "aws_cloudwatch_metric_alarm" "alb_httpcode_elb_5xx_count" {
   alarm_description   = "${each.value.alb_name}-HTTPCode_ELB_5XX_Count"
   treat_missing_data  = "notBreaching"
 
-  alarm_actions             = var.notify_sns_topic_arn
-  ok_actions                = var.notify_sns_topic_arn
-  insufficient_data_actions = []
+  alarm_actions             = var.action.alarm
+  ok_actions                = var.action.ok
+  insufficient_data_actions = var.action.insufficient
 
   dimensions = {
     LoadBalancer = "${each.value.alb_arn}"
@@ -49,9 +49,9 @@ resource "aws_cloudwatch_metric_alarm" "alb_httpcode_target_5xx_count" {
   alarm_description   = "${each.value.alb_name}-HTTPCode_Target_5XX_Count"
   treat_missing_data  = "notBreaching"
 
-  alarm_actions             = var.notify_sns_topic_arn
-  ok_actions                = var.notify_sns_topic_arn
-  insufficient_data_actions = []
+  alarm_actions             = var.action.alarm
+  ok_actions                = var.action.ok
+  insufficient_data_actions = var.action.insufficient
 
   dimensions = {
     LoadBalancer = "${each.value.alb_arn}"

@@ -1,6 +1,15 @@
-variable "notify_sns_topic_arn" {
-  type    = list(string)
-  default = []
+variable "action" {
+  type = object({
+    alarm        = list(string)
+    ok           = list(string)
+    insufficient = list(string)
+  })
+
+  default = {
+    alarm        = []
+    ok           = []
+    insufficient = []
+  }
 }
 
 variable "alb_alarm" {
@@ -22,6 +31,5 @@ variable "alb_alarm" {
     alb_httpcode_target_5xx_count_period             = string
     alb_httpcode_target_5xx_count_statistic          = string
     alb_httpcode_target_5xx_count_threshold          = string
-
   }))
 }
