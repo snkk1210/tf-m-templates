@@ -4,7 +4,7 @@
 
 // CloudFront 5xxErrorRate
 resource "aws_cloudwatch_metric_alarm" "cloudfront_5xxerrorrate" {
-  for_each = { for service in var.cloudfront_alarm : service.cloudfront_name => service }
+  for_each = { for alarm in var.cloudfront_alarms : alarm.cloudfront_name => alarm }
 
   alarm_name          = "${each.value.cloudfront_name}-cloudfront-5xxErrorRate"
   comparison_operator = "GreaterThanOrEqualToThreshold"
