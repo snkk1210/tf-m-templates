@@ -12,7 +12,7 @@ variable "action" {
   }
 }
 
-variable "fargate_service_alarm" {
+variable "fargate_service_alarms" {
   type = list(object({
 
     /** 

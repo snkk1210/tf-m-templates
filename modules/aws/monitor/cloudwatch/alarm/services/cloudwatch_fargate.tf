@@ -4,7 +4,7 @@
 
 // Fargate CPUUtilization
 resource "aws_cloudwatch_metric_alarm" "fargate_cpuutilization" {
-  for_each = { for service in var.fargate_service_alarm : service.fargate_name => service }
+  for_each = { for alarm in var.fargate_service_alarms : alarm.alb_name => alarm }
 
   alarm_name          = "${each.value.fargate_name}-CPUUtilization"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -35,7 +35,7 @@ resource "aws_cloudwatch_metric_alarm" "fargate_cpuutilization" {
 
 // Fargate MemoryUtilization
 resource "aws_cloudwatch_metric_alarm" "fargate_memoryutilization" {
-  for_each = { for service in var.fargate_service_alarm : service.fargate_name => service }
+  for_each = { for alarm in var.fargate_service_alarms : alarm.alb_name => alarm }
 
   alarm_name          = "${each.value.fargate_name}-MemoryUtilization"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -66,7 +66,7 @@ resource "aws_cloudwatch_metric_alarm" "fargate_memoryutilization" {
 
 // Fargate RunningTaskCount
 resource "aws_cloudwatch_metric_alarm" "fargate_runningtaskcount" {
-  for_each = { for service in var.fargate_service_alarm : service.fargate_name => service }
+  for_each = { for alarm in var.fargate_service_alarms : alarm.alb_name => alarm }
 
   alarm_name          = "${each.value.fargate_name}-RunningTaskCount"
   comparison_operator = "GreaterThanOrEqualToThreshold"
