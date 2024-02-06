@@ -4,7 +4,7 @@
 
 // Lambda role
 resource "aws_iam_role" "lambda_role" {
-  name               = "${var.common.project}-${var.common.environment}-${data.aws_region.self.name}-cloudwatch-alarm-notify-lambda-role${var.sfx}"
+  name               = "${var.common.project}-${var.common.environment}-${data.aws_region.self.name}-cwalarm-notify-lambda-role${var.sfx}"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -21,7 +21,7 @@ resource "aws_iam_role" "lambda_role" {
 EOF
 
   tags = {
-    Name        = "${var.common.project}-${var.common.environment}-${data.aws_region.self.name}-cloudwatch-alarm-notify-lambda-role${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-${data.aws_region.self.name}-cwalarm-notify-lambda-role${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
@@ -35,7 +35,7 @@ resource "aws_iam_role_policy_attachment" "lambda_execution" {
 
 // SSM パラメータ 読み込み ポリシー
 resource "aws_iam_policy" "lambda_to_ssm" {
-  name = "${var.common.project}-${var.common.environment}-${data.aws_region.self.name}-cloudwatch-alarm-notify-lambda-policy${var.sfx}"
+  name = "${var.common.project}-${var.common.environment}-${data.aws_region.self.name}-cwalarm-notify-lambda-policy${var.sfx}"
   path = "/"
 
   policy = <<EOF
@@ -56,7 +56,7 @@ resource "aws_iam_policy" "lambda_to_ssm" {
 EOF
 
   tags = {
-    Name        = "${var.common.project}-${var.common.environment}-${data.aws_region.self.name}-cloudwatch-alarm-notify-lambda-policy${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-${data.aws_region.self.name}-cwalarm-notify-lambda-policy${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
