@@ -24,7 +24,7 @@ def lambda_handler(event, context):
 
 def generate_hook_url():
     """
-    Generate WebHookUrl from from Environment Variables.
+    Generate WebHookUrl from Environment Variables.
 
     Parameters
     ----------
@@ -68,6 +68,7 @@ def post_to_slack(hook_url, channel_name, notification_to, message):
     ----------
     None
     """
+
     alarm_name = message['AlarmName']
     alarm_description = message['AlarmDescription']
     new_state_value = message['NewStateValue']
