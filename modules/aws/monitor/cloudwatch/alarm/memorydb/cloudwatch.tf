@@ -6,7 +6,7 @@
 resource "aws_cloudwatch_metric_alarm" "memorydb_cpuutilization" {
   for_each = { for alarm in var.memorydb_cluster_alarms : alarm.memorydb_cluster_name => alarm }
 
-  alarm_name          = "${each.value.memorydb_cluster_name}-CPUUtilization"
+  alarm_name          = "${each.value.memorydb_cluster_name}-CPUUtilization${var.sfx}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = each.value.memorydb_cpuutilization_evaluation_periods
   metric_name         = "CPUUtilization"
@@ -14,7 +14,7 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_cpuutilization" {
   period              = each.value.memorydb_cpuutilization_period
   statistic           = each.value.memorydb_cpuutilization_statistic
   threshold           = each.value.memorydb_cpuutilization_threshold
-  alarm_description   = "${each.value.memorydb_cluster_name}-CPUUtilization"
+  alarm_description   = "${each.value.memorydb_cluster_name}-CPUUtilization${var.sfx}"
 
   alarm_actions             = var.action.alarm
   ok_actions                = var.action.ok
@@ -36,7 +36,7 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_cpuutilization" {
 resource "aws_cloudwatch_metric_alarm" "memorydb_freeablememory" {
   for_each = { for alarm in var.memorydb_cluster_alarms : alarm.memorydb_cluster_name => alarm }
 
-  alarm_name          = "${each.value.memorydb_cluster_name}-FreeableMemory"
+  alarm_name          = "${each.value.memorydb_cluster_name}-FreeableMemory${var.sfx}"
   comparison_operator = "LessThanOrEqualToThreshold"
   evaluation_periods  = each.value.memorydb_freeablememory_evaluation_periods
   metric_name         = "FreeableMemory"
@@ -44,7 +44,7 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_freeablememory" {
   period              = each.value.memorydb_freeablememory_period
   statistic           = each.value.memorydb_freeablememory_statistic
   threshold           = each.value.memorydb_freeablememory_threshold
-  alarm_description   = "${each.value.memorydb_cluster_name}-FreeableMemory"
+  alarm_description   = "${each.value.memorydb_cluster_name}-FreeableMemory${var.sfx}"
 
   alarm_actions             = var.action.alarm
   ok_actions                = var.action.ok
@@ -66,7 +66,7 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_freeablememory" {
 resource "aws_cloudwatch_metric_alarm" "memorydb_swapusage" {
   for_each = { for alarm in var.memorydb_cluster_alarms : alarm.memorydb_cluster_name => alarm }
 
-  alarm_name          = "${each.value.memorydb_cluster_name}-SwapUsage"
+  alarm_name          = "${each.value.memorydb_cluster_name}-SwapUsage${var.sfx}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = each.value.memorydb_swapusage_evaluation_periods
   metric_name         = "SwapUsage"
@@ -74,7 +74,7 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_swapusage" {
   period              = each.value.memorydb_swapusage_period
   statistic           = each.value.memorydb_swapusage_statistic
   threshold           = each.value.memorydb_swapusage_threshold
-  alarm_description   = "${each.value.memorydb_cluster_name}-SwapUsage"
+  alarm_description   = "${each.value.memorydb_cluster_name}-SwapUsage${var.sfx}"
 
   alarm_actions             = var.action.alarm
   ok_actions                = var.action.ok
@@ -96,7 +96,7 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_swapusage" {
 resource "aws_cloudwatch_metric_alarm" "memorydb_evictions" {
   for_each = { for alarm in var.memorydb_cluster_alarms : alarm.memorydb_cluster_name => alarm }
 
-  alarm_name          = "${each.value.memorydb_cluster_name}-Evictions"
+  alarm_name          = "${each.value.memorydb_cluster_name}-Evictions${var.sfx}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = each.value.memorydb_evictions_evaluation_periods
   metric_name         = "Evictions"
@@ -104,7 +104,7 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_evictions" {
   period              = each.value.memorydb_evictions_period
   statistic           = each.value.memorydb_evictions_statistic
   threshold           = each.value.memorydb_evictions_threshold
-  alarm_description   = "${each.value.memorydb_cluster_name}-Evictions"
+  alarm_description   = "${each.value.memorydb_cluster_name}-Evictions${var.sfx}"
 
   alarm_actions             = var.action.alarm
   ok_actions                = var.action.ok

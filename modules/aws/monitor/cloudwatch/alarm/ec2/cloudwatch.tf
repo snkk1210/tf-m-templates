@@ -6,7 +6,7 @@
 resource "aws_cloudwatch_metric_alarm" "ec2_cpuutilization" {
   for_each = { for alarm in var.ec2_instance_alarms : alarm.ec2_instance_name => alarm }
 
-  alarm_name          = "${each.value.ec2_instance_name}-CPUUtilization"
+  alarm_name          = "${each.value.ec2_instance_name}-CPUUtilization${var.sfx}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = each.value.ec2_cpuutilization_evaluation_periods
   metric_name         = "CPUUtilization"
@@ -14,7 +14,7 @@ resource "aws_cloudwatch_metric_alarm" "ec2_cpuutilization" {
   period              = each.value.ec2_cpuutilization_period
   statistic           = each.value.ec2_cpuutilization_statistic
   threshold           = each.value.ec2_cpuutilization_threshold
-  alarm_description   = "${each.value.ec2_instance_name}-CPUUtilization"
+  alarm_description   = "${each.value.ec2_instance_name}-CPUUtilization${var.sfx}"
 
   alarm_actions             = var.action.alarm
   ok_actions                = var.action.ok
@@ -36,7 +36,7 @@ resource "aws_cloudwatch_metric_alarm" "ec2_cpuutilization" {
 resource "aws_cloudwatch_metric_alarm" "ec2_statuscheckfailed" {
   for_each = { for alarm in var.ec2_instance_alarms : alarm.ec2_instance_name => alarm }
 
-  alarm_name          = "${each.value.ec2_instance_name}-StatusCheckFailed"
+  alarm_name          = "${each.value.ec2_instance_name}-StatusCheckFailed${var.sfx}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = each.value.ec2_statuscheckfailed_evaluation_periods
   metric_name         = "StatusCheckFailed"
@@ -44,7 +44,7 @@ resource "aws_cloudwatch_metric_alarm" "ec2_statuscheckfailed" {
   period              = each.value.ec2_statuscheckfailed_period
   statistic           = each.value.ec2_statuscheckfailed_statistic
   threshold           = each.value.ec2_statuscheckfailed_threshold
-  alarm_description   = "${each.value.ec2_instance_name}-StatusCheckFailed"
+  alarm_description   = "${each.value.ec2_instance_name}-StatusCheckFailed${var.sfx}"
 
   alarm_actions             = var.action.alarm
   ok_actions                = var.action.ok
