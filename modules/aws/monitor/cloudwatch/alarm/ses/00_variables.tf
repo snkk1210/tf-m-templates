@@ -14,7 +14,7 @@ variable "common" {
 }
 
 variable "sfx" {
-  type = string
+  type    = string
   default = "01"
 }
 

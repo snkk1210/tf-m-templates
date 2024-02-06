@@ -2,7 +2,7 @@
 # Variables for COMMON
 */
 variable "sfx" {
-  type = string
+  type    = string
   default = "01"
 }
 
