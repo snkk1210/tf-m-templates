@@ -42,6 +42,11 @@ variable "reserved_concurrent_executions" {
   default = -1
 }
 
+variable "lambda_runtime" {
+  type    = string
+  default = "python3.12"
+}
+
 /** 
 # Variables for KMS
 */

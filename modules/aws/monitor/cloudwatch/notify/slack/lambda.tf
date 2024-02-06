@@ -2,24 +2,22 @@
 # Lambda
 */
 
-// AWS アカウント Region 参照 
-data "aws_region" "self" {}
-
 data "archive_file" "this" {
   type        = "zip"
-  source_file = "${path.module}/lambda/source/cloudwatch_alarm_notify.py"
-  output_path = "${path.module}/lambda/bin/cloudwatch_alarm_notify.zip"
+  source_file = "${path.module}/lambda/source/cwalarm_notify.py"
+  output_path = "${path.module}/lambda/bin/cwalarm_notify.zip"
 }
 
 resource "aws_lambda_function" "this" {
   filename                       = data.archive_file.this.output_path
-  function_name                  = "${var.common.project}-${var.common.environment}-cloudwatch-alarm-notify-function${var.sfx}"
-  description                    = "${var.common.project}-${var.common.environment}-cloudwatch-alarm-notify-function${var.sfx}"
+  function_name                  = "${var.common.project}-${var.common.environment}-cwalarm-notify-function${var.sfx}"
+  description                    = "${var.common.project}-${var.common.environment}-cwalarm-notify-function${var.sfx}"
   role                           = aws_iam_role.lambda_role.arn
   handler                        = "cloudwatch_alarm_notify.lambda_handler"
   source_code_hash               = data.archive_file.this.output_base64sha256
   reserved_concurrent_executions = var.reserved_concurrent_executions
-  runtime                        = "python3.11"
+  runtime                        = var.lambda_runtime
+
   environment {
     variables = {
       channelName    = var.env_var.channel_name
@@ -29,7 +27,7 @@ resource "aws_lambda_function" "this" {
   }
 
   tags = {
-    Name        = "${var.common.project}-${var.common.environment}-cloudwatch-alarm-notify-function${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-cwalarm-notify-function${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
