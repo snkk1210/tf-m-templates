@@ -12,7 +12,7 @@ variable "action" {
   }
 }
 
-variable "aurora_cluster_alarm" {
+variable "aurora_cluster_alarms" {
   type = list(object({
     aurora_cluster_name = string
 
@@ -42,7 +42,7 @@ variable "aurora_cluster_alarm" {
   }))
 }
 
-variable "aurora_instance_alarm" {
+variable "aurora_instance_alarms" {
   type = list(object({
     aurora_instance_name = string
 

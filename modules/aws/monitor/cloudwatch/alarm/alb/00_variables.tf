@@ -12,7 +12,7 @@ variable "action" {
   }
 }
 
-variable "alb_alarm" {
+variable "alb_alarms" {
   type = list(object({
 
     /** 
