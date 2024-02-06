@@ -2,9 +2,6 @@
 # Lambda
 */
 
-// AWS アカウント Region 参照 
-data "aws_region" "self" {}
-
 data "archive_file" "this" {
   type        = "zip"
   source_file = "${path.module}/lambda/source/cwalarm_notify.py"
