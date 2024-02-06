@@ -6,7 +6,7 @@
 resource "aws_cloudwatch_metric_alarm" "natgw_errorportallocation" {
   for_each = { for alarm in var.natgw_instance_alarms : alarm.natgw_instance_name => alarm }
 
-  alarm_name          = "${each.value.natgw_instance_name}-ErrorPortAllocation"
+  alarm_name          = "${each.value.natgw_instance_name}-ErrorPortAllocation${var.sfx}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = each.value.natgw_errorportallocation_evaluation_periods
   metric_name         = "ErrorPortAllocation"
@@ -14,7 +14,7 @@ resource "aws_cloudwatch_metric_alarm" "natgw_errorportallocation" {
   period              = each.value.natgw_errorportallocation_period
   statistic           = each.value.natgw_errorportallocation_statistic
   threshold           = each.value.natgw_errorportallocation_threshold
-  alarm_description   = "${each.value.natgw_instance_name}-ErrorPortAllocation"
+  alarm_description   = "${each.value.natgw_instance_name}-ErrorPortAllocation${var.sfx}"
   treat_missing_data  = "notBreaching"
 
   alarm_actions             = var.action.alarm

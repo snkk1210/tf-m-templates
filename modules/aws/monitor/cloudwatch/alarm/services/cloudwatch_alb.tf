@@ -6,7 +6,7 @@
 resource "aws_cloudwatch_metric_alarm" "alb_httpcode_elb_5xx_count" {
   for_each = { for alarm in var.fargate_service_alarms : alarm.alb_name => alarm }
 
-  alarm_name          = "${each.value.alb_name}-HTTPCode_ELB_5XX_Count"
+  alarm_name          = "${each.value.alb_name}-HTTPCode_ELB_5XX_Count${var.sfx}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = each.value.alb_httpcode_elb_5xx_count_evaluation_periods
   metric_name         = "HTTPCode_ELB_5XX_Count"
@@ -14,7 +14,7 @@ resource "aws_cloudwatch_metric_alarm" "alb_httpcode_elb_5xx_count" {
   period              = each.value.alb_httpcode_elb_5xx_count_period
   statistic           = each.value.alb_httpcode_elb_5xx_count_statistic
   threshold           = each.value.alb_httpcode_elb_5xx_count_threshold
-  alarm_description   = "${each.value.alb_name}-HTTPCode_ELB_5XX_Count"
+  alarm_description   = "${each.value.alb_name}-HTTPCode_ELB_5XX_Count${var.sfx}"
   treat_missing_data  = "notBreaching"
 
   alarm_actions             = var.action.alarm
@@ -38,7 +38,7 @@ resource "aws_cloudwatch_metric_alarm" "alb_httpcode_elb_5xx_count" {
 resource "aws_cloudwatch_metric_alarm" "alb_httpcode_target_5xx_count" {
   for_each = { for alarm in var.fargate_service_alarms : alarm.alb_name => alarm }
 
-  alarm_name          = "${each.value.alb_name}-HTTPCode_Target_5XX_Count"
+  alarm_name          = "${each.value.alb_name}-HTTPCode_Target_5XX_Count${var.sfx}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = each.value.alb_httpcode_target_5xx_count_evaluation_periods
   metric_name         = "HTTPCode_Target_5XX_Count"
@@ -46,7 +46,7 @@ resource "aws_cloudwatch_metric_alarm" "alb_httpcode_target_5xx_count" {
   period              = each.value.alb_httpcode_target_5xx_count_period
   statistic           = each.value.alb_httpcode_target_5xx_count_statistic
   threshold           = each.value.alb_httpcode_target_5xx_count_threshold
-  alarm_description   = "${each.value.alb_name}-HTTPCode_Target_5XX_Count"
+  alarm_description   = "${each.value.alb_name}-HTTPCode_Target_5XX_Count${var.sfx}"
   treat_missing_data  = "notBreaching"
 
   alarm_actions             = var.action.alarm

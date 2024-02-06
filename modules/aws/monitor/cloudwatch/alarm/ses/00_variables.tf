@@ -13,6 +13,11 @@ variable "common" {
   }
 }
 
+variable "sfx" {
+  type = string
+  default = "01"
+}
+
 /** 
 # Variables for CloudWatch
 */
