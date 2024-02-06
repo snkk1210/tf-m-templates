@@ -4,7 +4,7 @@
 
 // Aurora Cluster Writer CPUUtilization 
 resource "aws_cloudwatch_metric_alarm" "aurora_writer_cpuutilization" {
-  for_each = { for cluster in var.aurora_cluster_alarm : cluster.aurora_cluster_name => cluster }
+  for_each = { for alarm in var.aurora_cluster_alarms : alarm.aurora_cluster_name => alarm }
 
   alarm_name          = "${each.value.aurora_cluster_name}-writer-CPUUtilization"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -35,7 +35,7 @@ resource "aws_cloudwatch_metric_alarm" "aurora_writer_cpuutilization" {
 
 // Aurora Cluster Reader CPUUtilization
 resource "aws_cloudwatch_metric_alarm" "aurora_reader_cpuutilization" {
-  for_each = { for cluster in var.aurora_cluster_alarm : cluster.aurora_cluster_name => cluster }
+  for_each = { for alarm in var.aurora_cluster_alarms : alarm.aurora_cluster_name => alarm }
 
   alarm_name          = "${each.value.aurora_cluster_name}-reader-CPUUtilization"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -66,7 +66,7 @@ resource "aws_cloudwatch_metric_alarm" "aurora_reader_cpuutilization" {
 
 // Aurora Cluster Writer FreeableMemory
 resource "aws_cloudwatch_metric_alarm" "aurora_writer_freeablememory" {
-  for_each = { for cluster in var.aurora_cluster_alarm : cluster.aurora_cluster_name => cluster }
+  for_each = { for alarm in var.aurora_cluster_alarms : alarm.aurora_cluster_name => alarm }
 
   alarm_name          = "${each.value.aurora_cluster_name}-writer-FreeableMemory"
   comparison_operator = "LessThanOrEqualToThreshold"
@@ -97,7 +97,7 @@ resource "aws_cloudwatch_metric_alarm" "aurora_writer_freeablememory" {
 
 // Aurora Cluster Reader FreeableMemory
 resource "aws_cloudwatch_metric_alarm" "aurora_reader_freeablememory" {
-  for_each = { for cluster in var.aurora_cluster_alarm : cluster.aurora_cluster_name => cluster }
+  for_each = { for alarm in var.aurora_cluster_alarms : alarm.aurora_cluster_name => alarm }
 
   alarm_name          = "${each.value.aurora_cluster_name}-reader-FreeableMemory"
   comparison_operator = "LessThanOrEqualToThreshold"
@@ -128,7 +128,7 @@ resource "aws_cloudwatch_metric_alarm" "aurora_reader_freeablememory" {
 
 // Aurora Cluster AuroraVolumeBytesLeftTotal 
 resource "aws_cloudwatch_metric_alarm" "aurora_auroravolumebyteslefttotal" {
-  for_each = { for cluster in var.aurora_cluster_alarm : cluster.aurora_cluster_name => cluster }
+  for_each = { for alarm in var.aurora_cluster_alarms : alarm.aurora_cluster_name => alarm }
 
   alarm_name          = "${each.value.aurora_cluster_name}-AuroraVolumeBytesLeftTotal"
   comparison_operator = "LessThanOrEqualToThreshold"
@@ -158,7 +158,7 @@ resource "aws_cloudwatch_metric_alarm" "aurora_auroravolumebyteslefttotal" {
 
 // Aurora Cluster DMLLatency
 resource "aws_cloudwatch_metric_alarm" "aurora_dmllatency" {
-  for_each = { for cluster in var.aurora_cluster_alarm : cluster.aurora_cluster_name => cluster }
+  for_each = { for alarm in var.aurora_cluster_alarms : alarm.aurora_cluster_name => alarm }
 
   alarm_name          = "${each.value.aurora_cluster_name}-DMLLatency"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -188,7 +188,7 @@ resource "aws_cloudwatch_metric_alarm" "aurora_dmllatency" {
 
 // Aurora Instance DatabaseConnections
 resource "aws_cloudwatch_metric_alarm" "aurora_databaseconnections" {
-  for_each = { for instance in var.aurora_instance_alarm : instance.aurora_instance_name => instance }
+  for_each = { for alarm in var.aurora_instance_alarms : alarm.aurora_instance_name => alarm }
 
   alarm_name          = "${each.value.aurora_instance_name}-DatabaseConnections"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -218,7 +218,7 @@ resource "aws_cloudwatch_metric_alarm" "aurora_databaseconnections" {
 
 // Aurora Instance FreeLocalStorage
 resource "aws_cloudwatch_metric_alarm" "aurora_freelocalstorage" {
-  for_each = { for instance in var.aurora_instance_alarm : instance.aurora_instance_name => instance }
+  for_each = { for alarm in var.aurora_instance_alarms : alarm.aurora_instance_name => alarm }
 
   alarm_name          = "${each.value.aurora_instance_name}-FreeLocalStorage"
   comparison_operator = "LessThanOrEqualToThreshold"
