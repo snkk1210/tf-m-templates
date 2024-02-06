@@ -12,7 +12,7 @@ variable "action" {
   }
 }
 
-variable "ec2_instance_alarm" {
+variable "ec2_instance_alarms" {
   type = list(object({
     ec2_instance_name = string
     ec2_instance_id   = string
