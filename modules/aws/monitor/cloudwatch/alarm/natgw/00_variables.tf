@@ -12,7 +12,7 @@ variable "action" {
   }
 }
 
-variable "natgw_instance_alarm" {
+variable "natgw_instance_alarms" {
   type = list(object({
     natgw_instance_name = string
     natgw_instance_id   = string

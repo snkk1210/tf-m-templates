@@ -4,7 +4,7 @@
 
 // NatGW ErrorPortAllocation
 resource "aws_cloudwatch_metric_alarm" "natgw_errorportallocation" {
-  for_each = { for instance in var.natgw_instance_alarm : instance.natgw_instance_name => instance }
+  for_each = { for alarm in var.natgw_instance_alarms : alarm.natgw_instance_name => alarm }
 
   alarm_name          = "${each.value.natgw_instance_name}-ErrorPortAllocation"
   comparison_operator = "GreaterThanOrEqualToThreshold"
