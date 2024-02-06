@@ -19,7 +19,8 @@ resource "aws_lambda_function" "this" {
   handler                        = "cloudwatch_alarm_notify.lambda_handler"
   source_code_hash               = data.archive_file.this.output_base64sha256
   reserved_concurrent_executions = var.reserved_concurrent_executions
-  runtime                        = "python3.11"
+  runtime                        = var.lambda_runtime
+
   environment {
     variables = {
       channelName    = var.env_var.channel_name
