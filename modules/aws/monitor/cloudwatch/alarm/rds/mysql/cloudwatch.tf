@@ -6,7 +6,7 @@
 resource "aws_cloudwatch_metric_alarm" "rds_cpuutilization" {
   for_each = { for alarm in var.rds_alarms : alarm.rds_name => alarm }
 
-  alarm_name          = "${each.value.rds_name}-CPUUtilization"
+  alarm_name          = "${each.value.rds_name}-CPUUtilization${var.sfx}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = each.value.rds_cpuutilization_evaluation_periods
   metric_name         = "CPUUtilization"
@@ -14,7 +14,7 @@ resource "aws_cloudwatch_metric_alarm" "rds_cpuutilization" {
   period              = each.value.rds_cpuutilization_period
   statistic           = each.value.rds_cpuutilization_statistic
   threshold           = each.value.rds_cpuutilization_threshold
-  alarm_description   = "${each.value.rds_name}-CPUUtilization"
+  alarm_description   = "${each.value.rds_name}-CPUUtilization${var.sfx}"
 
   alarm_actions             = var.action.alarm
   ok_actions                = var.action.ok
@@ -36,7 +36,7 @@ resource "aws_cloudwatch_metric_alarm" "rds_cpuutilization" {
 resource "aws_cloudwatch_metric_alarm" "rds_freeablememory" {
   for_each = { for alarm in var.rds_alarms : alarm.rds_name => alarm }
 
-  alarm_name          = "${each.value.rds_name}-FreeableMemory"
+  alarm_name          = "${each.value.rds_name}-FreeableMemory${var.sfx}"
   comparison_operator = "LessThanOrEqualToThreshold"
   evaluation_periods  = each.value.rds_freeablememory_evaluation_periods
   metric_name         = "FreeableMemory"
@@ -44,7 +44,7 @@ resource "aws_cloudwatch_metric_alarm" "rds_freeablememory" {
   period              = each.value.rds_freeablememory_period
   statistic           = each.value.rds_freeablememory_statistic
   threshold           = each.value.rds_freeablememory_threshold
-  alarm_description   = "${each.value.rds_name}-FreeableMemory"
+  alarm_description   = "${each.value.rds_name}-FreeableMemory${var.sfx}"
 
   alarm_actions             = var.action.alarm
   ok_actions                = var.action.ok
@@ -66,7 +66,7 @@ resource "aws_cloudwatch_metric_alarm" "rds_freeablememory" {
 resource "aws_cloudwatch_metric_alarm" "rds_freestoragespace" {
   for_each = { for alarm in var.rds_alarms : alarm.rds_name => alarm }
 
-  alarm_name          = "${each.value.rds_name}-FreeStorageSpace"
+  alarm_name          = "${each.value.rds_name}-FreeStorageSpace${var.sfx}"
   comparison_operator = "LessThanOrEqualToThreshold"
   evaluation_periods  = each.value.rds_freestoragespace_evaluation_periods
   metric_name         = "FreeStorageSpace"
@@ -74,7 +74,7 @@ resource "aws_cloudwatch_metric_alarm" "rds_freestoragespace" {
   period              = each.value.rds_freestoragespace_period
   statistic           = each.value.rds_freestoragespace_statistic
   threshold           = each.value.rds_freestoragespace_threshold
-  alarm_description   = "${each.value.rds_name}-FreeStorageSpace"
+  alarm_description   = "${each.value.rds_name}-FreeStorageSpace${var.sfx}"
 
   alarm_actions             = var.action.alarm
   ok_actions                = var.action.ok

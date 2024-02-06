@@ -1,3 +1,14 @@
+/** 
+# Variables for COMMON
+*/
+variable "sfx" {
+  type    = string
+  default = "01"
+}
+
+/** 
+# Variables for CloudWatch
+*/
 variable "action" {
   type = object({
     alarm        = list(string)
@@ -14,10 +25,6 @@ variable "action" {
 
 variable "cloudfront_alarms" {
   type = list(object({
-
-    /** 
-    # CloudFront
-    */
     cloudfront_name = string
     cloudfront_id   = string
 

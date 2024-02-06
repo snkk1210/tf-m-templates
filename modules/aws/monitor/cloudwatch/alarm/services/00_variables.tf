@@ -1,3 +1,14 @@
+/** 
+# Variables for COMMON
+*/
+variable "sfx" {
+  type    = string
+  default = "01"
+}
+
+/** 
+# Variables for CloudWatch
+*/
 variable "action" {
   type = object({
     alarm        = list(string)
@@ -14,10 +25,6 @@ variable "action" {
 
 variable "fargate_service_alarms" {
   type = list(object({
-
-    /** 
-    # NOTE: Fargate
-    */
     fargate_name = string
     cluster_name = string
 
