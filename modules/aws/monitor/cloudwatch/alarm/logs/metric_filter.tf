@@ -3,7 +3,7 @@
 */
 
 resource "aws_cloudwatch_log_metric_filter" "log_metric_filter" {
-  for_each = { for log_group in var.log_group_error_filter : log_group.log_filter_name => log_group }
+  for_each = { for filter in var.log_metric_filters : filter.log_filter_name => filter }
 
   name           = "${var.common.project}-${each.value.log_filter_name}-${var.common.environment}-log-filter"
   pattern        = each.value.pattern

@@ -1,3 +1,6 @@
+/** 
+# Variables for COMMON
+*/
 variable "common" {
   type = object({
     project     = string
@@ -10,6 +13,9 @@ variable "common" {
   }
 }
 
+/** 
+# Variables for CloudWatch
+*/
 variable "action" {
   type = object({
     alarm        = list(string)
@@ -24,7 +30,7 @@ variable "action" {
   }
 }
 
-variable "log_group_error_filter" {
+variable "log_metric_filters" {
   type = list(object({
     log_group_name  = string
     log_filter_name = string
