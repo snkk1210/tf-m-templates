@@ -1,11 +1,21 @@
-variable "project" {
-  type = string
+/** 
+# Variables for COMMON
+*/
+variable "common" {
+  type = object({
+    project     = string
+    environment = string
+  })
+
+  default = {
+    environment = ""
+    project     = ""
+  }
 }
 
-variable "environment" {
-  type = string
-}
-
+/** 
+# Variables for CloudWatch
+*/
 variable "action" {
   type = object({
     alarm        = list(string)
