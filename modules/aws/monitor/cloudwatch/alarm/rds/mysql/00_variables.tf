@@ -12,7 +12,7 @@ variable "action" {
   }
 }
 
-variable "rds_alarm" {
+variable "rds_alarms" {
   type = list(object({
     rds_name = string
 
