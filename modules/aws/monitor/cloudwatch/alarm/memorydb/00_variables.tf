@@ -12,7 +12,7 @@ variable "action" {
   }
 }
 
-variable "memorydb_cluster_alarm" {
+variable "memorydb_cluster_alarms" {
   type = list(object({
     memorydb_cluster_name = string
 

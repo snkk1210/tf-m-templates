@@ -4,7 +4,7 @@
 
 // MemoryDB for Redis CPUUtilization 
 resource "aws_cloudwatch_metric_alarm" "memorydb_cpuutilization" {
-  for_each = { for cluster in var.memorydb_cluster_alarm : cluster.memorydb_cluster_name => cluster }
+  for_each = { for alarm in var.memorydb_cluster_alarms : alarm.memorydb_cluster_name => alarm }
 
   alarm_name          = "${each.value.memorydb_cluster_name}-CPUUtilization"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -34,7 +34,7 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_cpuutilization" {
 
 // MemoryDB for Redis FreeableMemory
 resource "aws_cloudwatch_metric_alarm" "memorydb_freeablememory" {
-  for_each = { for cluster in var.memorydb_cluster_alarm : cluster.memorydb_cluster_name => cluster }
+  for_each = { for alarm in var.memorydb_cluster_alarms : alarm.memorydb_cluster_name => alarm }
 
   alarm_name          = "${each.value.memorydb_cluster_name}-FreeableMemory"
   comparison_operator = "LessThanOrEqualToThreshold"
@@ -64,7 +64,7 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_freeablememory" {
 
 // MemoryDB for Redis SwapUsage
 resource "aws_cloudwatch_metric_alarm" "memorydb_swapusage" {
-  for_each = { for cluster in var.memorydb_cluster_alarm : cluster.memorydb_cluster_name => cluster }
+  for_each = { for alarm in var.memorydb_cluster_alarms : alarm.memorydb_cluster_name => alarm }
 
   alarm_name          = "${each.value.memorydb_cluster_name}-SwapUsage"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -94,7 +94,7 @@ resource "aws_cloudwatch_metric_alarm" "memorydb_swapusage" {
 
 // MemoryDB for Redis Evictions
 resource "aws_cloudwatch_metric_alarm" "memorydb_evictions" {
-  for_each = { for cluster in var.memorydb_cluster_alarm : cluster.memorydb_cluster_name => cluster }
+  for_each = { for alarm in var.memorydb_cluster_alarms : alarm.memorydb_cluster_name => alarm }
 
   alarm_name          = "${each.value.memorydb_cluster_name}-Evictions"
   comparison_operator = "GreaterThanOrEqualToThreshold"
