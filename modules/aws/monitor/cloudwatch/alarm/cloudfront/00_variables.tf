@@ -12,11 +12,11 @@ variable "action" {
   }
 }
 
-variable "cloudfront_alarm" {
+variable "cloudfront_alarms" {
   type = list(object({
 
     /** 
-    # NOTE: CloudFront
+    # CloudFront
     */
     cloudfront_name = string
     cloudfront_id   = string

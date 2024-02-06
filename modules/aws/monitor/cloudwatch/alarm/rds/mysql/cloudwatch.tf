@@ -4,7 +4,7 @@
 
 // RDS CPUUtilization
 resource "aws_cloudwatch_metric_alarm" "rds_cpuutilization" {
-  for_each = { for rds in var.rds_alarm : rds.rds_name => rds }
+  for_each = { for alarm in var.rds_alarms : alarm.rds_name => alarm }
 
   alarm_name          = "${each.value.rds_name}-CPUUtilization"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -34,7 +34,7 @@ resource "aws_cloudwatch_metric_alarm" "rds_cpuutilization" {
 
 // RDS FreeableMemory
 resource "aws_cloudwatch_metric_alarm" "rds_freeablememory" {
-  for_each = { for rds in var.rds_alarm : rds.rds_name => rds }
+  for_each = { for alarm in var.rds_alarms : alarm.rds_name => alarm }
 
   alarm_name          = "${each.value.rds_name}-FreeableMemory"
   comparison_operator = "LessThanOrEqualToThreshold"
@@ -51,7 +51,7 @@ resource "aws_cloudwatch_metric_alarm" "rds_freeablememory" {
   insufficient_data_actions = var.action.insufficient
 
   dimensions = {
-    DBInstanceIdentifier = ""
+    DBInstanceIdentifier = "${each.value.rds_name}"
   }
 
   lifecycle {
@@ -64,7 +64,7 @@ resource "aws_cloudwatch_metric_alarm" "rds_freeablememory" {
 
 // RDS FreeStorageSpace
 resource "aws_cloudwatch_metric_alarm" "rds_freestoragespace" {
-  for_each = { for rds in var.rds_alarm : rds.rds_name => rds }
+  for_each = { for alarm in var.rds_alarms : alarm.rds_name => alarm }
 
   alarm_name          = "${each.value.rds_name}-FreeStorageSpace"
   comparison_operator = "LessThanOrEqualToThreshold"

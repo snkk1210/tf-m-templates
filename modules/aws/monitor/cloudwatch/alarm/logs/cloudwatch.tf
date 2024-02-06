@@ -4,7 +4,7 @@
 
 // CloudWatch Logs Alarm
 resource "aws_cloudwatch_metric_alarm" "log_detection" {
-  for_each = { for log_group in var.log_group_error_filter : log_group.log_filter_name => log_group }
+  for_each = { for filter in var.log_metric_filters : filter.log_filter_name => filter }
 
   alarm_name          = "${var.common.project}-${each.value.log_filter_name}-${var.common.environment}-log-detection-alert"
   comparison_operator = "GreaterThanOrEqualToThreshold"

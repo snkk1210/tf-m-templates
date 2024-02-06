@@ -4,7 +4,7 @@
 
 // ALB HTTPCode_ELB_5XX_Count
 resource "aws_cloudwatch_metric_alarm" "alb_httpcode_elb_5xx_count" {
-  for_each = { for service in var.fargate_service_alarm : service.alb_name => service }
+  for_each = { for alarm in var.fargate_service_alarms : alarm.alb_name => alarm }
 
   alarm_name          = "${each.value.alb_name}-HTTPCode_ELB_5XX_Count"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -36,7 +36,7 @@ resource "aws_cloudwatch_metric_alarm" "alb_httpcode_elb_5xx_count" {
 
 // ALB HTTPCode_Target_5XX_Count
 resource "aws_cloudwatch_metric_alarm" "alb_httpcode_target_5xx_count" {
-  for_each = { for service in var.fargate_service_alarm : service.alb_name => service }
+  for_each = { for alarm in var.fargate_service_alarms : alarm.alb_name => alarm }
 
   alarm_name          = "${each.value.alb_name}-HTTPCode_Target_5XX_Count"
   comparison_operator = "GreaterThanOrEqualToThreshold"

@@ -4,7 +4,7 @@
 
 // EC2 CPUUtilization 
 resource "aws_cloudwatch_metric_alarm" "ec2_cpuutilization" {
-  for_each = { for instance in var.ec2_instance_alarm : instance.ec2_instance_name => instance }
+  for_each = { for alarm in var.ec2_instance_alarms : alarm.ec2_instance_name => alarm }
 
   alarm_name          = "${each.value.ec2_instance_name}-CPUUtilization"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -34,7 +34,7 @@ resource "aws_cloudwatch_metric_alarm" "ec2_cpuutilization" {
 
 // EC2 StatusCheckFailed
 resource "aws_cloudwatch_metric_alarm" "ec2_statuscheckfailed" {
-  for_each = { for instance in var.ec2_instance_alarm : instance.ec2_instance_name => instance }
+  for_each = { for alarm in var.ec2_instance_alarms : alarm.ec2_instance_name => alarm }
 
   alarm_name          = "${each.value.ec2_instance_name}-StatusCheckFailed"
   comparison_operator = "GreaterThanOrEqualToThreshold"
