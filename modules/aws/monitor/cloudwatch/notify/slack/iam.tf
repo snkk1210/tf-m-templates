@@ -34,26 +34,25 @@ resource "aws_iam_role_policy_attachment" "lambda_execution" {
 }
 
 // SSM パラメータ 読み込み ポリシー
+data "aws_iam_policy_document" "lambda_to_ssm" {
+  statement {
+    actions = [
+      "ssm:GetParameter",
+      "ssm:GetParameters",
+      "secretsmanager:GetSecretValue",
+      "kms:Decrypt"
+    ]
+    resources = [
+      "*"
+    ]
+  }
+}
+
+// SSM パラメータ 読み込み ポリシー
 resource "aws_iam_policy" "lambda_to_ssm" {
   name = "${var.common.project}-${var.common.environment}-cwalarm-notify-lambda-policy${var.sfx}"
   path = "/"
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ssm:GetParameters",
-        "secretsmanager:GetSecretValue",
-        "kms:Decrypt"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-EOF
+  policy = data.aws_iam_policy_document.lambda_to_ssm.json
 
   tags = {
     Name        = "${var.common.project}-${var.common.environment}-cwalarm-notify-lambda-policy${var.sfx}"
