@@ -50,8 +50,8 @@ data "aws_iam_policy_document" "lambda_to_ssm" {
 
 // SSM パラメータ 読み込み ポリシー
 resource "aws_iam_policy" "lambda_to_ssm" {
-  name = "${var.common.project}-${var.common.environment}-cwalarm-notify-lambda-policy${var.sfx}"
-  path = "/"
+  name   = "${var.common.project}-${var.common.environment}-cwalarm-notify-lambda-policy${var.sfx}"
+  path   = "/"
   policy = data.aws_iam_policy_document.lambda_to_ssm.json
 
   tags = {
