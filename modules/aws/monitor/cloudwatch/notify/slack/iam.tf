@@ -52,7 +52,7 @@ data "aws_iam_policy_document" "lambda_to_ssm" {
 resource "aws_iam_policy" "lambda_to_ssm" {
   name = "${var.common.project}-${var.common.environment}-cwalarm-notify-lambda-policy${var.sfx}"
   path = "/"
-  policy = aws_iam_policy_document.lambda_to_ssm.json
+  policy = data.aws_iam_policy_document.lambda_to_ssm.json
 
   tags = {
     Name        = "${var.common.project}-${var.common.environment}-cwalarm-notify-lambda-policy${var.sfx}"
