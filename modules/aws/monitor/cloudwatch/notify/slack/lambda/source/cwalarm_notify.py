@@ -41,6 +41,15 @@ def generate_hook_url():
         unencrypted_hook_url = os.environ['hookUrl']
         hook_url = "https://" + quote(unencrypted_hook_url)
         return hook_url
+    elif "arn:aws:ssm" in os.environ['hookUrl']:
+        logger.info("hookUrl is SSM Parameter Store ARN")
+        logger.info("hookUrl: " + str(os.environ['hookUrl']))
+        ssm_hook_url = os.environ['hookUrl'].split(':parameter')[-1]
+        hook_url = "https://" + boto3.client('ssm').get_parameter(
+            Name=ssm_hook_url,
+            WithDecryption=True
+        )['Parameter']['Value']
+        return hook_url
     else:
         logger.info("hookUrl is Encrypted")
         logger.info("hookUrl: " + str(os.environ['hookUrl']))
