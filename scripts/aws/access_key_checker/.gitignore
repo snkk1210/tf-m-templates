@@ -1,0 +1,5 @@
+etc/env.sh
+etc/list.sh
+
+log/*
+!log/.gitkeep
