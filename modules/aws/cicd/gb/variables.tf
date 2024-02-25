@@ -6,14 +6,12 @@ variable "common" {
     project      = string
     environment  = string
     service_name = string
-    region       = string
   })
 
   default = {
     "project"      = ""
     "environment"  = ""
     "service_name" = ""
-    "region"       = ""
   }
 }
 
@@ -25,11 +23,6 @@ variable "sfx" {
 /**
 # CodeBuild
 */
-variable "vpc_id" {
-  type    = string
-  default = ""
-}
-
 variable "environment" {
   type = object({
     variables = list(object({
