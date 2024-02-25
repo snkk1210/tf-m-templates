@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "assume_role_policy" {
 
 // CodeBuild role
 resource "aws_iam_role" "codebuild_role" {
-  name               = "${var.common.project}-${var.common.environment}-${var.common.service_name}-codebuild-role"
+  name               = "${var.common.project}-${var.common.environment}-${var.common.service_name}-codebuild-role${var.sfx}"
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 }
 
@@ -25,19 +25,10 @@ resource "aws_iam_role" "codebuild_role" {
 data "aws_iam_policy_document" "codebuild_execution" {
   statement {
     effect = "Allow"
-
     actions = [
       "logs:CreateLogGroup",
       "logs:CreateLogStream",
       "logs:PutLogEvents"
-    ]
-    resources = ["*"]
-  }
-
-  statement {
-    effect = "Allow"
-    actions = [
-      "codecommit:GitPull"
     ]
     resources = ["*"]
   }
@@ -55,30 +46,13 @@ data "aws_iam_policy_document" "codebuild_execution" {
     actions = [
       "codebuild:StopBuild",
     ]
-
     resources = ["*"]
   }
-
-  statement {
-    effect = "Allow"
-    actions = [
-      "ec2:CreateNetworkInterface",
-      "ec2:DescribeDhcpOptions",
-      "ec2:DescribeNetworkInterfaces",
-      "ec2:DeleteNetworkInterface",
-      "ec2:DescribeSubnets",
-      "ec2:DescribeSecurityGroups",
-      "ec2:DescribeVpcs",
-      "ec2:CreateNetworkInterfacePermission"
-    ]
-    resources = ["*"]
-  }
-
 }
 
 // CodeBuild 実行 ポリシー
 resource "aws_iam_policy" "codebuild_execution" {
-  name   = "${var.common.project}-${var.common.environment}-${var.common.service_name}-codebuild-execution-policy"
+  name   = "${var.common.project}-${var.common.environment}-${var.common.service_name}-codebuild-execution-policy${var.sfx}"
   path   = "/"
   policy = data.aws_iam_policy_document.codebuild_execution.json
 }

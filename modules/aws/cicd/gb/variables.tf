@@ -17,6 +17,11 @@ variable "common" {
   }
 }
 
+variable "sfx" {
+  type = string
+  default = "01"
+}
+
 /**
 # CodeBuild
 */
@@ -35,11 +40,6 @@ variable "environment" {
   })
 }
 
-variable "codebuild_subnet_ids" {
-  type    = list(string)
-  default = []
-}
-
 variable "privileged_mode" {
   type    = bool
   default = true
@@ -53,6 +53,11 @@ variable "buildspec" {
 variable "image" {
   type    = string
   default = "aws/codebuild/standard:7.0"
+}
+
+variable "compute_type" {
+  type = string
+  default = "BUILD_GENERAL1_SMALL"
 }
 
 variable "location" {

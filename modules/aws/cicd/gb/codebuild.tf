@@ -2,8 +2,8 @@
 # CodeBuild
 */
 resource "aws_codebuild_project" "this" {
-  name         = "${var.common.project}-${var.common.environment}-${var.common.service_name}-codebuild-project"
-  description  = "${var.common.service_name} stage1 CodeBuild Project"
+  name         = "${var.common.project}-${var.common.environment}-${var.common.service_name}-codebuild-project${var.sfx}"
+  description  = "${var.common.project}-${var.common.environment}-${var.common.service_name}-codebuild-project${var.sfx}"
   service_role = aws_iam_role.codebuild_role.arn
 
   artifacts {
@@ -18,7 +18,7 @@ resource "aws_codebuild_project" "this" {
   }
 
   environment {
-    compute_type                = "BUILD_GENERAL1_SMALL"
+    compute_type                = var.compute_type
     image                       = var.image
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
@@ -33,14 +33,6 @@ resource "aws_codebuild_project" "this" {
         type  = environment_variable.value.type
       }
     }
-  }
-
-  vpc_config {
-    vpc_id = var.vpc_id
-
-    subnets = var.codebuild_subnet_ids
-
-    security_group_ids = ["${aws_security_group.codebuild.id}"]
   }
 
   logs_config {
