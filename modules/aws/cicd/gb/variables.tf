@@ -18,7 +18,7 @@ variable "common" {
 }
 
 variable "sfx" {
-  type = string
+  type    = string
   default = "01"
 }
 
@@ -56,7 +56,7 @@ variable "image" {
 }
 
 variable "compute_type" {
-  type = string
+  type    = string
   default = "BUILD_GENERAL1_SMALL"
 }
 
