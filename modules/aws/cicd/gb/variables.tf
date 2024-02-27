@@ -68,6 +68,28 @@ variable "fetch_submodules" {
   default = false
 }
 
+variable "filter_groups" {
+  type = list(object({
+    pattern = string
+    type    = string
+  }))
+
+  default = [
+    {
+      pattern = "PULL_REQUEST_CREATED"
+      type    = "EVENT"
+    },
+    {
+      pattern = "PULL_REQUEST_UPDATED"
+      type    = "EVENT"
+    },
+    {
+      pattern = "PULL_REQUEST_REOPENED"
+      type    = "EVENT"
+    }
+  ]
+}
+
 /** 
 # CloudWatch Logs
 */

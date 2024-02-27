@@ -46,29 +46,25 @@ resource "aws_codebuild_project" "this" {
       //environment["environment_variable"],
     ]
   }
+
+  tags = {
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-codebuild-project${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
+  }
 }
 
 resource "aws_codebuild_webhook" "this" {
   project_name = aws_codebuild_project.this.name
 
-  filter_group {
-    filter {
-      pattern = "PULL_REQUEST_CREATED"
-      type    = "EVENT"
-    }
-  }
+  dynamic "filter_group" {
+    for_each = var.filter_groups
 
-  filter_group {
-    filter {
-      pattern = "PULL_REQUEST_UPDATED"
-      type    = "EVENT"
-    }
-  }
-
-  filter_group {
-    filter {
-      pattern = "PULL_REQUEST_REOPENED"
-      type    = "EVENT"
+    content {
+      filter {
+        pattern = filter_group.value.pattern
+        type    = filter_group.value.type
+      }
     }
   }
 }

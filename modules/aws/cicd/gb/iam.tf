@@ -1,4 +1,3 @@
-
 /**
 # IAM Role for CodeBuild
 */
