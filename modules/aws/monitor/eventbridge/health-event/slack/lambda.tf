@@ -31,7 +31,7 @@ resource "aws_lambda_function" "this" {
       //environment
     ]
   }
-  
+
   tags = {
     Name        = "${var.common.project}-${var.common.environment}-batch-failed-notify-function${var.sfx}"
     Environment = var.common.environment
