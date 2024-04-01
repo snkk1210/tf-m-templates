@@ -81,7 +81,9 @@ def post_to_slack(hook_url, channel_name, notification_to, message):
     account = message['account']
     region = message['region']
     event_arn = message['detail']["eventArn"]
+    service = message['detail']["service"]
     event_type_code = message['detail']["eventTypeCode"]
+    start_time = message['detail']["startTime"]
     latest_description = message['detail']["eventDescription"][0]["latestDescription"]
 
     slack_message = {
@@ -94,6 +96,28 @@ def post_to_slack(hook_url, channel_name, notification_to, message):
                 "title": "%s: %s in %s" % (account, event_type_code, region),
                 "title_link": "https://health.aws.amazon.com/health/home#/account/dashboard/scheduled-changes?eventID=%s" % (event_arn),
                 "text": "<%s> \n %s \n *Description* \n ```%s```" % (notification_to, event_type_code, latest_description),
+                "fields": [
+                    {
+                        "title": "AccountID",
+                        "value": account,
+                        "short": True
+                    },
+                    {
+                        "title": "Region",
+                        "value": region,
+                        "short": True
+                    },
+                    {
+                        "title": "Service",
+                        "value": service,
+                        "short": True
+                    },
+                    {
+                        "title": "StartTime",
+                        "value": start_time,
+                        "short": True
+                    }
+                ]
             }
         ]
     }
