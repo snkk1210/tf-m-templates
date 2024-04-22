@@ -23,7 +23,7 @@ resource "aws_codebuild_project" "plan" {
     privileged_mode             = var.plan_environment.privileged_mode
 
     dynamic "environment_variable" {
-      for_each = var.plan_environment.variables
+      for_each = var.plan_environment_variable.variables
 
       content {
         name  = environment_variable.value.name
@@ -68,7 +68,7 @@ resource "aws_codebuild_project" "apply" {
     privileged_mode             = var.apply_environment.privileged_mode
 
     dynamic "environment_variable" {
-      for_each = var.apply_environment.variables
+      for_each = var.apply_environment_variable.variables
 
       content {
         name  = environment_variable.value.name

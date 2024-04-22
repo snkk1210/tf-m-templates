@@ -63,7 +63,7 @@ variable "apply_environment" {
   }
 }
 
-variable "plan_environment" {
+variable "plan_environment_variable" {
   type = object({
     variables = list(object({
       name  = string
@@ -71,9 +71,13 @@ variable "plan_environment" {
       type  = string
     }))
   })
+
+  default = {
+    variables = []
+  }
 }
 
-variable "apply_environment" {
+variable "apply_environment_variable" {
   type = object({
     variables = list(object({
       name  = string
@@ -81,6 +85,10 @@ variable "apply_environment" {
       type  = string
     }))
   })
+
+  default = {
+    variables = []
+  }
 }
 
 /** 
