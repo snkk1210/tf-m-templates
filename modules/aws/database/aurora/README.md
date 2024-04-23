@@ -98,7 +98,7 @@ module "database_aurora" {
     master_password              = "hogehoge"
     backup_retention_period      = 30
     engine                       = "aurora-mysql"
-    engine_version               = "8.0.mysql_aurora.3.02.0"
+    engine_version               = "8.0.mysql_aurora.3.06.0"
     port                         = 5432
     preferred_backup_window      = "17:00-18:00"
     preferred_maintenance_window = "mon:18:00-mon:19:00"
@@ -112,7 +112,7 @@ module "database_aurora" {
     count                      = 1
     instance_class             = "db.t3.medium"
     engine                     = "aurora-mysql"
-    engine_version             = "8.0.mysql_aurora.3.02.0"
+    engine_version             = "8.0.mysql_aurora.3.06.0"
     apply_immediately          = true
     auto_minor_version_upgrade = false
     publicly_accessible        = false
