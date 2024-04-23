@@ -21,7 +21,7 @@ variable "sfx" {
 }
 
 /** 
-# Variables for Aurora
+# Variables for RDS ( Aurora )
 */
 variable "vpc_id" {
   type = string
@@ -32,7 +32,7 @@ variable "subnet_ids" {
   default = []
 }
 
-variable "aurora_cluster_parameter_group" {
+variable "rds_cluster_parameter_group" {
   type = object({
     family    = string
     parameter = map(string)
@@ -43,7 +43,7 @@ variable "aurora_cluster_parameter_group" {
   }
 }
 
-variable "aurora_db_parameter_group" {
+variable "db_parameter_group" {
   type = object({
     family    = string
     parameter = map(string)
@@ -54,7 +54,7 @@ variable "aurora_db_parameter_group" {
   }
 }
 
-variable "aurora_cluster" {
+variable "rds_cluster" {
   type = object({
     master_username              = string
     master_password              = string
@@ -87,7 +87,7 @@ variable "aurora_cluster" {
 }
 
 
-variable "aurora_cluster_instance" {
+variable "rds_cluster_instance" {
   type = object({
     count                      = number
     instance_class             = string
@@ -117,17 +117,12 @@ variable "enabled_cloudwatch_logs_exports" {
   //default = ["postgresql"]
 }
 
-variable "cloudwatch_log_retention_in_days" {
-  type    = number
-  default = 90
-}
-
 variable "performance_insights_enabled" {
   type    = bool
   default = false
 }
 
-variable "aurora_ingress" {
+variable "ingress_cidr_blocks" {
   type    = list(string)
   default = ["0.0.0.0/0"]
 }

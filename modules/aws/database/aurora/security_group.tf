@@ -1,10 +1,10 @@
 resource "aws_security_group" "this" {
-  name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-sg${var.sfx}"
-  description = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-sg${var.sfx}"
+  name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-rds-sg${var.sfx}"
+  description = "${var.common.project}-${var.common.environment}-${var.common.service_name}-rds-sg${var.sfx}"
   vpc_id      = var.vpc_id
 
   tags = {
-    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-db-sg${var.sfx}"
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-rds-sg${var.sfx}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
@@ -21,9 +21,9 @@ resource "aws_security_group_rule" "egress" {
 
 resource "aws_security_group_rule" "ingress" {
   type              = "ingress"
-  from_port         = var.aurora_cluster.port
-  to_port           = var.aurora_cluster.port
+  from_port         = var.rds_cluster.port
+  to_port           = var.rds_cluster.port
   protocol          = "tcp"
-  cidr_blocks       = var.aurora_ingress
+  cidr_blocks       = var.ingress_cidr_blocks
   security_group_id = aws_security_group.this.id
 }
