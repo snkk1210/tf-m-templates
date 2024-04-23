@@ -7,8 +7,9 @@ resource "aws_rds_cluster_parameter_group" "this" {
     for_each = var.aurora_cluster_parameter_group.parameter
 
     content {
-      name  = parameter.key
-      value = parameter.value
+      name         = parameter.key
+      value        = parameter.value
+      apply_method = "pending-reboot"
     }
   }
 
@@ -68,8 +69,9 @@ resource "aws_db_parameter_group" "this" {
     for_each = var.aurora_db_parameter_group.parameter
 
     content {
-      name  = parameter.key
-      value = parameter.value
+      name         = parameter.key
+      value        = parameter.value
+      apply_method = "pending-reboot"
     }
   }
 

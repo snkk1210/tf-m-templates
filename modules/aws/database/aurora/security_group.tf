@@ -21,8 +21,8 @@ resource "aws_security_group_rule" "egress" {
 
 resource "aws_security_group_rule" "ingress" {
   type              = "ingress"
-  from_port         = 5432
-  to_port           = 5432
+  from_port         = var.aurora_cluster.port
+  to_port           = var.aurora_cluster.port
   protocol          = "tcp"
   cidr_blocks       = var.aurora_ingress
   security_group_id = aws_security_group.this.id

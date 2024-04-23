@@ -36,12 +36,19 @@ resource "aws_rds_cluster_instance" "this" {
   publicly_accessible                   = var.aurora_cluster_instance.publicly_accessible
   auto_minor_version_upgrade            = var.aurora_cluster_instance.auto_minor_version_upgrade
   db_parameter_group_name               = aws_db_parameter_group.this.name
+  preferred_maintenance_window          = var.aurora_cluster.preferred_maintenance_window
   monitoring_role_arn                   = aws_iam_role.aurora_expansion_monitoring.arn
   monitoring_interval                   = 60
   performance_insights_enabled          = var.performance_insights_enabled
   performance_insights_retention_period = local.performance_insights_retention_period
   performance_insights_kms_key_id       = local.performance_insights_kms_key_id
   promotion_tier                        = 1
+
+  tags = {
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-${format("db%02d", count.index + 1)}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
+  }
 }
 
 locals {
