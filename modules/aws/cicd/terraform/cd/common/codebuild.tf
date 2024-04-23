@@ -67,6 +67,12 @@ resource "aws_codebuild_project" "apply" {
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode             = var.apply_environment.privileged_mode
 
+    environment_variable {
+      type  = "PLAINTEXT"
+      name  = "CODEBUILD_CONFIG_AUTO_DISCOVER"
+      value = "true"
+    }
+
     dynamic "environment_variable" {
       for_each = var.apply_environment_variable.variables
 
