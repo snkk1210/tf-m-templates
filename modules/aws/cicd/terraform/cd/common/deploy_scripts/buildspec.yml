@@ -1,0 +1,33 @@
+---
+version: 0.2
+ 
+phases:
+  install:
+    runtime-versions:
+      golang: latest
+    commands:
+      - /bin/bash ${CODEBUILD_SRC_DIR}/deploy_scripts/bin/install_tf.sh
+  pre_build:
+    commands:
+      - cd ${CODEBUILD_SRC_DIR}
+      - terraform fmt -no-color -check -diff -recursive
+  build:
+    commands:
+      - cd ${CODEBUILD_SRC_DIR}/${TARGET_DIR}
+      - pwd
+      - echo "APPLY is ${APPLY}"
+      - terraform init
+      - terraform validate
+      - |
+        if [ "${APPLY}" = "true" ]; then
+          terraform show ${CODEBUILD_SRC_DIR}/tfplan.txt
+          terraform apply -no-color -auto-approve ${CODEBUILD_SRC_DIR}/tfplan.txt
+          echo "INFO: [terraform apply] was executed."
+        else
+          terraform plan -no-color -out=${CODEBUILD_SRC_DIR}/tfplan.txt
+          echo "INFO: [terraform plan] was executed."
+        fi
+artifacts:
+  base-directory: ${CODEBUILD_SRC_DIR}
+  files:
+    - '**/*'
