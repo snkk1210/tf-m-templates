@@ -12,9 +12,9 @@ resource "aws_codebuild_project" "this" {
 
   source {
     type            = "GITHUB"
-    location        = var.source.location
-    git_clone_depth = var.source.git_clone_depth
-    buildspec       = var.source.buildspec
+    location        = var.source_info.location
+    git_clone_depth = var.source_info.git_clone_depth
+    buildspec       = var.source_info.buildspec
   }
 
   environment {
@@ -23,15 +23,15 @@ resource "aws_codebuild_project" "this" {
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode             = var.environment.privileged_mode
-  }
 
-  dynamic "environment_variable" {
-    for_each = var.environment_variable.variables
+    dynamic "environment_variable" {
+      for_each = var.environment_variable.variables
 
-    content {
-      name  = environment_variable.value.name
-      value = environment_variable.value.value
-      type  = environment_variable.value.type
+      content {
+        name  = environment_variable.value.name
+        value = environment_variable.value.value
+        type  = environment_variable.value.type
+      }
     }
   }
 

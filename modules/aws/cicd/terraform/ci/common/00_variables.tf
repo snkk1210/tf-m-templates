@@ -25,7 +25,7 @@ variable "sfx" {
 /** 
 # Variables for CodeBuild
 */
-variable "source" {
+variable "source_info" {
   type = object({
     location        = string
     git_clone_depth = number
@@ -79,7 +79,7 @@ variable "filter_groups" {
       file_pattern  = "^env/dev/*"
     },
     {
-      event_pattern = "PULL_REQUEST_UPDATE"
+      event_pattern = "PULL_REQUEST_UPDATED"
       file_pattern  = "^env/dev/*"
     },
     {
