@@ -26,7 +26,7 @@ resource "aws_codebuild_project" "this" {
   }
 
   dynamic "environment_variable" {
-    for_each = var.environment_variable.i
+    for_each = var.environment_variable.variables
 
     content {
       name  = environment_variable.value.name

@@ -55,12 +55,16 @@ variable "environment" {
 
 variable "environment_variable" {
   type = object({
-    i = list(object({
+    variables = list(object({
       name  = string
       value = string
       type  = string
     }))
   })
+
+  default = {
+    variables = []
+  }
 }
 
 variable "filter_groups" {
@@ -68,4 +72,19 @@ variable "filter_groups" {
     event_pattern = string
     file_pattern  = string
   }))
+
+  default = [
+    {
+      event_pattern = "PULL_REQUEST_CREATED"
+      file_pattern  = "^env/dev/*"
+    },
+    {
+      event_pattern = "PULL_REQUEST_UPDATE"
+      file_pattern  = "^env/dev/*"
+    },
+    {
+      event_pattern = "PULL_REQUEST_REOPENED"
+      file_pattern  = "^env/dev/*"
+    }
+  ]
 }
