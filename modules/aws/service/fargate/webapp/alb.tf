@@ -2,25 +2,28 @@
 # ALB
 */
 
-// ALB
-resource "aws_lb" "alb" {
-  name               = "${var.common.project}-${var.common.environment}-${var.common.service_name}-alb"
-  internal           = var.load_balancer.internal
-  load_balancer_type = var.load_balancer.load_balancer_type
-  security_groups = [
-    aws_security_group.alb.id
-  ]
-  subnets = var.alb_subnet_ids
+# ALB
+resource "aws_lb" "this" {
+  name               = "${var.common.project}-${var.common.environment}-${var.common.service_name}-alb${var.sfx}"
+  internal           = var.lb.internal
+  load_balancer_type = var.lb.load_balancer_type
+  security_groups = concat(
+    [
+      aws_security_group.alb.id
+    ],
+    var.lb.aws_security_groups
+  )
+  subnets = var.lb.subnets
 
   access_logs {
-    bucket  = var.load_balancer.access_logs_bucket
-    prefix  = var.load_balancer.access_logs_prefix
-    enabled = true
+    bucket  = aws_s3_bucket.alb_log.bucket
+    enabled = var.lb.access_logs_enabled
   }
 
   tags = {
-    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-alb"
-    Createdby = "Terraform"
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-alb${var.sfx}"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
   }
 }
 
@@ -43,12 +46,13 @@ resource "aws_lb_target_group" "blue" {
   }
 
   tags = {
-    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-tg-1"
-    Createdby = "Terraform"
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-tg-1"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
   }
 }
 
-// ALB TagetGroup Green
+# ALB TagetGroup Green
 resource "aws_lb_target_group" "green" {
   name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-tg-2"
   port        = var.lb_target_group.port
@@ -67,14 +71,15 @@ resource "aws_lb_target_group" "green" {
   }
 
   tags = {
-    Name      = "${var.common.project}-${var.common.environment}-${var.common.service_name}-tg-2"
-    Createdby = "Terraform"
+    Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-tg-2"
+    Environment = var.common.environment
+    Createdby   = "Terraform"
   }
 }
 
-// ALB Lister 80
-resource "aws_lb_listener" "listener_http" {
-  load_balancer_arn = aws_lb.alb.arn
+# ALB Lister 80
+resource "aws_lb_listener" "http" {
+  load_balancer_arn = aws_lb.this.arn
   port              = var.lb_listener_http.port
   protocol          = var.lb_listener_http.protocol
 
@@ -88,8 +93,8 @@ resource "aws_lb_listener" "listener_http" {
   }
 }
 
-// ALB Lister 443
-resource "aws_lb_listener" "listener_https" {
+# ALB Lister 443
+resource "aws_lb_listener" "https" {
   load_balancer_arn = aws_lb.alb.arn
   port              = var.lb_listener_https.port
   protocol          = var.lb_listener_https.protocol

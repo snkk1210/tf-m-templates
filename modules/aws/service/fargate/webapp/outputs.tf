@@ -1,24 +1,13 @@
 /**
-# OutPut
+# OutPuts
 */
+
 output "alb" {
   value = aws_lb.alb
 }
 
-output "alb_dns_name" {
-  value = aws_lb.alb.dns_name
-}
-
-output "alb_zone_id" {
-  value = aws_lb.alb.zone_id
-}
-
-output "ecs_sg_id" {
-  value = aws_security_group.ecs.id
-}
-
-output "cloudwatch_log_group_name" {
-  value = aws_cloudwatch_log_group.log.name
+output "security_group_ecs" {
+  value = aws_security_group.ecs
 }
 
 output "ecr_repository_web" {
@@ -29,8 +18,8 @@ output "ecr_repository_app" {
   value = aws_ecr_repository.app
 }
 
-output "ecs_service" {
-  value = aws_ecs_service.main
+output "ecs_service_this" {
+  value = aws_ecs_service.this
 }
 
 output "lb_target_group_blue" {
@@ -42,9 +31,9 @@ output "lb_target_group_green" {
 }
 
 output "lb_listener_http" {
-  value = aws_lb_listener.listener_http
+  value = aws_lb_listener.http
 }
 
 output "lb_listener_https" {
-  value = aws_lb_listener.listener_https
+  value = aws_lb_listener.https
 }

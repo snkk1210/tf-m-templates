@@ -1,10 +1,11 @@
 /**
 # AutoScaling
 */
-resource "aws_appautoscaling_target" "target" {
+
+resource "aws_appautoscaling_target" "this" {
   max_capacity       = var.appautoscaling_target.max_capacity
   min_capacity       = var.appautoscaling_target.min_capacity
-  resource_id        = "service/${var.ecs_cluster_name}/${aws_ecs_service.main.name}"
+  resource_id        = "service/${var.ecs_cluster_name}/${aws_ecs_service.this.name}"
   scalable_dimension = var.appautoscaling_target.scalable_dimension
   service_namespace  = var.appautoscaling_target.service_namespace
 
@@ -14,14 +15,19 @@ resource "aws_appautoscaling_target" "target" {
       min_capacity
     ]
   }
+
+  tags = {
+    Environment = var.common.environment
+    Createdby   = "Terraform"
+  }
 }
 
-resource "aws_appautoscaling_policy" "policy" {
-  name               = "${var.common.project}-${var.common.environment}-${var.common.service_name}-scaling-policy"
+resource "aws_appautoscaling_policy" "this" {
+  name               = "${var.common.project}-${var.common.environment}-${var.common.service_name}-scaling-policy${var.sfx}"
   policy_type        = var.appautoscaling_policy.policy_type
-  resource_id        = aws_appautoscaling_target.target.resource_id
-  scalable_dimension = aws_appautoscaling_target.target.scalable_dimension
-  service_namespace  = aws_appautoscaling_target.target.service_namespace
+  resource_id        = aws_appautoscaling_target.this.resource_id
+  scalable_dimension = aws_appautoscaling_target.this.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.this.service_namespace
 
   target_tracking_scaling_policy_configuration {
 
@@ -33,11 +39,11 @@ resource "aws_appautoscaling_policy" "policy" {
 
       dimensions {
         name  = "ServiceName"
-        value = "${var.common.project}-${var.common.environment}-${var.common.service_name}"
+        value = aws_ecs_service.this.name
       }
       dimensions {
         name  = "ClusterName"
-        value = "${var.common.project}-${var.common.environment}-cluster"
+        value = var.ecs_cluster_name
       }
     }
 

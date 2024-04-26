@@ -4,9 +4,7 @@
       "image": "${web_repository_url}:latest",
       "readonlyRootFilesystem": false,
       "essential": true,
-      "environmentFiles": [
-
-      ],
+      "environmentFiles": [],
       "portMappings": [
         {
           "containerPort": 80,
@@ -18,7 +16,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/${project}-${environment}-${service_name}",
+          "awslogs-group": "/ecs/${project}-${environment}-${service_name}-web${sfx}",
           "awslogs-region": "${region}",
           "awslogs-stream-prefix": "web"
         }
@@ -28,18 +26,14 @@
       "name": "${project}-${environment}-${service_name}-app-container",
       "image": "${app_repository_url}:latest",
       "readonlyRootFilesystem": false,
-      "secrets": [
-
-      ],
+      "secrets": [],
       "essential": false,
-      "environmentFiles": [
-
-      ],
+      "environmentFiles": [],
       "networkMode": "awsvpc",
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/${project}-${environment}-${service_name}",
+          "awslogs-group": "/ecs/${project}-${environment}-${service_name}-app${sfx}",
           "awslogs-region": "${region}",
           "awslogs-stream-prefix": "app"
         }
