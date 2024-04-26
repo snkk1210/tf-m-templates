@@ -6,7 +6,7 @@
 data "aws_caller_identity" "self" {}
 
 # タスク定義テンプレート
-data "template_file" "task" {
+data "template_file" "this" {
   template = file("${path.module}/task_definitions/task_definition_common.json")
 
   vars = {

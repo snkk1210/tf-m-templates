@@ -183,11 +183,6 @@ variable "ecs_subnet_ids" {
   default = []
 }
 
-variable "security_group_rules_alb" {
-  type    = list(string)
-  default = ["0.0.0.0/0"]
-}
-
 variable "ecs_task" {
   type = object({
     cpu    = number
@@ -208,6 +203,7 @@ variable "ecs_service" {
     desired_count              = number
     assign_public_ip           = bool
     deployment_controller_type = string
+    enable_execute_command     = bool
   })
 
   default = {
@@ -217,6 +213,7 @@ variable "ecs_service" {
     desired_count              = 1
     assign_public_ip           = false
     deployment_controller_type = "ECS"
+    enable_execute_command     = true
   }
 }
 

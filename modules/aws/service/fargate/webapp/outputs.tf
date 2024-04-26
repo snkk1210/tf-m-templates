@@ -2,8 +2,8 @@
 # OutPuts
 */
 
-output "alb" {
-  value = aws_lb.alb
+output "lb_this" {
+  value = aws_lb.this
 }
 
 output "security_group_ecs" {

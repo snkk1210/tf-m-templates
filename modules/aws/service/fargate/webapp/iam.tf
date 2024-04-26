@@ -57,7 +57,7 @@ data "aws_iam_policy_document" "ecs_to_ssm" {
 resource "aws_iam_policy" "ecs_to_ssm" {
   name   = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-to-ssm-policy${var.sfx}"
   path   = "/"
-  policy = aws_iam_policy.ecs_to_s3.json
+  policy = data.aws_iam_policy_document.ecs_to_ssm.json
 
   tags = {
     Name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-ecs-to-ssm-policy${var.sfx}"

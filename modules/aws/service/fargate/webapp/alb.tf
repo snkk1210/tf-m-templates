@@ -11,9 +11,9 @@ resource "aws_lb" "this" {
     [
       aws_security_group.alb.id
     ],
-    var.lb.aws_security_groups
+    var.lb.security_groups
   )
-  subnets = var.lb.subnets
+  subnets = var.lb.subnet_ids
 
   access_logs {
     bucket  = aws_s3_bucket.alb_log.bucket
@@ -95,7 +95,7 @@ resource "aws_lb_listener" "http" {
 
 # ALB Lister 443
 resource "aws_lb_listener" "https" {
-  load_balancer_arn = aws_lb.alb.arn
+  load_balancer_arn = aws_lb.this.arn
   port              = var.lb_listener_https.port
   protocol          = var.lb_listener_https.protocol
   ssl_policy        = var.lb_listener_https.ssl_policy
