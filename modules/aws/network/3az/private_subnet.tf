@@ -2,9 +2,9 @@
 # Private Subnet
 */
 resource "aws_subnet" "private_az1" {
-  vpc_id                          = aws_vpc.this.id
-  cidr_block                      = var.private_az1_cidr
-  availability_zone               = var.az1
+  vpc_id                  = aws_vpc.this.id
+  cidr_block              = var.private_az1_cidr
+  availability_zone       = var.az1
   map_public_ip_on_launch = false
 
   tags = {
@@ -15,9 +15,9 @@ resource "aws_subnet" "private_az1" {
 }
 
 resource "aws_subnet" "private_az2" {
-  vpc_id                          = aws_vpc.this.id
-  cidr_block                      = var.private_az2_cidr
-  availability_zone               = var.az2
+  vpc_id                  = aws_vpc.this.id
+  cidr_block              = var.private_az2_cidr
+  availability_zone       = var.az2
   map_public_ip_on_launch = false
 
   tags = {
@@ -28,9 +28,9 @@ resource "aws_subnet" "private_az2" {
 }
 
 resource "aws_subnet" "private_az3" {
-  vpc_id                          = aws_vpc.this.id
-  cidr_block                      = var.private_az3_cidr
-  availability_zone               = var.az3
+  vpc_id                  = aws_vpc.this.id
+  cidr_block              = var.private_az3_cidr
+  availability_zone       = var.az3
   map_public_ip_on_launch = false
 
   tags = {
