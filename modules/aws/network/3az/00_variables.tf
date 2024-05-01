@@ -23,7 +23,7 @@ variable "sfx" {
 */
 variable "vpc_cidr" {
   type    = string
-  default = ""
+  default = "10.0.0.0/16"
 }
 
 /** 
@@ -49,17 +49,17 @@ variable "az3" {
 */
 variable "public_az1_cidr" {
   type    = string
-  default = ""
+  default = "10.0.0.0/20"
 }
 
 variable "public_az2_cidr" {
   type    = string
-  default = ""
+  default = "10.0.16.0/20"
 }
 
 variable "public_az3_cidr" {
   type    = string
-  default = ""
+  default = "10.0.32.0/20"
 }
 
 /** 
@@ -67,17 +67,17 @@ variable "public_az3_cidr" {
 */
 variable "private_az1_cidr" {
   type    = string
-  default = ""
+  default = "10.0.48.0/20"
 }
 
 variable "private_az2_cidr" {
   type    = string
-  default = ""
+  default = "10.0.64.0/20"
 }
 
 variable "private_az3_cidr" {
   type    = string
-  default = ""
+  default = "10.0.80.0/20"
 }
 
 /** 
@@ -85,15 +85,15 @@ variable "private_az3_cidr" {
 */
 variable "isolated_az1_cidr" {
   type    = string
-  default = ""
+  default = "10.0.96.0/20"
 }
 
 variable "isolated_az2_cidr" {
   type    = string
-  default = ""
+  default = "10.0.112.0/20"
 }
 
 variable "isolated_az3_cidr" {
   type    = string
-  default = ""
+  default = "10.0.128.0/20"
 }
