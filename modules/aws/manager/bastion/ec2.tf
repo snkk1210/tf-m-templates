@@ -5,8 +5,8 @@ resource "aws_instance" "this" {
   ami                         = var.ami
   instance_type               = var.instance_type
   vpc_security_group_ids      = [aws_security_group.this.id]
-  key_name                    = var.key_auth_enabled ? aws_key_pair.key_pair[0].id : null
-  subnet_id                   = var.subnet_ids
+  key_name                    = var.key_auth_enabled ? aws_key_pair.this[0].id : null
+  subnet_id                   = var.subnet_id
   associate_public_ip_address = var.associate_public_ip_address
   iam_instance_profile        = aws_iam_instance_profile.this.name
   user_data                   = file("${path.module}/scripts/userdata.sh")
@@ -28,11 +28,10 @@ resource "aws_instance" "this" {
   lifecycle {
     ignore_changes = all
   }
-
 }
 
-resource "aws_eip" "bastion" {
-  count = var.global_ip_enabled ? 1 : 0
+resource "aws_eip" "this" {
+  count = var.static_global_ip_enabled ? 1 : 0
 
   instance = aws_instance.this.id
   domain   = "vpc"

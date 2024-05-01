@@ -26,7 +26,7 @@ variable "vpc_id" {
   default = ""
 }
 
-variable "subnet_ids" {
+variable "subnet_id" {
   type    = string
   default = ""
 }
@@ -45,8 +45,8 @@ variable "instance_type" {
 
 variable "associate_public_ip_address" {
   type        = bool
-  description = "Whether to grant public IP"
   default     = false
+  description = "Whether to grant public IP"
 }
 
 variable "root_block_device" {
@@ -57,6 +57,7 @@ variable "root_block_device" {
     encrypted             = bool
   })
   description = "Setting the root volume associated with the instance"
+
   default = {
     volume_type           = "gp2"
     volume_size           = 8
@@ -75,7 +76,7 @@ variable "bastion_ingress" {
   default = []
 }
 
-variable "global_ip_enabled" {
+variable "static_global_ip_enabled" {
   type    = bool
   default = false
 }
