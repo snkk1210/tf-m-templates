@@ -1,16 +1,20 @@
 # database/aurora
 
-## Example
+### What is this ?
 
-### PostgreSQL
+Create an RDS Aurora Cluster.
+
+### How to use ?
+
+#### PostgreSQL
 
 ```
 module "database_aurora" {
-  source = "../../tf-m-templates/modules/aws/database/aurora"
+  source = "git::https://github.com/snkk1210/tf-m-templates.git//modules/aws/database/aurora"
 
   common = {
-    project      = "example"
-    environment  = "dev"
+    project      = "snkk1210"
+    environment  = "sandbox"
     service_name = "postgresql"
   }
 
@@ -65,15 +69,15 @@ module "database_aurora" {
 }
 ```
 
-### MySQL
+#### MySQL
 
 ```
 module "database_aurora" {
-  source = "../../tf-m-templates/modules/aws/database/aurora"
+  source = "git::https://github.com/snkk1210/tf-m-templates.git//modules/aws/database/aurora"
 
   common = {
-    project      = "example"
-    environment  = "dev"
+    project      = "snkk1210"
+    environment  = "sandbox"
     service_name = "mysql"
   }
 
