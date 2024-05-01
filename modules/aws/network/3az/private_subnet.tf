@@ -2,6 +2,7 @@
 # Private Subnet
 */
 resource "aws_subnet" "private_az1" {
+  count                   = var.enable_private ? 1 : 0
   vpc_id                  = aws_vpc.this.id
   cidr_block              = var.private_az1_cidr
   availability_zone       = var.az1
@@ -15,6 +16,7 @@ resource "aws_subnet" "private_az1" {
 }
 
 resource "aws_subnet" "private_az2" {
+  count                   = var.enable_private ? 1 : 0
   vpc_id                  = aws_vpc.this.id
   cidr_block              = var.private_az2_cidr
   availability_zone       = var.az2
@@ -28,6 +30,7 @@ resource "aws_subnet" "private_az2" {
 }
 
 resource "aws_subnet" "private_az3" {
+  count                   = var.enable_private ? 1 : 0
   vpc_id                  = aws_vpc.this.id
   cidr_block              = var.private_az3_cidr
   availability_zone       = var.az3
@@ -44,6 +47,7 @@ resource "aws_subnet" "private_az3" {
 # Route Table ( Private )
 */
 resource "aws_route_table" "private_az1" {
+  count  = var.enable_private ? 1 : 0
   vpc_id = aws_vpc.this.id
 
   tags = {
@@ -54,6 +58,7 @@ resource "aws_route_table" "private_az1" {
 }
 
 resource "aws_route_table" "private_az2" {
+  count  = var.enable_private ? 1 : 0
   vpc_id = aws_vpc.this.id
 
   tags = {
@@ -64,6 +69,7 @@ resource "aws_route_table" "private_az2" {
 }
 
 resource "aws_route_table" "private_az3" {
+  count  = var.enable_private ? 1 : 0
   vpc_id = aws_vpc.this.id
 
   tags = {
@@ -74,34 +80,40 @@ resource "aws_route_table" "private_az3" {
 }
 
 resource "aws_route_table_association" "private_az1" {
-  subnet_id      = aws_subnet.private_az1.id
-  route_table_id = aws_route_table.private_az1.id
+  count          = var.enable_private ? 1 : 0
+  subnet_id      = aws_subnet.private_az1[0].id
+  route_table_id = aws_route_table.private_az1[0].id
 }
 
 resource "aws_route_table_association" "private_az2" {
-  subnet_id      = aws_subnet.private_az2.id
-  route_table_id = aws_route_table.private_az2.id
+  count          = var.enable_private ? 1 : 0
+  subnet_id      = aws_subnet.private_az2[0].id
+  route_table_id = aws_route_table.private_az2[0].id
 }
 
 resource "aws_route_table_association" "private_az3" {
-  subnet_id      = aws_subnet.private_az3.id
-  route_table_id = aws_route_table.private_az3.id
+  count          = var.enable_private ? 1 : 0
+  subnet_id      = aws_subnet.private_az3[0].id
+  route_table_id = aws_route_table.private_az3[0].id
 }
 
 resource "aws_route" "private_az1" {
-  route_table_id         = aws_route_table.private_az1.id
-  nat_gateway_id         = aws_nat_gateway.nat_gateway_az1.id
+  count                  = var.enable_private ? 1 : 0
+  route_table_id         = aws_route_table.private_az1[0].id
+  nat_gateway_id         = aws_nat_gateway.nat_gateway_az1[0].id
   destination_cidr_block = "0.0.0.0/0"
 }
 
 resource "aws_route" "private_az2" {
-  route_table_id         = aws_route_table.private_az2.id
-  nat_gateway_id         = aws_nat_gateway.nat_gateway_az2.id
+  count                  = var.enable_private ? 1 : 0
+  route_table_id         = aws_route_table.private_az2[0].id
+  nat_gateway_id         = aws_nat_gateway.nat_gateway_az2[0].id
   destination_cidr_block = "0.0.0.0/0"
 }
 
 resource "aws_route" "private_az3" {
-  route_table_id         = aws_route_table.private_az3.id
-  nat_gateway_id         = aws_nat_gateway.nat_gateway_az3.id
+  count                  = var.enable_private ? 1 : 0
+  route_table_id         = aws_route_table.private_az3[0].id
+  nat_gateway_id         = aws_nat_gateway.nat_gateway_az3[0].id
   destination_cidr_block = "0.0.0.0/0"
 }

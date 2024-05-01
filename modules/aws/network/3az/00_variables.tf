@@ -65,6 +65,11 @@ variable "public_az3_cidr" {
 /** 
 # Variables for Subnet ( Private )
 */
+variable "enable_private" {
+  type    = bool
+  default = true
+}
+
 variable "private_az1_cidr" {
   type    = string
   default = "10.0.48.0/20"

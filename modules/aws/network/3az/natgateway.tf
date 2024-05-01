@@ -2,6 +2,7 @@
 # Elastic IP ( Nat Gateway )
 */
 resource "aws_eip" "eip_nat_gateway_az1" {
+  count      = var.enable_private ? 1 : 0
   domain     = "vpc"
   depends_on = [aws_internet_gateway.this]
 
@@ -13,6 +14,7 @@ resource "aws_eip" "eip_nat_gateway_az1" {
 }
 
 resource "aws_eip" "eip_nat_gateway_az2" {
+  count      = var.enable_private ? 1 : 0
   domain     = "vpc"
   depends_on = [aws_internet_gateway.this]
 
@@ -24,6 +26,7 @@ resource "aws_eip" "eip_nat_gateway_az2" {
 }
 
 resource "aws_eip" "eip_nat_gateway_az3" {
+  count      = var.enable_private ? 1 : 0
   domain     = "vpc"
   depends_on = [aws_internet_gateway.this]
 
@@ -38,7 +41,8 @@ resource "aws_eip" "eip_nat_gateway_az3" {
 # Nat Gateway
 */
 resource "aws_nat_gateway" "nat_gateway_az1" {
-  allocation_id = aws_eip.eip_nat_gateway_az1.id
+  count         = var.enable_private ? 1 : 0
+  allocation_id = aws_eip.eip_nat_gateway_az1[0].id
   subnet_id     = aws_subnet.public_az1.id
   depends_on    = [aws_internet_gateway.this]
 
@@ -50,7 +54,8 @@ resource "aws_nat_gateway" "nat_gateway_az1" {
 }
 
 resource "aws_nat_gateway" "nat_gateway_az2" {
-  allocation_id = aws_eip.eip_nat_gateway_az2.id
+  count         = var.enable_private ? 1 : 0
+  allocation_id = aws_eip.eip_nat_gateway_az2[0].id
   subnet_id     = aws_subnet.public_az2.id
   depends_on    = [aws_internet_gateway.this]
 
@@ -62,7 +67,8 @@ resource "aws_nat_gateway" "nat_gateway_az2" {
 }
 
 resource "aws_nat_gateway" "nat_gateway_az3" {
-  allocation_id = aws_eip.eip_nat_gateway_az3.id
+  count         = var.enable_private ? 1 : 0
+  allocation_id = aws_eip.eip_nat_gateway_az3[0].id
   subnet_id     = aws_subnet.public_az3.id
   depends_on    = [aws_internet_gateway.this]
 

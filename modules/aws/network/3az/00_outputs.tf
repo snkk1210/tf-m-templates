@@ -18,9 +18,9 @@ output "public_subnet_ids" {
 output "private_subnet_ids" {
   value = tolist(
     [
-      aws_subnet.private_az1.id,
-      aws_subnet.private_az2.id,
-      aws_subnet.private_az3.id
+      aws_subnet.private_az1[*].id,
+      aws_subnet.private_az2[*].id,
+      aws_subnet.private_az3[*].id
     ]
   )
 }
