@@ -75,14 +75,13 @@ resource "aws_ecs_service" "this" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.blue.arn
-    container_name   = "${var.common.project}-${var.common.environment}-${var.common.service_name}-web-container"
+    container_name   = "${var.common.project}-${var.common.environment}-${var.common.service_name}-web01"
     container_port   = 80
   }
 
   lifecycle {
     ignore_changes = [
-      //platform_version,
-      //task_definition,
+      task_definition,
       load_balancer,
       desired_count
     ]

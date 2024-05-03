@@ -1,6 +1,6 @@
 [
     {
-      "name": "${project}-${environment}-${service_name}-web-container",
+      "name": "${project}-${environment}-${service_name}-web01",
       "image": "${web_repository_url}:latest",
       "readonlyRootFilesystem": false,
       "essential": true,
@@ -23,7 +23,7 @@
       }
     },
     {
-      "name": "${project}-${environment}-${service_name}-app-container",
+      "name": "${project}-${environment}-${service_name}-app01",
       "image": "${app_repository_url}:latest",
       "readonlyRootFilesystem": false,
       "secrets": [],
