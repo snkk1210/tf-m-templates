@@ -21,15 +21,15 @@ resource "aws_codebuild_project" "this" {
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode             = var.environment.privileged_mode
-  }
 
-  dynamic "environment_variable" {
-    for_each = var.environment_variable.variables
+    dynamic "environment_variable" {
+      for_each = var.environment_variable.variables
 
-    content {
-      name  = environment_variable.value.name
-      value = environment_variable.value.value
-      type  = environment_variable.value.type
+      content {
+        name  = environment_variable.value.name
+        value = environment_variable.value.value
+        type  = environment_variable.value.type
+      }
     }
   }
 

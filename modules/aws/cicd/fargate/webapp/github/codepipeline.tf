@@ -2,8 +2,8 @@
 # CodePipeline
 */
 resource "aws_codepipeline" "this" {
-  name     = "${var.common.project}-${var.common.environment}-${var.common.service_name}-${var.common.type}-codepipeline${var.sfx}"
-  role_arn = aws_iam_role.codepipeline_role.arn
+  name          = "${var.common.project}-${var.common.environment}-${var.common.service_name}-${var.common.type}-codepipeline${var.sfx}"
+  role_arn      = aws_iam_role.codepipeline_role.arn
   pipeline_type = "V2"
 
   artifact_store {
