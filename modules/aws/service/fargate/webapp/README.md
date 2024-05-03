@@ -70,7 +70,7 @@ module "webapp" {
 }
 ```
 
-#### CI/CD
+#### CI/CD ( GitHub )
 
 ```
 module "webapp_cicd" {
