@@ -42,7 +42,7 @@ resource "aws_codebuild_project" "this" {
   vpc_config {
     vpc_id             = var.vpc_id
     subnets            = var.codebuild_subnet_ids
-    security_group_ids = []
+    security_group_ids = ["${aws_security_group.codebuild.id}"]
   }
 
   tags = {
