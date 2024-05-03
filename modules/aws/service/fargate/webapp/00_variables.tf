@@ -130,12 +130,6 @@ variable "alb_ingress_cidr_blocks" {
 /** 
 # Variables for AutoScailing
 */
-
-variable "ecs_cluster_name" {
-  type    = string
-  default = ""
-}
-
 variable "appautoscaling_target" {
   type = object({
     max_capacity       = number
@@ -204,6 +198,7 @@ variable "ecs_service" {
     assign_public_ip           = bool
     deployment_controller_type = string
     enable_execute_command     = bool
+    subnet_ids                 = list(string)
   })
 
   default = {
@@ -214,6 +209,7 @@ variable "ecs_service" {
     assign_public_ip           = false
     deployment_controller_type = "ECS"
     enable_execute_command     = true
+    subnet_ids                 = []
   }
 }
 
