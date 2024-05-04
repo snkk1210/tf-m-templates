@@ -36,7 +36,7 @@ module "cicd_terraform_ci_github" {
         type  = "PLAINTEXT"
       },
       {
-        name  = "REPO_NAME"
+        name  = "REPO_FULL_NAME"
         value = "<ORGANIZATION_NAME>/<REPOSITORY_NAME>"
         type  = "PLAINTEXT"
       }
