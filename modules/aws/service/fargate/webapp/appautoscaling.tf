@@ -43,7 +43,7 @@ resource "aws_appautoscaling_policy" "this" {
       }
       dimensions {
         name  = "ClusterName"
-        value = var.ecs_service.cluster
+        value = regex("cluster/(.+)", var.ecs_service.cluster)[0]
       }
     }
 
