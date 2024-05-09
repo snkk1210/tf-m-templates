@@ -61,7 +61,7 @@ resource "aws_ecs_service" "this" {
 
   enable_execute_command = var.ecs_service.enable_execute_command
 
-  task_definition = aws_ecs_task_definition.this.arn
+  task_definition = data.aws_ecs_task_definition.this.arn
 
   network_configuration {
     assign_public_ip = var.ecs_service.assign_public_ip
@@ -92,4 +92,8 @@ resource "aws_ecs_service" "this" {
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
+}
+
+data "aws_ecs_task_definition" "this" {
+  task_definition = aws_ecs_task_definition.this.family
 }
