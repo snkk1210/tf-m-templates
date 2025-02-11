@@ -1,7 +1,6 @@
 /**
 # Security Group for ALB
 */
-
 resource "aws_security_group" "alb" {
   name        = "${var.common.project}-${var.common.environment}-${var.common.service_name}-alb-sg${var.sfx}"
   description = "${var.common.project}-${var.common.environment}-${var.common.service_name}-alb-sg${var.sfx}"
